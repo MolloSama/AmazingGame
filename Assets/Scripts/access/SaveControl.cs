@@ -13,15 +13,15 @@ public class SaveControl : MonoBehaviour {
     private int increaseIndex = 0;
     public Dictionary<int, SaveModel> saveNumberReflect = new Dictionary<int, SaveModel>();
     public Dictionary<int, GameObject> numberPaneReflect = new Dictionary<int, GameObject>();
-    public string savePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "\\bmkz\\";
+    public string savePath;
 
     // Use this for initialization
     void Start () {
-        CreateDirectory(savePath);
+        savePath = Application.persistentDataPath + "/";
         var files = Directory.GetFiles(savePath, "*.bin");
         foreach (string file in files)
         {
-            saveNumberReflect.Add(int.Parse(file.Split('\\')[5].Split('.')[0]), null);
+            saveNumberReflect.Add(int.Parse(file.Split('/')[7].Split('.')[0]), null);
         }
         for(int i = 0; i < 4; ++i)
         {

@@ -27,8 +27,7 @@ public class CardAction : MonoBehaviour {
             gameControll.playButton.SetActive(false);
         }             
     }
-
-
+    
     public void OnMouseDown()
     {
         if (gameControll.isAnimationEnd && !gameControll.isDrawCard)
@@ -57,7 +56,7 @@ public class CardAction : MonoBehaviour {
         } 
     }
 
-    private void OnMouseOver()
+    private IEnumerator OnMouseOver()
     {
         if (gameControll.isAnimationEnd && isFirstOver && !gameControll.isDrawCard)
         {
@@ -71,6 +70,7 @@ public class CardAction : MonoBehaviour {
             Destroy(bigCard.GetComponent<CardAction>());
             isFirstOver = false;
         }
+        yield return new WaitForSeconds(0.3f);
     }
 
     private void OnMouseExit()
