@@ -216,7 +216,7 @@ public class GameControll : MonoBehaviour {
         GameProp card = handCards[CardAction.currentIndex];
         if(currentEnergy - card.EnergyConsumption < 0)
         {
-            SetTip("精力不足");
+            SetTip("精力值不足");
             return false;
         }
         else

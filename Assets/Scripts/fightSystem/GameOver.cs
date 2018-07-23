@@ -15,7 +15,7 @@ public class GameOver : MonoBehaviour {
     {
         SpriteRenderer spr = gameObject.GetComponent<SpriteRenderer>();
         DOTween.ToAlpha(() => spr.color, (x) => spr.color = x, 1, 2f);
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(5f);
         SceneManager.LoadScene("startMenu");
     }
 	

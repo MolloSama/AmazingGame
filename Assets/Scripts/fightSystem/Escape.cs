@@ -28,13 +28,13 @@ public class Escape : MonoBehaviour {
             }
             else
             {
-                gameControll.SetTip("逃跑失败");
+                gameControll.SetTip("逃跑失败！");
                 isEscaped = true;
             }
         }
         else
         {
-            gameControll.SetTip("已经逃跑过了");
+            gameControll.SetTip("无法再次逃跑！");
         }
     }
 }

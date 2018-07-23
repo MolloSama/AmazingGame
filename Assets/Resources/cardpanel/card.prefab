@@ -133,7 +133,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1298038536152602}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.25, y: 1.9557775, z: 0.00084227056}
+  m_LocalPosition: {x: -0.25, y: 1.93, z: 0.00084227056}
   m_LocalScale: {x: 6.130268, y: 5.908693, z: 1}
   m_Children: []
   m_Father: {fileID: 4425105187891184}
@@ -159,7 +159,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1678470631994288}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.37394628, y: -0.22748439, z: 1}
+  m_LocalPosition: {x: 0.37394628, y: -0.15, z: 1}
   m_LocalScale: {x: 0.41379312, y: 0.3988368, z: 1}
   m_Children: []
   m_Father: {fileID: 4425105187891184}
@@ -179,7 +179,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: a6ba8530e26fff741b35df06342d933b, type: 3}
+  - {fileID: 2100000, guid: 5581d43031d72f44a9c550b444a3e217, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -213,7 +213,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: a6ba8530e26fff741b35df06342d933b, type: 3}
+  - {fileID: 2100000, guid: 5581d43031d72f44a9c550b444a3e217, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -275,7 +275,7 @@ TextMesh:
   m_FontSize: 20
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 12800000, guid: a6ba8530e26fff741b35df06342d933b, type: 3}
+  m_Font: {fileID: 12800000, guid: 5581d43031d72f44a9c550b444a3e217, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
@@ -293,10 +293,10 @@ TextMesh:
   m_Anchor: 4
   m_Alignment: 0
   m_TabSize: 0
-  m_FontSize: 400
+  m_FontSize: 375
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 12800000, guid: a6ba8530e26fff741b35df06342d933b, type: 3}
+  m_Font: {fileID: 12800000, guid: 5581d43031d72f44a9c550b444a3e217, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4281677118
