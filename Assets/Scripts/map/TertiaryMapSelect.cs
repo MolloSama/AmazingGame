@@ -64,5 +64,6 @@ public class TertiaryMapSelect : MonoBehaviour {
             else break;
         }
         PanelControl.count = count;
+        CloseIcon.count = count;
     }
 }
