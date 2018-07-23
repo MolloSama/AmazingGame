@@ -12,6 +12,7 @@ public class ReturnPre : MonoBehaviour {
 
     private void OnMouseDown()
     {
+        PanelControl.Clear();
         SceneManager.LoadScene(preScene);
     }
 }

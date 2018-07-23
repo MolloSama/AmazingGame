@@ -161,8 +161,9 @@ public class PanelControl : MonoBehaviour {
             return;
         }
     }
-    private void OnMouseEnter()
+    public static void Clear()
     {
-        
+        open = false;
+        openObject = null;
     }
 }
