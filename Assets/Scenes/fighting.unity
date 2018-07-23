@@ -88,7 +88,6 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
-    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -1142,7 +1141,6 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -1429,7 +1427,7 @@ MonoBehaviour:
   monstersPosition4: {fileID: 373782428}
   monstersPosition5: {fileID: 322690253}
   monstersPosition6: {fileID: 1138158133}
-  cardPrefab: {fileID: 1182731307784604, guid: 9da4174cc68aefe4d9eb2989a4d27ad0, type: 2}
+  cardPrefab: {fileID: 1621274503324974, guid: 9da4174cc68aefe4d9eb2989a4d27ad0, type: 2}
   energy: {fileID: 511276163}
   cardStartPosition: {fileID: 817588750}
   cardEndPosition: {fileID: 1865424191}
