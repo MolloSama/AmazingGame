@@ -1,0 +1,8 @@
+﻿1000001,attack_add,攻击提升,0,0
+1000002,attack_sub,攻击降低,0,0
+1000003,defend_add,防御提升,0,0
+1000004,defend_sub,防御降低,0,0
+1000005,hp_add,血量持续回复,0,0
+1000006,hp_sub,血量持续减少,0,0
+1000007,damage_rebound,反弹伤害,0,0
+1000008,attack_add_defend_sub,攻击提升&防御降低,0,0

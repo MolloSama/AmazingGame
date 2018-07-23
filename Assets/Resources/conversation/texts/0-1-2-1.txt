@@ -1,0 +1,4 @@
+﻿scene=pic002=获得卡牌——怒火中烧
+get_card=012
+scene=pic002=获得技能——纯阳内功·第一阶
+get_skill=100002
