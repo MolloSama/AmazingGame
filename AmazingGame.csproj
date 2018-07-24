@@ -291,7 +291,6 @@
     <Compile Include="Assets\Scripts\Model\Status.cs" />
     <Compile Include="Assets\Scripts\Music\GlobalMusicControl.cs" />
     <Compile Include="Assets\Scripts\Music\MusicControl.cs" />
-    <Compile Include="Assets\Scripts\ready\ReadySelect.cs" />
     <Compile Include="Assets\Scripts\ready\Return.cs" />
     <Compile Include="Assets\Scripts\settlement\AttributeUp.cs" />
     <Compile Include="Assets\Scripts\settlement\CardRender.cs" />
@@ -308,12 +307,6 @@
     <Compile Include="Assets\Scripts\startMenu\StartMenuMouse.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\DOTween\DOTween.XML" />
-    <None Include="Assets\DOTween\DOTween43.xml" />
-    <None Include="Assets\DOTween\DOTween46.xml" />
-    <None Include="Assets\DOTween\DOTween50.xml" />
-    <None Include="Assets\DOTween\Editor\DOTweenEditor.XML" />
-    <None Include="Assets\DOTween\readme.txt" />
     <None Include="Assets\Resources\conversation\texts\0-0-1-0.txt" />
     <None Include="Assets\Resources\conversation\texts\0-0-2-0.txt" />
     <None Include="Assets\Resources\conversation\texts\0-0-3-0.txt" />
