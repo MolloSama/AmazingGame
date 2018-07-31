@@ -39,6 +39,7 @@ public class LoadFightData : MonoBehaviour {
         GlobalVariable.ExistingCards = new List<GameProp>(GlobalVariable.AllCards.Values);
         GlobalVariable.FightCards = new List<GameProp>(GlobalVariable.AllCards.Values);
         GlobalVariable.BattleItems = new List<GameProp>(GlobalVariable.AllGameItems.Values);
+        GlobalVariable.ExistingLeadSkills = new List<GameProp>(GlobalVariable.AllLeadSkills.Values);
         List<GameProp> list = new List<GameProp>(GlobalVariable.AllLeadSkills.Values);
         for (int i = 0; i <= 2; ++i)
         {

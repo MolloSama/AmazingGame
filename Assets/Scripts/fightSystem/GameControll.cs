@@ -64,13 +64,14 @@ public class GameControll : MonoBehaviour {
     private bool isKrakenDeath = false;
     [HideInInspector]
     public List<GameProp> cardGroup = new List<GameProp>();
+    private int maxCardCount = 14;
 
     // Use this for initialization
     void Start() {
         SetMosters();
         GlobalVariable.sceneMonsterNumber = monsterNumber;
         cardGroup = DeepCopy(GlobalVariable.FightCards);
-        AddCards(4, cardEndPosition.position);
+        AddCards(4, cardEndPosition.position, false);
         foreach (Monster monster in gameObjectMonsterReflect.Values)
         {
             monsters.Add(monster);
@@ -224,8 +225,7 @@ public class GameControll : MonoBehaviour {
             currentEnergy -= card.EnergyConsumption;
             energy.transform.DOMoveY(energy.transform.position.y - card.EnergyConsumption * 0.35f, 1f);
             KrakenRound(card);
-            RemoveCard();
-            handCards.Remove(CardAction.currentIndex);            
+            RemoveCard();       
             return true;
         }       
     }
@@ -547,7 +547,7 @@ public class GameControll : MonoBehaviour {
             int currentStatusIndex = ++monster.StatusIndex;
             status.Index = currentStatusIndex;
             GameObject statusSprite = Instantiate(statusIcon, position +
-                new Vector3(-0.27f + (monster.StatusList.Count - 1) * 0.1f, -0.27f, 0), Quaternion.identity);
+                new Vector3(-0.27f + (monster.StatusIndexReflect.Count - 1) * 0.1f, -0.27f, 0), Quaternion.identity);
             statusSprite.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("state/" + status.SerialNumber);
             monster.StatusIndexReflect.Add(currentStatusIndex, statusSprite);
         }
@@ -714,8 +714,8 @@ public class GameControll : MonoBehaviour {
         {
             textMesh.color = Color.green;
         }
-        DOTween.ToAlpha(() => textMesh.color, (color) => textMesh.color = color, 0, 1f);
-           // OnComplete(()=>Destroy(healthChange));
+        DOTween.ToAlpha(() => textMesh.color, (color) => textMesh.color = color, 0, 1f).
+           OnComplete(()=>Destroy(healthChange));
     }
 
     int GetDamageValue(float attact, Monster monster, int attribute)
@@ -835,18 +835,33 @@ public class GameControll : MonoBehaviour {
 
     public void AddTwoCards()
     {
-        if (handCardsSprite.Count == 0)
+        if (handCards.Count == maxCardCount - 1)
         {
-            AddCards(2, cardEndPosition.position);
+            AddCards(1, handCardsSprite[FindMaxKey(handCardsSprite)].
+                 transform.position + new Vector3(0.15f, 0, 0), false);
+            AddCards(1, cardOutPosition.position, true);
+            SetTip("卡牌数量超出限制，自动销毁");
+        }
+        else if(handCards.Count == maxCardCount)
+        {
+            AddCards(2, cardOutPosition.position, true);
+            SetTip("卡牌数量超出限制，自动销毁");
         }
         else
         {
-            AddCards(2, handCardsSprite[FindMaxKey(handCardsSprite)].
-            transform.position + new Vector3(0.15f, 0, 0));
+            if (handCardsSprite.Count == 0)
+            {
+                AddCards(2, cardEndPosition.position, false);
+            }
+            else
+            {
+                AddCards(2, handCardsSprite[FindMaxKey(handCardsSprite)].
+                transform.position + new Vector3(0.15f, 0, 0), false);
+            }
         }
     }
 
-    IEnumerator AddOneCard(Vector3 lastCardEndPosition)
+    IEnumerator AddOneCard(Vector3 lastCardEndPosition, bool isDestory)
     {
         GameObject card = Instantiate(cardPrefab,
                 cardStartPosition.position, Quaternion.identity);
@@ -878,10 +893,14 @@ public class GameControll : MonoBehaviour {
         {
             isAnimationEnd = true;
             isDrawCard = false;
+            if (isDestory)
+            {
+                DestoryCard(card, card.GetComponent<CardAction>().index);
+            }
         });
     }
 
-    void AddCards(int count, Vector3 lastCardEndPosition)
+    void AddCards(int count, Vector3 lastCardEndPosition, bool isDestory)
     {
         isAnimationEnd = false;
         int diff = cardGroup.Count - count;
@@ -890,7 +909,7 @@ public class GameControll : MonoBehaviour {
             cardGroup = DeepCopy(GlobalVariable.FightCards);
             for (int i = 0; i < count; ++i)
             {
-                StartCoroutine(AddOneCard(lastCardEndPosition + new Vector3(i * 0.15f, 0, 0)));
+                StartCoroutine(AddOneCard(lastCardEndPosition + new Vector3(i * 0.15f, 0, 0), isDestory));
             }
         }
         else if(diff < 0)
@@ -898,19 +917,19 @@ public class GameControll : MonoBehaviour {
             for(int i = 0; i < cardGroup.Count; ++i)
             {
                 lastCardEndPosition += new Vector3(i * 0.15f, 0, 0);
-                StartCoroutine(AddOneCard(lastCardEndPosition));
+                StartCoroutine(AddOneCard(lastCardEndPosition, isDestory));
             }
             cardGroup = DeepCopy(GlobalVariable.FightCards);
             for (int i = 1; i <= -diff; ++i)
             {
-                StartCoroutine(AddOneCard(lastCardEndPosition + new Vector3(i * 0.15f, 0, 0)));
+                StartCoroutine(AddOneCard(lastCardEndPosition + new Vector3(i * 0.15f, 0, 0), isDestory));
             }
         }
         else
         {
             for (int i = 0; i < count; ++i)
             {
-                StartCoroutine(AddOneCard(lastCardEndPosition + new Vector3(i * 0.15f, 0, 0)));
+                StartCoroutine(AddOneCard(lastCardEndPosition + new Vector3(i * 0.15f, 0, 0), isDestory));
             }
         }
     }
@@ -923,25 +942,7 @@ public class GameControll : MonoBehaviour {
         currentCard.transform.DOMove(cardOutPosition.position, 0.5f)
             .OnComplete(()=>
             {             
-                SpriteRenderer cardStyle = currentCard.transform.Find("card-style").GetComponent<SpriteRenderer>();
-                SetDefaultMaterial(cardStyle);
-                DOTween.ToAlpha(() => cardStyle.color
-                , x => cardStyle.color = x, 0, 1f)
-                .OnComplete(() =>
-                {
-                    Destroy(currentCard);
-                    handCardsSprite.Remove(currentCardIndex);
-                    isAnimationEnd = true;
-                });
-                SpriteRenderer cardRawImg = currentCard.transform.Find("card-raw-img").GetComponent<SpriteRenderer>();
-                DOTween.ToAlpha(() => cardRawImg.color
-                , x => cardRawImg.color = x, 0, 1f);
-                TextMesh cardName = currentCard.transform.Find("card-name").GetComponent<TextMesh>();
-                DOTween.ToAlpha(() => cardName.color
-                , x => cardName.color = x, 0, 1f);
-                TextMesh skillText = currentCard.transform.Find("skill-text").GetComponent<TextMesh>();
-                DOTween.ToAlpha(() => skillText.color
-                , x => skillText.color = x, 0, 1f);
+                DestoryCard(currentCard, currentCardIndex);
             });
         CardAction.isCardSelected = false;
         
@@ -953,6 +954,30 @@ public class GameControll : MonoBehaviour {
                     new Vector3(-0.15f, 0, 0), 0.6f);
             }          
         }       
+    }
+
+    void DestoryCard(GameObject currentCard, int currentCardIndex)
+    {
+        SpriteRenderer cardStyle = currentCard.transform.Find("card-style").GetComponent<SpriteRenderer>();
+        SetDefaultMaterial(cardStyle);
+        DOTween.ToAlpha(() => cardStyle.color
+        , x => cardStyle.color = x, 0, 1f)
+        .OnComplete(() =>
+        {
+            Destroy(currentCard);
+            handCardsSprite.Remove(currentCardIndex);
+            isAnimationEnd = true;
+        });
+        SpriteRenderer cardRawImg = currentCard.transform.Find("card-raw-img").GetComponent<SpriteRenderer>();
+        DOTween.ToAlpha(() => cardRawImg.color
+        , x => cardRawImg.color = x, 0, 1f);
+        TextMesh cardName = currentCard.transform.Find("card-name").GetComponent<TextMesh>();
+        DOTween.ToAlpha(() => cardName.color
+        , x => cardName.color = x, 0, 1f);
+        TextMesh skillText = currentCard.transform.Find("skill-text").GetComponent<TextMesh>();
+        DOTween.ToAlpha(() => skillText.color
+        , x => skillText.color = x, 0, 1f);
+        handCards.Remove(currentCardIndex);
     }
 
     public void ClickSelectedMonster()

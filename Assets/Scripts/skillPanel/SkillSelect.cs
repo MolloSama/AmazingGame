@@ -46,46 +46,32 @@ public class SkillSelect : MonoBehaviour {
 
     private void OnMouseUpAsButton()
     {
-        if (currentSkillGrid != null)
+        for(int i=0;i<GlobalVariable.FightSkills.Length;i++)
         {
-            if (skill != null)
+            if(GlobalVariable.FightSkills[i]==null)
             {
-                foreach(GameProp t in GlobalVariable.FightSkills)
+                if (skill != null)
                 {
-                    if (t != null && t.SerialNumber.Equals(skill.SerialNumber))
-                        return;
-                }
-                int index = -1;
-                switch (currentSkillGrid)
-                {
-                    case "skillgrid1":
-                        index = 0;
-                        break;
-                    case "skillgrid2":
-                        index = 1;
-                        break;
-                    case "skillgrid3":
-                        index = 2;
-                        break;
-                    default:
-                        break;
-                }
-                if (index != -1)
-                {
-                    if (GlobalVariable.FightSkills[index] != null)
+                    foreach (GameProp t in GlobalVariable.FightSkills)
+                    {
+                        if (t != null && t.SerialNumber.Equals(skill.SerialNumber))
+                            return;
+                    }
+                    if (GlobalVariable.FightSkills[i] != null)
                         foreach (GameObject t in skillOnGrid)
                         {
-                            if (t.GetComponent<SkillSelect>().skill.SerialNumber.Equals(GlobalVariable.FightSkills[index].SerialNumber))
+                            if (t.GetComponent<SkillSelect>().skill.SerialNumber.Equals(GlobalVariable.FightSkills[i].SerialNumber))
                             {
                                 t.transform.Find("skill").GetComponent<SpriteRenderer>().material = Resources.Load<Material>("materials/Default");
                                 break;
                             }
                         }
-                    GlobalVariable.FightSkills[index] = skill;
+                    GlobalVariable.FightSkills[i] = skill;
+                    transform.Find("skill").GetComponent<SpriteRenderer>().material = Resources.Load<Material>("materials/SpriteGray");
+                    GameObject temp = GameObject.Find("skillgrid" + (i + 1).ToString());
+                    temp.transform.Find("skill").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(string.Format("skill/{0}", skill.SerialNumber));
+                    temp.GetComponent<SkillGridSelect>().gameProp = skill;
                 }
-                transform.Find("skill").GetComponent<SpriteRenderer>().material = Resources.Load<Material>("materials/SpriteGray");
-                GameObject temp = GameObject.Find(currentSkillGrid);
-                temp.transform.Find("skill").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(string.Format("skill/{0}", skill.SerialNumber));
             }
         }
     }

@@ -19,10 +19,6 @@ public class PanelManager : MonoBehaviour {
         Init();
         ShowSkill();
     }
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     private void ShowSkill()
     {
@@ -36,13 +32,6 @@ public class PanelManager : MonoBehaviour {
             skills[i].SetSkill(GlobalVariable.ExistingLeadSkills[i]);
         }
     }
-
-    private void OnMouseUpAsButton()
-    {
-        if(SkillSelect.currentSkillGrid!=null)
-            GameObject.Find(SkillSelect.currentSkillGrid).transform.Find("frame").GetComponent<SpriteRenderer>().material = Resources.Load<Material>("materials/Default");
-        SkillSelect.currentSkillGrid = null;
-    }
     private void Init()
     {
         for(int i = 0; i < GlobalVariable.FightSkills.Length; i++)
@@ -50,6 +39,7 @@ public class PanelManager : MonoBehaviour {
             if (GlobalVariable.FightSkills[i] != null)
             {
                 GameObject.Find("skillgrid" + (i + 1).ToString()).transform.Find("skill").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("skill/" + GlobalVariable.FightSkills[i].SerialNumber);
+                GameObject.Find("skillgrid" + (i + 1).ToString()).GetComponent<SkillGridSelect>().gameProp = GlobalVariable.FightSkills[i];
             }
         }
     }
