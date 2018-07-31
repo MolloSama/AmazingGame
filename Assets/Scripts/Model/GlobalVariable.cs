@@ -20,7 +20,7 @@ public static class GlobalVariable{
     public static Dictionary<string, List<string>> sceneMonstersDictionary = 
         new Dictionary<string, List<string>>();
     public static Dictionary<string, MountainInformation> Mountains = new Dictionary<string, MountainInformation>();
-    //public static List<string> Secondary_Map_Serialnumber = new List<string>();
+    public static Dictionary<string, string> mergeReflect = new Dictionary<string, string>();
     public static Monster kraKen = new Monster("0","","kraken",30, 15, 10, null, 1, "","");
     public static List<string> sceneMonsterNumber = new List<string>();
     public static Dictionary<string, bool> HasFightAreaBoss = new Dictionary<string, bool>();

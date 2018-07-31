@@ -347,6 +347,7 @@
     <None Include="Assets\Resources\data\conversation-list.txt" />
     <None Include="Assets\Resources\data\item_battle.txt" />
     <None Include="Assets\Resources\data\item_mission.txt" />
+    <None Include="Assets\Resources\data\merge-reflect.txt" />
     <None Include="Assets\Resources\data\monster.txt" />
     <None Include="Assets\Resources\data\monster_skill.txt" />
     <None Include="Assets\Resources\data\mountain_position.txt" />

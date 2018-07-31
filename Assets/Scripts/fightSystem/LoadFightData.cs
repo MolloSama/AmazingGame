@@ -20,6 +20,7 @@ public class LoadFightData : MonoBehaviour {
             LoadGameProps(GlobalVariable.AllGameItems, "item_mission");
             LoadMountain();
             LoadAllConversationList();
+            LoadMergeReflect();
         }
         if (isTest)
         {
@@ -125,6 +126,16 @@ public class LoadFightData : MonoBehaviour {
             List<string> sceneMosters = new List<string>(scene.Split(new char[] { '=' }));
             List<string> mosters = new List<string>(sceneMosters[1].Split(new char[] { ',' }));
             GlobalVariable.sceneMonstersDictionary.Add(sceneMosters[0], mosters);
+        }
+    }
+
+    void LoadMergeReflect()
+    {
+        List<string> reflects = LoadAllLineToList("merge-reflect");
+        foreach (string reflect in reflects)
+        {
+            List<string> formula = new List<string>(reflect.Split(new char[] { '=' }));
+            GlobalVariable.mergeReflect.Add(formula[0], formula[1]);
         }
     }
 
