@@ -27,6 +27,8 @@ public static class GlobalVariable{
     public static List<string> HasFightScenes = new List<string>();
     public static List<string> AllConversationList = new List<string>();
     public static List<string> HasFightBossScenes = new List<string>();
+    public static Dictionary<string, Mission> AllMissions = new Dictionary<string, Mission>();
+    public static List<Mission> ExistingMissions = new List<Mission>();
     public static string currentScene = "scene2";
     public static string preMap = null;
     public static readonly int MAX_NUMBER_OF_FIGHT_CARDS = 30; 
@@ -62,6 +64,60 @@ public static class GlobalVariable{
         HasFightAreaBoss.Clear();
         HasFightBossScenes.Clear();
         HasFightScenes.Clear();
+    }
+
+    public static bool JudgeMission(bool isStart)
+    {
+        bool isLoadMission = false;
+        foreach (string conversation in AllConversationList)
+        {
+            string[] numbers = conversation.Split('-');
+            string part;
+            if (isStart)
+            {
+                part = "0";
+            }
+            else
+            {
+                part = "1";
+            }
+            string missionScene = numbers[0] + "-" + numbers[1] + "-" + numbers[2] + "-" + numbers[3];
+            if (numbers.Length > 4 &&
+                missionScene.Equals(currentScene + "-"+part))
+            {
+                Mission currentMission = NumberInExisting(numbers[4]);
+                if ((currentMission != null && currentMission.CurrentIndex + 1 == int.Parse(numbers[5])) ||
+                    (currentMission == null && numbers[5].Equals("1")))
+                {
+                    string nextScene;
+                    if (isStart)
+                    {
+                        nextScene = "mainLine";
+                    }
+                    else
+                    {
+                        nextScene = "tertiaryMap";
+                    }
+                    isLoadMission = true;
+                    ++currentMission.CurrentIndex;
+                    LoadConversation.SetConversation(currentScene, int.Parse(part), nextScene
+                        , numbers[4] + "-" + numbers[5]);
+                }
+            }
+        }
+        return isLoadMission;
+    }
+
+    public static Mission NumberInExisting(string number)
+    {
+        foreach (Mission mission in ExistingMissions)
+        {
+            if (mission.SerialNumber.Equals(number))
+            {
+                return mission;
+            }
+        }
+        return null;
     }
 
 }

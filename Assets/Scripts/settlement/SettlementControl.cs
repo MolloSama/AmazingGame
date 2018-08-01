@@ -44,7 +44,7 @@ public class SettlementControl : MonoBehaviour {
         }
         if (Input.GetMouseButtonDown(0) && isThridClick && !isFourthClick && AttributeUp.isUp)
         {
-            if (isFirstUp && 
+            if (isFirstUp &&
                 !GlobalVariable.HasFightScenes.Contains(GlobalVariable.currentScene))
             {
                 isFirstUp = false;
@@ -52,7 +52,7 @@ public class SettlementControl : MonoBehaviour {
             }
             Destroy(attributeReward);
             AttributeUp.isUp = false;
-            
+
             if (HasBoss())
             {
                 GlobalVariable.HasFightBossScenes.Add(GlobalVariable.currentScene);
@@ -63,24 +63,24 @@ public class SettlementControl : MonoBehaviour {
             }
             if (GlobalVariable.AllConversationList.Contains(GlobalVariable.currentScene + "-1"))
             {
-                
+
                 if (GlobalVariable.currentScene.StartsWith("0"))
                 {
-                    if(int.Parse(GlobalVariable.currentScene.Split('-')[2]) < 3)
+                    if (int.Parse(GlobalVariable.currentScene.Split('-')[2]) < 3)
                     {
-                        LoadConversation.SetConversation(GlobalVariable.currentScene, 1, "conversation");
+                        LoadConversation.SetConversation(GlobalVariable.currentScene, 1, "conversation", "");
                     }
                     else
                     {
                         TertiaryMapSelect.SetScene("1-1");
-                        LoadConversation.SetConversation(GlobalVariable.currentScene, 1, "tertiaryMap");
-                    } 
+                        LoadConversation.SetConversation(GlobalVariable.currentScene, 1, "tertiaryMap", "");
+                    }
                 }
                 else
                 {
                     if (!GlobalVariable.HasFightScenes.Contains(GlobalVariable.currentScene))
                     {
-                        LoadConversation.SetConversation(GlobalVariable.currentScene, 1, "tertiaryMap");
+                        LoadConversation.SetConversation(GlobalVariable.currentScene, 1, "tertiaryMap", "");
                     }
                     else
                     {

@@ -7,9 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class LoadConversation : MonoBehaviour {
 
+    private static string conversationFilePrefix;
+
     private static string conversationSerialNumber;
 
-    private static string nextScene;
+    public static string nextScene;
 
     private List<string> conversation = new List<string>();
 
@@ -19,10 +21,15 @@ public class LoadConversation : MonoBehaviour {
 
     private bool isClickToDisplayText = false;
 
+    public static string missionNumber;
+
+    public GameObject okButton;
+
+    public GameObject cancelButton;
+
 	// Use this for initialization
 	void Start () {
-        string conversationText = Resources.Load(string.Format("conversation/texts/{0}", 
-            conversationSerialNumber)).ToString();
+        string conversationText = Resources.Load(conversationFilePrefix+conversationSerialNumber).ToString();
         using (System.IO.StringReader reader = new System.IO.StringReader(conversationText))
         {
             string line;
@@ -33,15 +40,21 @@ public class LoadConversation : MonoBehaviour {
         }
         StartCoroutine(Load());
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-    public static void SetConversation(string scene, int part, string nextscene)
+    public static void SetConversation(string scene, int part, string nextscene, string branch)
     {
-        conversationSerialNumber = string.Format("{0}-{1}", scene, part.ToString());
+        if (!branch.Equals(""))
+        {
+            conversationFilePrefix = "mission/missionDialogue/";
+            conversationSerialNumber =  string.Format("{0}-{1}-{2}", 
+                scene, part.ToString(), branch);
+            missionNumber = branch.Split('-')[0];
+        }
+        else
+        {
+            conversationFilePrefix = "conversation/texts/";
+            conversationSerialNumber = string.Format("{0}-{1}", scene, part.ToString());  
+        }
         nextScene = nextscene;
         SceneManager.LoadScene("conversation");
     }
@@ -50,7 +63,7 @@ public class LoadConversation : MonoBehaviour {
     {
         string[] data = conversation[index].Split('=');
         GameObject panel = GameObject.Find("white");
-        if(data.Length==3)
+        if(data.Length==3 || data.Length == 4)
         {
             if (data[0].Equals("叶明卿"))
             {
@@ -153,6 +166,12 @@ public class LoadConversation : MonoBehaviour {
                     break;
             }
         }
+        if(data.Length == 4)
+        {
+            okButton.SetActive(true);
+            cancelButton.SetActive(true);
+            index = conversation.Count;
+        }
     }
 
     private void OnMouseUpAsButton()
@@ -168,13 +187,23 @@ public class LoadConversation : MonoBehaviour {
             isConversationOver = false;
             StartCoroutine(Load());
         }
-        else if(index + 1 >= conversation.Count)
+        else if(index + 1 == conversation.Count)
         {
             index = 0;
             switch (nextScene)
             {
-                case "fight":
-                    SceneManager.LoadScene("fighting");
+                case "mainLine":
+                    SetConversation(GlobalVariable.currentScene, 0, "fighting", "");
+                    break;
+                case "tertiaryMap":
+                    if(conversationSerialNumber.Split('-').Length > 4)
+                    {
+                        SceneManager.LoadScene(nextScene);
+                    }
+                    else if (!GlobalVariable.JudgeMission(false))
+                    {
+                        SceneManager.LoadScene(nextScene);
+                    }
                     break;
                 case "conversation":
                     string[] serialNumber = conversationSerialNumber.Split('-');
@@ -183,27 +212,27 @@ public class LoadConversation : MonoBehaviour {
                     {
                         if (number + 1 <= 5)
                         {
-                            SetConversation(serialNumber[0] + "-" + serialNumber[1] + "-" + (number + 1), 0, nextScene);
+                            SetConversation(serialNumber[0] + "-" + serialNumber[1] + "-" + (number + 1), 0, nextScene, "");
                         }
                         else
                         {
                             GlobalVariable.currentScene = "0-1-1";
-                            for(int i = 0; i < 5; ++i)
+                            for (int i = 0; i < 5; ++i)
                             {
                                 GlobalVariable.ExistingCards.Add(GlobalVariable.AllCards["001"]);
                                 GlobalVariable.FightCards.Add(GlobalVariable.AllCards["001"]);
-                            }                         
-                            SetConversation("0-1-1", 0, "fight");
+                            }
+                            SetConversation("0-1-1", 0, "fighting", "");
                         }
                     }
                     else
                     {
                         if (number <= 2)
                         {
-                            GlobalVariable.currentScene = serialNumber[0] + "-" + serialNumber[1] + "-" + (number+1);
-                            SetConversation(GlobalVariable.currentScene, 0, "fight");
+                            GlobalVariable.currentScene = serialNumber[0] + "-" + serialNumber[1] + "-" + (number + 1);
+                            SetConversation(GlobalVariable.currentScene, 0, "fighting", "");
                         }
-                    }                
+                    }
                     break;
                 default:
                     SceneManager.LoadScene(nextScene);

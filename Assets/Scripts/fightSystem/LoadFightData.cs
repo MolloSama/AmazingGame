@@ -21,6 +21,7 @@ public class LoadFightData : MonoBehaviour {
             LoadMountain();
             LoadAllConversationList();
             LoadMergeReflect();
+            LoadAllMissions();
         }
         if (isTest)
         {
@@ -51,6 +52,23 @@ public class LoadFightData : MonoBehaviour {
     void LoadAllConversationList()
     {
         GlobalVariable.AllConversationList = LoadAllLineToList("conversation-list");
+    }
+
+    void LoadAllMissions()
+    {
+        Object[] allMissions = Resources.LoadAll("mission/missionDetails");
+        foreach(Object mission in allMissions)
+        {
+            string[] missionDetails = mission.ToString().Split('\n');
+            string[] missionTitle = missionDetails[0].Split('=');
+            List<string> missionDescriptions = new List<string>();
+            for(int i = 1; i < missionDetails.Length; ++i)
+            {
+                missionDescriptions.Add(missionDetails[i]);
+            }
+            GlobalVariable.AllMissions.Add(missionTitle[0], new Mission(missionTitle[0],
+                0, missionTitle[1], missionDescriptions));
+        }
     }
 
     void LoadMountain()

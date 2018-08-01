@@ -20,7 +20,7 @@ public class StartMenuMouse : MonoBehaviour {
     {
         if (name.Equals("button1"))
         {
-            LoadConversation.SetConversation("0-0-1", 0, "conversation");
+            LoadConversation.SetConversation("0-0-1", 0, "conversation", "");
             SceneManager.LoadScene("conversation");
         }
         if (name.Equals("button2"))
