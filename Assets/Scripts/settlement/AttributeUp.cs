@@ -5,6 +5,8 @@ using UnityEngine;
 public class AttributeUp : MonoBehaviour {
 
     public static bool isUp = false;
+    public static bool isLevelUp = false;
+    public static bool isGetTalent = false;
     public GameObject attack;
     public GameObject defend;
     public GameObject blood;
@@ -40,10 +42,31 @@ public class AttributeUp : MonoBehaviour {
                     break;
             }
             isUp = true;
+            UpLevel();
             Material material = Resources.Load<Material>("materials/SpriteGray");
             attack.GetComponent<SpriteRenderer>().material = material;
             defend.GetComponent<SpriteRenderer>().material = material;
             blood.GetComponent<SpriteRenderer>().material = material;
+        }
+    }
+
+    void UpLevel()
+    {
+        isLevelUp = false;
+        isGetTalent = false;
+        float currentLevel = GlobalVariable.kraKen.AttactPower + GlobalVariable.kraKen.DefensivePower * 2 + GlobalVariable.kraKen.BloodVolume * 0.1f;
+        foreach(Level level in GlobalVariable.AllLevel)
+        {
+            if(currentLevel >= level.Edge && level.Edge > GlobalVariable.Realm.Edge)
+            {
+                GlobalVariable.Realm = level;
+                if (!level.Talent.Equals(""))
+                {
+                    GlobalVariable.ExistingTalent.Add(GlobalVariable.AllTalent[level.Talent]);
+                    isGetTalent = true;
+                }
+                isLevelUp = true;
+            }
         }
     }
 }

@@ -1,0 +1,18 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+
+public class Talent{
+
+    public string SerialNumber { get; set; }
+
+    public string Name { get; set; }
+
+    public string Description { get; set; }
+
+    public Talent(string serialNumber, string name, string description)
+    {
+        SerialNumber = serialNumber;
+        Name = name;
+        Description = description;
+    }
+}

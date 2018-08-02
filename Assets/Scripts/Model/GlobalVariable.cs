@@ -21,7 +21,6 @@ public static class GlobalVariable{
         new Dictionary<string, List<string>>();
     public static Dictionary<string, MountainInformation> Mountains = new Dictionary<string, MountainInformation>();
     public static Dictionary<string, string> mergeReflect = new Dictionary<string, string>();
-    public static Monster kraKen = new Monster("0","","kraken",30, 15, 10, null, 1, "","");
     public static List<string> sceneMonsterNumber = new List<string>();
     public static Dictionary<string, bool> HasFightAreaBoss = new Dictionary<string, bool>();
     public static List<string> HasFightScenes = new List<string>();
@@ -29,6 +28,12 @@ public static class GlobalVariable{
     public static List<string> HasFightBossScenes = new List<string>();
     public static Dictionary<string, Mission> AllMissions = new Dictionary<string, Mission>();
     public static List<Mission> ExistingMissions = new List<Mission>();
+    public static List<Level> AllLevel = new List<Level>();
+    public static Dictionary<string, Talent> AllTalent = new Dictionary<string, Talent>();
+    public static List<Talent> ExistingTalent = new List<Talent>();
+    public static Monster kraKen = new Monster("0", "", "kraken", 30, 15, 10, null, 1, "", "");
+    public static string LeadName;
+    public static Level Realm;
     public static string currentScene = "scene2";
     public static string preMap = null;
     public static readonly int MAX_NUMBER_OF_FIGHT_CARDS = 30; 
@@ -120,4 +125,74 @@ public static class GlobalVariable{
         return null;
     }
 
+    public static void AfterFight()
+    {
+        if (HasBoss())
+        {
+            GlobalVariable.HasFightBossScenes.Add(GlobalVariable.currentScene);
+            if (HasAreaBoss())
+            {
+                GlobalVariable.HasFightAreaBoss.Add(GlobalVariable.preMap, true);
+            }
+        }
+        if (GlobalVariable.AllConversationList.Contains(GlobalVariable.currentScene + "-1"))
+        {
+            if (GlobalVariable.currentScene.StartsWith("0"))
+            {
+                if (int.Parse(GlobalVariable.currentScene.Split('-')[2]) < 3)
+                {
+                    LoadConversation.SetConversation(GlobalVariable.currentScene, 1, "conversation", "");
+                }
+                else
+                {
+                    TertiaryMapSelect.SetScene("1-1");
+                    LoadConversation.SetConversation(GlobalVariable.currentScene, 1, "tertiaryMap", "");
+                }
+            }
+            else
+            {
+                if (!GlobalVariable.HasFightScenes.Contains(GlobalVariable.currentScene))
+                {
+                    LoadConversation.SetConversation(GlobalVariable.currentScene, 1, "tertiaryMap", "");
+                }
+                else
+                {
+                    TertiaryMapSelect.SetScene(GlobalVariable.preMap);
+                    SceneManager.LoadScene("tertiaryMap");
+                }
+            }
+        }
+        else
+        {
+            TertiaryMapSelect.SetScene(GlobalVariable.preMap);
+            SceneManager.LoadScene("tertiaryMap");
+        }
+        GlobalVariable.HasFightScenes.Add(GlobalVariable.currentScene);
+        GlobalVariable.Mountains[GlobalVariable.currentScene].status = true;
+    }
+
+    static bool HasBoss()
+    {
+        foreach (string number in GlobalVariable.sceneMonsterNumber)
+        {
+            if (number.StartsWith("2"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static bool HasAreaBoss()
+    {
+        List<string> areaBoss = new List<string> { "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008" };
+        foreach (string number in GlobalVariable.sceneMonsterNumber)
+        {
+            if (areaBoss.Contains(number))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

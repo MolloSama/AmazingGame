@@ -42,5 +42,6 @@ public class LoadFile : MonoBehaviour {
         GlobalVariable.HasFightBossScenes = save.HasFightBossScenes;
         GlobalVariable.HasFightScenes = save.HasFightScenes;
         GlobalVariable.currentScene = save.CurrentScenes;
+        GlobalVariable.LeadName = save.LeadName;
     }
 }

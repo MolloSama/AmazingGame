@@ -52,76 +52,20 @@ public class SettlementControl : MonoBehaviour {
             }
             Destroy(attributeReward);
             AttributeUp.isUp = false;
-
-            if (HasBoss())
+            if (AttributeUp.isLevelUp && !AttributeUp.isGetTalent)
             {
-                GlobalVariable.HasFightBossScenes.Add(GlobalVariable.currentScene);
-                if (HasAreaBoss())
-                {
-                    GlobalVariable.HasFightAreaBoss.Add(GlobalVariable.preMap, true);
-                }
+                LoadConversation.SetConversation("0-2-1", 0, "afterFight", "");
             }
-            if (GlobalVariable.AllConversationList.Contains(GlobalVariable.currentScene + "-1"))
+            else if(AttributeUp.isLevelUp && AttributeUp.isGetTalent)
             {
-
-                if (GlobalVariable.currentScene.StartsWith("0"))
-                {
-                    if (int.Parse(GlobalVariable.currentScene.Split('-')[2]) < 3)
-                    {
-                        LoadConversation.SetConversation(GlobalVariable.currentScene, 1, "conversation", "");
-                    }
-                    else
-                    {
-                        TertiaryMapSelect.SetScene("1-1");
-                        LoadConversation.SetConversation(GlobalVariable.currentScene, 1, "tertiaryMap", "");
-                    }
-                }
-                else
-                {
-                    if (!GlobalVariable.HasFightScenes.Contains(GlobalVariable.currentScene))
-                    {
-                        LoadConversation.SetConversation(GlobalVariable.currentScene, 1, "tertiaryMap", "");
-                    }
-                    else
-                    {
-                        TertiaryMapSelect.SetScene(GlobalVariable.preMap);
-                        SceneManager.LoadScene("tertiaryMap");
-                    }
-                }
+                LoadConversation.SetConversation("0-2-2", 0, "afterFight", "");
             }
             else
             {
-                TertiaryMapSelect.SetScene(GlobalVariable.preMap);
-                SceneManager.LoadScene("tertiaryMap");
+                GlobalVariable.AfterFight();
             }
-            GlobalVariable.HasFightScenes.Add(GlobalVariable.currentScene);
-            GlobalVariable.Mountains[GlobalVariable.currentScene].status = true;
+            
             return;
         }
-    }
-
-    bool HasBoss()
-    {
-        foreach(string number in GlobalVariable.sceneMonsterNumber)
-        {
-            if (number.StartsWith("2"))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    bool HasAreaBoss()
-    {
-        List<string> areaBoss = new List<string>{ "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008" };
-        foreach (string number in GlobalVariable.sceneMonsterNumber)
-        {
-            if (areaBoss.Contains(number))
-            {
-                return true;
-            }
-        }
-        return false;
     }
 }

@@ -67,7 +67,7 @@ public class LoadConversation : MonoBehaviour {
         {
             if (data[0].Equals("叶明卿"))
             {
-                panel.transform.Find("leadName").transform.GetComponent<TextMesh>().text = data[0];
+                panel.transform.Find("leadName").transform.GetComponent<TextMesh>().text = GlobalVariable.LeadName;
                 panel.transform.Find("npcName").transform.GetComponent<TextMesh>().text = "";
             }
             else if(data[0].Equals("scene"))
@@ -107,6 +107,10 @@ public class LoadConversation : MonoBehaviour {
                         break;
                     case "conversation":
                         string text = Regex.Replace(data[2], @"\S{37}", "$0\r\n");
+                        if (conversationSerialNumber.StartsWith("0-2"))
+                        {
+                            text = ReplaceText(text);
+                        }
                         for(int i = 1; i < text.Length+1; ++i)
                         {
                             if (isClickToDisplayText)
@@ -174,6 +178,14 @@ public class LoadConversation : MonoBehaviour {
         }
     }
 
+    private string ReplaceText(string text)
+    {
+        string newText;
+        newText = text.Replace("*", GlobalVariable.Realm.Name);
+        newText = newText.Replace("#", GlobalVariable.ExistingTalent[GlobalVariable.ExistingTalent.Count - 1].Name);
+        return newText;
+    }
+
     private void OnMouseUpAsButton()
     {
         if (!isConversationOver)
@@ -204,6 +216,9 @@ public class LoadConversation : MonoBehaviour {
                     {
                         SceneManager.LoadScene(nextScene);
                     }
+                    break;
+                case "afterFight":
+                    GlobalVariable.AfterFight();
                     break;
                 case "conversation":
                     string[] serialNumber = conversationSerialNumber.Split('-');

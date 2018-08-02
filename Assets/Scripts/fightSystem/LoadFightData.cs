@@ -22,6 +22,9 @@ public class LoadFightData : MonoBehaviour {
             LoadAllConversationList();
             LoadMergeReflect();
             LoadAllMissions();
+            LoadAllLevel();
+            LoadAllTalent();
+            GlobalVariable.Realm = GlobalVariable.AllLevel[1];
         }
         if (isTest)
         {
@@ -68,6 +71,35 @@ public class LoadFightData : MonoBehaviour {
             }
             GlobalVariable.AllMissions.Add(missionTitle[0], new Mission(missionTitle[0],
                 0, missionTitle[1], missionDescriptions));
+        }
+    }
+
+    void LoadAllTalent()
+    {
+        List<string> talents = LoadAllLineToList("ability");
+        foreach(string talent in talents)
+        {
+            string[] talentDetails = talent.Split(',');
+            GlobalVariable.AllTalent.Add(talentDetails[0], new Talent(talentDetails[0], talentDetails[1], talentDetails[2]));
+        }
+    }
+
+    void LoadAllLevel()
+    {
+        List<string> levels = LoadAllLineToList("ability_level");
+        foreach(string level in levels)
+        {
+            string[] levelDetails = level.Split('=');
+            string talentNumber;
+            if (levelDetails.Length == 2)
+            {
+                talentNumber = "";
+            }
+            else
+            {
+                talentNumber = levelDetails[2];
+            }
+            GlobalVariable.AllLevel.Add(new Level(float.Parse(levelDetails[0]), levelDetails[1], talentNumber));
         }
     }
 

@@ -225,10 +225,10 @@
       <HintPath>Assets/DOTween/DOTween50.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
-      <HintPath>C:/Users/81244/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/UnityEngine.Analytics.dll</HintPath>
+      <HintPath>C:/Users/admin/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Purchasing">
-      <HintPath>C:/Users/81244/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/UnityEngine.Purchasing.dll</HintPath>
+      <HintPath>C:/Users/admin/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/UnityEngine.Purchasing.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -282,10 +282,12 @@
     <Compile Include="Assets\Scripts\Model\GameProp.cs" />
     <Compile Include="Assets\Scripts\Model\GlobalVariable.cs" />
     <Compile Include="Assets\Scripts\Model\ItemCondition.cs" />
+    <Compile Include="Assets\Scripts\Model\Level.cs" />
     <Compile Include="Assets\Scripts\Model\Mission.cs" />
     <Compile Include="Assets\Scripts\Model\Monster.cs" />
     <Compile Include="Assets\Scripts\Model\SaveModel.cs" />
     <Compile Include="Assets\Scripts\Model\Status.cs" />
+    <Compile Include="Assets\Scripts\Model\Talent.cs" />
     <Compile Include="Assets\Scripts\Music\GlobalMusicControl.cs" />
     <Compile Include="Assets\Scripts\Music\MusicControl.cs" />
     <Compile Include="Assets\Scripts\ready\Return.cs" />
@@ -300,6 +302,7 @@
     <Compile Include="Assets\Scripts\skillPanel\SkillGridSelect.cs" />
     <Compile Include="Assets\Scripts\skillPanel\SkillSelect.cs" />
     <Compile Include="Assets\Scripts\startMenu\FadeScene.cs" />
+    <Compile Include="Assets\Scripts\startMenu\GetLeadName.cs" />
     <Compile Include="Assets\Scripts\startMenu\QuitGame.cs" />
     <Compile Include="Assets\Scripts\startMenu\StartMenuMouse.cs" />
   </ItemGroup>
@@ -315,6 +318,8 @@
     <None Include="Assets\Resources\conversation\texts\0-1-2-1.txt" />
     <None Include="Assets\Resources\conversation\texts\0-1-3-0.txt" />
     <None Include="Assets\Resources\conversation\texts\0-1-3-1.txt" />
+    <None Include="Assets\Resources\conversation\texts\0-2-1-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\0-2-2-0.txt" />
     <None Include="Assets\Resources\conversation\texts\0-9-0-0.txt" />
     <None Include="Assets\Resources\conversation\texts\1-1-1-0.txt" />
     <None Include="Assets\Resources\conversation\texts\1-1-1-1.txt" />
@@ -349,6 +354,8 @@
     <None Include="Assets\Resources\conversation\texts\1-8-3-1.txt" />
     <None Include="Assets\Resources\conversation\texts\1-8-4-0.txt" />
     <None Include="Assets\Resources\conversation\texts\1-8-4-1.txt" />
+    <None Include="Assets\Resources\data\ability.txt" />
+    <None Include="Assets\Resources\data\ability_level.txt" />
     <None Include="Assets\Resources\data\card.txt" />
     <None Include="Assets\Resources\data\conversation-list.txt" />
     <None Include="Assets\Resources\data\item_battle.txt" />

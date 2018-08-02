@@ -17,6 +17,7 @@ public class SaveModel{
     private List<string> hasFightBossScenes;
     private string currentScenes;
     private string time;
+    private string leadName;
 
     public List<GameProp> ExistCards
     {
@@ -174,6 +175,19 @@ public class SaveModel{
         }
     }
 
+    public string LeadName
+    {
+        get
+        {
+            return leadName;
+        }
+
+        set
+        {
+            leadName = value;
+        }
+    }
+
     public SaveModel()
     {
         existCards = GlobalVariable.ExistingCards;
@@ -188,5 +202,6 @@ public class SaveModel{
         hasFightScenes = GlobalVariable.HasFightScenes;
         currentScenes = GlobalVariable.currentScene;
         time = DateTime.Now.ToString();
+        leadName = GlobalVariable.LeadName;
     }
 }

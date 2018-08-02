@@ -270,19 +270,19 @@
       <HintPath>Assets/DOTween/Editor/DOTweenEditor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
-      <HintPath>C:/Users/81244/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@1.0.7/Editor/UnityEditor.Advertisements.dll</HintPath>
+      <HintPath>C:/Users/admin/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@1.0.7/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
-      <HintPath>C:/Users/81244/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/UnityEngine.Analytics.dll</HintPath>
+      <HintPath>C:/Users/admin/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Analytics">
-      <HintPath>C:/Users/81244/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/Editor/UnityEditor.Analytics.dll</HintPath>
+      <HintPath>C:/Users/admin/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/Editor/UnityEditor.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Purchasing">
-      <HintPath>C:/Users/81244/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/UnityEngine.Purchasing.dll</HintPath>
+      <HintPath>C:/Users/admin/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/UnityEngine.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
-      <HintPath>C:/Users/81244/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/Editor/UnityEditor.Purchasing.dll</HintPath>
+      <HintPath>C:/Users/admin/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/Editor/UnityEditor.Purchasing.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -309,6 +309,8 @@
     <None Include="Assets\Resources\conversation\texts\0-1-2-1.txt" />
     <None Include="Assets\Resources\conversation\texts\0-1-3-0.txt" />
     <None Include="Assets\Resources\conversation\texts\0-1-3-1.txt" />
+    <None Include="Assets\Resources\conversation\texts\0-2-1-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\0-2-2-0.txt" />
     <None Include="Assets\Resources\conversation\texts\0-9-0-0.txt" />
     <None Include="Assets\Resources\conversation\texts\1-1-1-0.txt" />
     <None Include="Assets\Resources\conversation\texts\1-1-1-1.txt" />
@@ -343,6 +345,8 @@
     <None Include="Assets\Resources\conversation\texts\1-8-3-1.txt" />
     <None Include="Assets\Resources\conversation\texts\1-8-4-0.txt" />
     <None Include="Assets\Resources\conversation\texts\1-8-4-1.txt" />
+    <None Include="Assets\Resources\data\ability.txt" />
+    <None Include="Assets\Resources\data\ability_level.txt" />
     <None Include="Assets\Resources\data\card.txt" />
     <None Include="Assets\Resources\data\conversation-list.txt" />
     <None Include="Assets\Resources\data\item_battle.txt" />
