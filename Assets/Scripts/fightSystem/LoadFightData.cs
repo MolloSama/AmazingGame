@@ -24,7 +24,8 @@ public class LoadFightData : MonoBehaviour {
             LoadAllMissions();
             LoadAllLevel();
             LoadAllTalent();
-            GlobalVariable.Realm = GlobalVariable.AllLevel[1];
+            GlobalVariable.Realm = GlobalVariable.AllLevel[0];
+            GlobalVariable.ExistingTalent.Add(GlobalVariable.AllTalent["001"]);
         }
         if (isTest)
         {
@@ -50,6 +51,7 @@ public class LoadFightData : MonoBehaviour {
         {
             GlobalVariable.FightSkills[i] = list[i];
         }
+        GlobalVariable.ExistingTalent = new List<Talent>(GlobalVariable.AllTalent.Values);
     }
 
     void LoadAllConversationList()

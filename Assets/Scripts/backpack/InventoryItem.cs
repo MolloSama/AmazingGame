@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class InventoryItem : MonoBehaviour {
@@ -30,7 +31,8 @@ public class InventoryItem : MonoBehaviour {
     {
         GameObject gameObject = GameObject.Find("objectInfo");
         if (item != null)
-            gameObject.GetComponent<TextMesh>().text = string.Format("道具描述：\n{0}", item.Description);
+            gameObject.GetComponent<TextMesh>().text = string.Format(item.Name+"：\n{0}", 
+                Regex.Replace(item.Description, @"\S{22}", "$0\r\n"));
         else
             gameObject.GetComponent<TextMesh>().text = "";
     }

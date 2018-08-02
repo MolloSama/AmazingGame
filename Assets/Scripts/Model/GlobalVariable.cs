@@ -104,7 +104,9 @@ public static class GlobalVariable{
                         nextScene = "tertiaryMap";
                     }
                     isLoadMission = true;
+                    currentMission = AllMissions[numbers[4]];
                     ++currentMission.CurrentIndex;
+                    ExistingMissions.Add(currentMission);
                     LoadConversation.SetConversation(currentScene, int.Parse(part), nextScene
                         , numbers[4] + "-" + numbers[5]);
                 }
@@ -129,51 +131,51 @@ public static class GlobalVariable{
     {
         if (HasBoss())
         {
-            GlobalVariable.HasFightBossScenes.Add(GlobalVariable.currentScene);
+            HasFightBossScenes.Add(currentScene);
             if (HasAreaBoss())
             {
-                GlobalVariable.HasFightAreaBoss.Add(GlobalVariable.preMap, true);
+                HasFightAreaBoss.Add(preMap, true);
             }
         }
-        if (GlobalVariable.AllConversationList.Contains(GlobalVariable.currentScene + "-1"))
+        if (AllConversationList.Contains(currentScene + "-1"))
         {
-            if (GlobalVariable.currentScene.StartsWith("0"))
+            if (currentScene.StartsWith("0"))
             {
-                if (int.Parse(GlobalVariable.currentScene.Split('-')[2]) < 3)
+                if (int.Parse(currentScene.Split('-')[2]) < 3)
                 {
-                    LoadConversation.SetConversation(GlobalVariable.currentScene, 1, "conversation", "");
+                    LoadConversation.SetConversation(currentScene, 1, "conversation", "");
                 }
                 else
                 {
                     TertiaryMapSelect.SetScene("1-1");
-                    LoadConversation.SetConversation(GlobalVariable.currentScene, 1, "tertiaryMap", "");
+                    LoadConversation.SetConversation(currentScene, 1, "tertiaryMap", "");
                 }
             }
             else
             {
-                if (!GlobalVariable.HasFightScenes.Contains(GlobalVariable.currentScene))
+                if (!HasFightScenes.Contains(currentScene))
                 {
-                    LoadConversation.SetConversation(GlobalVariable.currentScene, 1, "tertiaryMap", "");
+                    LoadConversation.SetConversation(currentScene, 1, "tertiaryMap", "");
                 }
                 else
                 {
-                    TertiaryMapSelect.SetScene(GlobalVariable.preMap);
+                    TertiaryMapSelect.SetScene(preMap);
                     SceneManager.LoadScene("tertiaryMap");
                 }
             }
         }
         else
         {
-            TertiaryMapSelect.SetScene(GlobalVariable.preMap);
+            TertiaryMapSelect.SetScene(preMap);
             SceneManager.LoadScene("tertiaryMap");
         }
-        GlobalVariable.HasFightScenes.Add(GlobalVariable.currentScene);
-        GlobalVariable.Mountains[GlobalVariable.currentScene].status = true;
+        HasFightScenes.Add(currentScene);
+        Mountains[currentScene].status = true;
     }
 
     static bool HasBoss()
     {
-        foreach (string number in GlobalVariable.sceneMonsterNumber)
+        foreach (string number in sceneMonsterNumber)
         {
             if (number.StartsWith("2"))
             {
@@ -186,7 +188,7 @@ public static class GlobalVariable{
     static bool HasAreaBoss()
     {
         List<string> areaBoss = new List<string> { "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008" };
-        foreach (string number in GlobalVariable.sceneMonsterNumber)
+        foreach (string number in sceneMonsterNumber)
         {
             if (areaBoss.Contains(number))
             {

@@ -52,19 +52,21 @@ public class SettlementControl : MonoBehaviour {
             }
             Destroy(attributeReward);
             AttributeUp.isUp = false;
-            if (AttributeUp.isLevelUp && !AttributeUp.isGetTalent)
+            if (!GlobalVariable.HasFightScenes.Contains(GlobalVariable.currentScene))
             {
-                LoadConversation.SetConversation("0-2-1", 0, "afterFight", "");
-            }
-            else if(AttributeUp.isLevelUp && AttributeUp.isGetTalent)
-            {
-                LoadConversation.SetConversation("0-2-2", 0, "afterFight", "");
-            }
-            else
-            {
-                GlobalVariable.AfterFight();
-            }
-            
+                if (AttributeUp.isLevelUp && !AttributeUp.isGetTalent)
+                {
+                    LoadConversation.SetConversation("0-2-1", 0, "afterFight", "");
+                }
+                else if (AttributeUp.isLevelUp && AttributeUp.isGetTalent)
+                {
+                    LoadConversation.SetConversation("0-2-2", 0, "afterFight", "");
+                }
+                else
+                {
+                    GlobalVariable.AfterFight();
+                }
+            } 
             return;
         }
     }

@@ -54,18 +54,22 @@ public class AttributeUp : MonoBehaviour {
     {
         isLevelUp = false;
         isGetTalent = false;
-        float currentLevel = GlobalVariable.kraKen.AttactPower + GlobalVariable.kraKen.DefensivePower * 2 + GlobalVariable.kraKen.BloodVolume * 0.1f;
+        float currentLevel = GlobalVariable.kraKen.AttactPower + 
+            GlobalVariable.kraKen.DefensivePower * 2 + GlobalVariable.kraKen.BloodVolume * 0.1f;
         foreach(Level level in GlobalVariable.AllLevel)
         {
             if(currentLevel >= level.Edge && level.Edge > GlobalVariable.Realm.Edge)
             {
+                if (!GlobalVariable.Realm.Name.Equals(level.Name))
+                {
+                    isLevelUp = true;
+                }
                 GlobalVariable.Realm = level;
                 if (!level.Talent.Equals(""))
                 {
                     GlobalVariable.ExistingTalent.Add(GlobalVariable.AllTalent[level.Talent]);
                     isGetTalent = true;
                 }
-                isLevelUp = true;
             }
         }
     }

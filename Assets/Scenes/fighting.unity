@@ -1440,6 +1440,8 @@ MonoBehaviour:
   itemFirstPosition: {fileID: 1151565838}
   escape: {fileID: 1436124157}
   tipGameObject: {fileID: 697306521}
+  talentNamePrefab: {fileID: 1164876192713352, guid: b770ca758e89ede4eb28d1d2747792e9,
+    type: 2}
   monsterNumber: []
   isMonsterFight: 0
   isMonsterRoundOver: 0

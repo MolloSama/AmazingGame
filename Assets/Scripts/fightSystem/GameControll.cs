@@ -27,6 +27,7 @@ public class GameControll : MonoBehaviour {
     public Transform itemFirstPosition;
     public Escape escape;
     public GameObject tipGameObject;
+    public GameObject talentNamePrefab;
     [HideInInspector]
     public List<string> monsterNumber = new List<string>();
     private Dictionary<int, GameObject> handCardsSprite = new Dictionary<int, GameObject>();
@@ -225,7 +226,20 @@ public class GameControll : MonoBehaviour {
             currentEnergy -= card.EnergyConsumption;
             energy.transform.DOMoveY(energy.transform.position.y - card.EnergyConsumption * 0.35f, 1f);
             KrakenRound(card);
-            RemoveCard();       
+            if (GlobalVariable.ExistingTalent.Contains(GlobalVariable.AllTalent["003"]))
+            {
+                if (!card.Type.Equals("a1b3"))
+                {
+                    KrakenRound(card);
+                }
+                else
+                {
+                    StartCoroutine(WaitForRemoveCard(2.5f));
+                }
+                DisplayTalentName(GlobalVariable.AllTalent["003"].Name);
+                
+            }
+            RemoveCard();
             return true;
         }       
     }
@@ -439,7 +453,6 @@ public class GameControll : MonoBehaviour {
             GameProp skill = monster.SkillList[randomIndex];
             Status status;
             int demage;
-            //Debug.Log(skill.Name+" "+skill.Description);
             switch (skill.Type)
             {
                 case "a1b1":
@@ -450,6 +463,16 @@ public class GameControll : MonoBehaviour {
                     if ((status = HaveReboundStatus(kraken.StatusList)) != null)
                     {
                         ReduceBlood(monster, System.Convert.ToInt32(demage * status.Value));
+                    }
+                    if (GlobalVariable.ExistingTalent.Contains(GlobalVariable.AllTalent["004"]))
+                    {
+                        foreach (Status state in kraken.StatusList)
+                        {
+                            if (IsStateBad(state))
+                            {
+                                TackBackStatus(kraken, state);
+                            }
+                        }
                     }
                     StartCoroutine(PlayCardAnimation(skill.SerialNumber, krakenPosition));
                     yield return new WaitForSeconds(1f);
@@ -465,6 +488,16 @@ public class GameControll : MonoBehaviour {
                     if ((status = HaveReboundStatus(kraken.StatusList)) != null)
                     {
                         ReduceBlood(monster, System.Convert.ToInt32(demage * status.Value));
+                    }
+                    if (GlobalVariable.ExistingTalent.Contains(GlobalVariable.AllTalent["004"]))
+                    {
+                        foreach (Status state in kraken.StatusList)
+                        {
+                            if (IsStateBad(state))
+                            {
+                                TackBackStatus(kraken, state);
+                            }
+                        }
                     }
                     yield return new WaitForSeconds(1f);
                     break;
@@ -726,6 +759,15 @@ public class GameControll : MonoBehaviour {
         return value;
     }
 
+    void DisplayTalentName(string name)
+    {
+        GameObject talentName = Instantiate(talentNamePrefab);
+        TextMesh talentText = talentName.GetComponent<TextMesh>();
+        talentText.text = name;
+        DOTween.ToAlpha(() => talentText.color, (color) => talentText.color = color, 0, 2f).
+           OnComplete(() => Destroy(talentName));
+    }
+
     void JudgeMonsterDeath(Monster monster)
     {
         GameObject gameObject = GetGameObjectByMonster(monster);
@@ -756,6 +798,11 @@ public class GameControll : MonoBehaviour {
             {
                 kraken.AttactPower += krakenBaseAttact * itemCondition.KillPromote;
                 kraken.DefensivePower += krakenBaseDefend * itemCondition.KillPromote;
+            }
+            if (GlobalVariable.ExistingTalent.Contains(GlobalVariable.AllTalent["002"]))
+            {
+                SetEnergyFull();
+                DisplayTalentName(GlobalVariable.AllTalent["002"].Name);
             }
         }
     }
@@ -934,6 +981,20 @@ public class GameControll : MonoBehaviour {
         }
     }
 
+    bool IsStateBad(Status status)
+    {
+        switch (status.SerialNumber)
+        {
+            case 1000002:
+                return true;
+            case 1000004:
+                return true;
+            case 1000006:
+                return true;
+        }
+        return false;
+    }
+
     public void RemoveCard()
     {
         int currentCardIndex = CardAction.currentIndex;
@@ -1025,6 +1086,11 @@ public class GameControll : MonoBehaviour {
             {
                 monsterNumber.Add(allMosterNumber[0]);
                 hasBoss = true;
+                if(allMosterNumber.Count == 1)
+                {
+                    randomCount = 1;
+                    break;
+                }
             }
             else
             {
