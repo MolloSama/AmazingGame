@@ -149,11 +149,13 @@ public class LoadFightData : MonoBehaviour {
             {
                 skills.Add(GlobalVariable.AllMonstersSkills[number]);
             }
-            GlobalVariable.AllMonsters.Add(monsterProps[0], new Monster
+            Monster monsterObject = new Monster
                 (monsterProps[0], monsterProps[1], monsterProps[2],
-                float.Parse(monsterProps[3]), float.Parse(monsterProps[4]), 
-                int.Parse(monsterProps[5]), skills, int.Parse(monsterProps[7]), 
-                monsterProps[8], monsterProps[9]));
+                float.Parse(monsterProps[3]), float.Parse(monsterProps[4]),
+                int.Parse(monsterProps[5]), skills, int.Parse(monsterProps[7]),
+                monsterProps[8], monsterProps[9]);
+            GlobalVariable.AllMonsters.Add(monsterProps[0], monsterObject);
+            GlobalVariable.monsterIllustration.Add(monsterObject, false);
         }
     }
 
@@ -163,10 +165,23 @@ public class LoadFightData : MonoBehaviour {
         foreach (string gameprop in gameprops)
         {
             List<string> props = new List<string>(gameprop.Split(new char[] { ',' }));
-            gameProps.Add(props[0], new GameProp(props[0], 
-                props[1], int.Parse(props[2]), props[3], 
-                props[4], float.Parse(props[5]), int.Parse(props[6]), 
-                int.Parse(props[7]), int.Parse(props[8]), props[9], props[10]));
+            GameProp gamePropObject = new GameProp(props[0],
+                props[1], int.Parse(props[2]), props[3],
+                props[4], float.Parse(props[5]), int.Parse(props[6]),
+                int.Parse(props[7]), int.Parse(props[8]), props[9], props[10]);
+            gameProps.Add(props[0], gamePropObject);
+            switch (fileName)
+            {
+                case "card":
+                    GlobalVariable.cardIllustration.Add(gamePropObject, false);
+                    break;
+                case "item_battle":
+                    GlobalVariable.itemIllustration.Add(gamePropObject, false);
+                    break;
+                case "item_mission":
+                    GlobalVariable.itemIllustration.Add(gamePropObject, false);
+                    break;
+            }
         }
     }
 

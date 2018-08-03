@@ -31,6 +31,9 @@ public static class GlobalVariable{
     public static List<Level> AllLevel = new List<Level>();
     public static Dictionary<string, Talent> AllTalent = new Dictionary<string, Talent>();
     public static List<Talent> ExistingTalent = new List<Talent>();
+    public static Dictionary<GameProp, bool> cardIllustration = new Dictionary<GameProp, bool>();
+    public static Dictionary<GameProp, bool> itemIllustration = new Dictionary<GameProp, bool>();
+    public static Dictionary<Monster, bool> monsterIllustration = new Dictionary<Monster, bool>();
     public static Monster kraKen = new Monster("0", "", "kraken", 30, 15, 10, null, 1, "", "");
     public static string LeadName;
     public static Level Realm;
@@ -104,9 +107,14 @@ public static class GlobalVariable{
                         nextScene = "tertiaryMap";
                     }
                     isLoadMission = true;
-                    currentMission = AllMissions[numbers[4]];
-                    ++currentMission.CurrentIndex;
-                    ExistingMissions.Add(currentMission);
+                    if(currentMission != null)
+                    {
+                        ++currentMission.CurrentIndex;
+                    }
+                    else
+                    {
+                        ++AllMissions[numbers[4]].CurrentIndex;
+                    }
                     LoadConversation.SetConversation(currentScene, int.Parse(part), nextScene
                         , numbers[4] + "-" + numbers[5]);
                 }

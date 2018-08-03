@@ -66,6 +66,8 @@ public class GameControll : MonoBehaviour {
     [HideInInspector]
     public List<GameProp> cardGroup = new List<GameProp>();
     private int maxCardCount = 14;
+    private int drawCardCount = 0;
+    private bool isTalent3Effect = false;
 
     // Use this for initialization
     void Start() {
@@ -226,8 +228,9 @@ public class GameControll : MonoBehaviour {
             currentEnergy -= card.EnergyConsumption;
             energy.transform.DOMoveY(energy.transform.position.y - card.EnergyConsumption * 0.35f, 1f);
             KrakenRound(card);
-            if (GlobalVariable.ExistingTalent.Contains(GlobalVariable.AllTalent["003"]))
+            if (IsTalentEffect(3, 10))
             {
+                isTalent3Effect = true;
                 if (!card.Type.Equals("a1b3"))
                 {
                     KrakenRound(card);
@@ -464,7 +467,7 @@ public class GameControll : MonoBehaviour {
                     {
                         ReduceBlood(monster, System.Convert.ToInt32(demage * status.Value));
                     }
-                    if (GlobalVariable.ExistingTalent.Contains(GlobalVariable.AllTalent["004"]))
+                    if (IsTalentEffect(4, 10))
                     {
                         foreach (Status state in kraken.StatusList)
                         {
@@ -473,6 +476,7 @@ public class GameControll : MonoBehaviour {
                                 TackBackStatus(kraken, state);
                             }
                         }
+                        DisplayTalentName(GlobalVariable.AllTalent["004"].Name);
                     }
                     StartCoroutine(PlayCardAnimation(skill.SerialNumber, krakenPosition));
                     yield return new WaitForSeconds(1f);
@@ -489,7 +493,7 @@ public class GameControll : MonoBehaviour {
                     {
                         ReduceBlood(monster, System.Convert.ToInt32(demage * status.Value));
                     }
-                    if (GlobalVariable.ExistingTalent.Contains(GlobalVariable.AllTalent["004"]))
+                    if (IsTalentEffect(4, 10))
                     {
                         foreach (Status state in kraken.StatusList)
                         {
@@ -498,6 +502,7 @@ public class GameControll : MonoBehaviour {
                                 TackBackStatus(kraken, state);
                             }
                         }
+                        DisplayTalentName(GlobalVariable.AllTalent["004"].Name);
                     }
                     yield return new WaitForSeconds(1f);
                     break;
@@ -549,6 +554,7 @@ public class GameControll : MonoBehaviour {
     IEnumerator WaitForRemoveCard(float second)
     {
         yield return new WaitForSeconds(second);
+        ++drawCardCount;
         AddTwoCards();
     }
 
@@ -799,7 +805,7 @@ public class GameControll : MonoBehaviour {
                 kraken.AttactPower += krakenBaseAttact * itemCondition.KillPromote;
                 kraken.DefensivePower += krakenBaseDefend * itemCondition.KillPromote;
             }
-            if (GlobalVariable.ExistingTalent.Contains(GlobalVariable.AllTalent["002"]))
+            if (IsTalentEffect(2, 100))
             {
                 SetEnergyFull();
                 DisplayTalentName(GlobalVariable.AllTalent["002"].Name);
@@ -936,10 +942,15 @@ public class GameControll : MonoBehaviour {
         cardRawImg.sortingOrder = orderIndex + 1;
 
         yield return new WaitForSeconds(0.3f);
-        card.transform.DOMove(lastCardEndPosition, 0.5f).OnComplete(()=>
+        card.transform.DOMove(lastCardEndPosition, 0.5f).OnComplete(() =>
         {
-            isAnimationEnd = true;
-            isDrawCard = false;
+            if ((drawCardCount == 1 && !isTalent3Effect) ||
+            (drawCardCount == 2 && isTalent3Effect) || drawCardCount == 0)
+            {
+                isAnimationEnd = true;
+                isDrawCard = false;
+                drawCardCount = 0;
+            }
             if (isDestory)
             {
                 DestoryCard(card, card.GetComponent<CardAction>().index);
@@ -1264,5 +1275,15 @@ public class GameControll : MonoBehaviour {
             }
         }
         return max;
+    }
+
+    private bool IsTalentEffect(int index, int chance)
+    {
+        if (GlobalVariable.ExistingTalent.Contains(GlobalVariable.AllTalent["00" + index]) 
+            && GlobalVariable.Chance(chance))
+        {
+            return true;
+        }
+        return false;
     }
 }

@@ -18,6 +18,8 @@ public class SaveModel{
     private string currentScenes;
     private string time;
     private string leadName;
+    private List<Talent> existTalents;
+    private List<Mission> existMissinos;
 
     public List<GameProp> ExistCards
     {
@@ -188,6 +190,32 @@ public class SaveModel{
         }
     }
 
+    public List<Talent> ExistTalents
+    {
+        get
+        {
+            return existTalents;
+        }
+
+        set
+        {
+            existTalents = value;
+        }
+    }
+
+    public List<Mission> ExistMissinos
+    {
+        get
+        {
+            return existMissinos;
+        }
+
+        set
+        {
+            existMissinos = value;
+        }
+    }
+
     public SaveModel()
     {
         existCards = GlobalVariable.ExistingCards;
@@ -203,5 +231,7 @@ public class SaveModel{
         currentScenes = GlobalVariable.currentScene;
         time = DateTime.Now.ToString();
         leadName = GlobalVariable.LeadName;
+        existTalents = GlobalVariable.ExistingTalent;
+        existMissinos = GlobalVariable.ExistingMissions;
     }
 }

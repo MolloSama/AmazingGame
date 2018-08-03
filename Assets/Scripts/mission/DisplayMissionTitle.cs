@@ -16,11 +16,6 @@ public class DisplayMissionTitle : MonoBehaviour {
         maxCount = 7;
         LoadMissionTitle();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void LoadMissionTitle()
     {
