@@ -35,3 +35,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/setName.unity
     guid: 2bbedc429606c274ea6779af8d35f7ce
+  - enabled: 1
+    path: Assets/Scenes/illustration.unity
+    guid: 8adbc8ee974796642870028fa3c1ebca

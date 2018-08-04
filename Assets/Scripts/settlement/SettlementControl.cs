@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class SettlementControl : MonoBehaviour {
     public GameObject monsterInfo;
@@ -13,14 +16,28 @@ public class SettlementControl : MonoBehaviour {
     bool isThridClick = false;
     bool isFourthClick = false;
     bool isFirstUp = true;
+    private string savePath;
 
     // Use this for initialization
     void Start () {
+        savePath = Application.persistentDataPath + "/illustration";
+    }
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    private void OnDestroy()
+    {
+        if (Directory.Exists(savePath) == false)
+        {
+            Directory.CreateDirectory(savePath);
+        }
+        IFormatter formatter = new BinaryFormatter();
+        FileStream stream = new FileStream(savePath + "/illustrationSave.bin",
+            FileMode.Create, FileAccess.Write);
+        IllustrationSave save = new IllustrationSave();
+        formatter.Serialize(stream, save);
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (Input.GetMouseButtonDown(0) && !isFirstClick)
         {
             isFirstClick = true;

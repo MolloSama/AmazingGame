@@ -13,14 +13,12 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.2.0f3</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -227,10 +225,10 @@
       <HintPath>Assets/DOTween/DOTween50.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
-      <HintPath>C:/Users/admin/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/UnityEngine.Analytics.dll</HintPath>
+      <HintPath>C:/Users/81244/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Purchasing">
-      <HintPath>C:/Users/admin/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/UnityEngine.Purchasing.dll</HintPath>
+      <HintPath>C:/Users/81244/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/UnityEngine.Purchasing.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -271,6 +269,9 @@
     <Compile Include="Assets\Scripts\Icon\CloseIcon.cs" />
     <Compile Include="Assets\Scripts\Icon\PanelControl.cs" />
     <Compile Include="Assets\Scripts\illustration\DisplayIllustration.cs" />
+    <Compile Include="Assets\Scripts\illustration\IllustrationControl.cs" />
+    <Compile Include="Assets\Scripts\illustration\ReturnStart.cs" />
+    <Compile Include="Assets\Scripts\illustration\TurnPage.cs" />
     <Compile Include="Assets\Scripts\map\IntoFight.cs" />
     <Compile Include="Assets\Scripts\map\MainMapMouse.cs" />
     <Compile Include="Assets\Scripts\map\MapTextOrder.cs" />
@@ -286,6 +287,7 @@
     <Compile Include="Assets\Scripts\mission\PageTurning.cs" />
     <Compile Include="Assets\Scripts\Model\GameProp.cs" />
     <Compile Include="Assets\Scripts\Model\GlobalVariable.cs" />
+    <Compile Include="Assets\Scripts\Model\IllustrationSave.cs" />
     <Compile Include="Assets\Scripts\Model\ItemCondition.cs" />
     <Compile Include="Assets\Scripts\Model\Level.cs" />
     <Compile Include="Assets\Scripts\Model\Mission.cs" />

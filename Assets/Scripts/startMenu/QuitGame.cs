@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class QuitGame : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    private string savePath;
+    // Use this for initialization
+    void Start () {
+    }
 
     private void OnMouseDown()
     {

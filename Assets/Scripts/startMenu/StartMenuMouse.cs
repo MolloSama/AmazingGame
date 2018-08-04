@@ -7,13 +7,7 @@ public class StartMenuMouse : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     //Mouse click
     public void OnMouseUpAsButton()
@@ -29,7 +23,7 @@ public class StartMenuMouse : MonoBehaviour {
         }
         if (name.Equals("button3"))
         {
-
+            SceneManager.LoadScene("illustration");
         }
     }
 }

@@ -31,7 +31,8 @@ public class ItemRender : MonoBehaviour {
             itemName.GetComponent<TextMesh>().text = randomItem.Name;
             Transform itemDescription = transform.Find("itemDescription");
             string description = randomItem.Description;
-            itemDescription.GetComponent<TextMesh>().text = Regex.Replace(description, @"\S{13}", "$0\r\n"); ;
+            itemDescription.GetComponent<TextMesh>().text = Regex.Replace(description, @"\S{13}", "$0\r\n");
+            GlobalVariable.itemIllustration[randomItem] = true;
         }
 	}
 	

@@ -1,12 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class LoadFightData : MonoBehaviour {
 
     public bool isTest = false;
+    string savePath;
     // Use this for initialization
     void Awake()
     {
+        savePath = Application.persistentDataPath + "/illustration/illustrationSave.bin";
         GlobalVariable.ClearGameData();
         if(GlobalVariable.AllCards.Count == 0)
         {
@@ -31,14 +36,24 @@ public class LoadFightData : MonoBehaviour {
         {
             LoadTestData();
         }
-        
+        LoadIllustrationSave();
     }
 
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
+    void LoadIllustrationSave()
+    {
+        
+        IFormatter formatter = new BinaryFormatter();
+        FileStream stream = new FileStream(savePath,
+            FileMode.Open);
+        IllustrationSave save = (IllustrationSave)formatter.Deserialize(stream);
+        if(save != null)
+        {
+            GlobalVariable.cardIllustration = save.CardIllustration;
+            GlobalVariable.itemIllustration = save.ItemIllustration;
+            GlobalVariable.monsterIllustration = save.MonsterIllustration;
+        }
+        stream.Close();
+    }
 
     void LoadTestData()
     {

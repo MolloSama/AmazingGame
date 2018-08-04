@@ -291,7 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef36a0ecdddc49e47adf0335898b4eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTest: 1
+  isTest: 0
 --- !u!1 &442459040
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,7 +980,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 487dab01e9ded9c489663f514fac50ea, type: 2}
+  - {fileID: 2100000, guid: fe1d20b7ec6fa8e4bb15ae8bce38c7dd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
