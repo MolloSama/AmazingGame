@@ -41,18 +41,20 @@ public class LoadFightData : MonoBehaviour {
 
     void LoadIllustrationSave()
     {
-        
-        IFormatter formatter = new BinaryFormatter();
-        FileStream stream = new FileStream(savePath,
-            FileMode.Open);
-        IllustrationSave save = (IllustrationSave)formatter.Deserialize(stream);
-        if(save != null)
+        if (File.Exists(savePath))
         {
-            GlobalVariable.cardIllustration = save.CardIllustration;
-            GlobalVariable.itemIllustration = save.ItemIllustration;
-            GlobalVariable.monsterIllustration = save.MonsterIllustration;
+            IFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(savePath,
+                FileMode.Open);
+            IllustrationSave save = (IllustrationSave)formatter.Deserialize(stream);
+            if (save != null)
+            {
+                GlobalVariable.cardIllustration = save.CardIllustration;
+                GlobalVariable.itemIllustration = save.ItemIllustration;
+                GlobalVariable.monsterIllustration = save.MonsterIllustration;
+            }
+            stream.Close();
         }
-        stream.Close();
     }
 
     void LoadTestData()
@@ -170,7 +172,7 @@ public class LoadFightData : MonoBehaviour {
                 int.Parse(monsterProps[5]), skills, int.Parse(monsterProps[7]),
                 monsterProps[8], monsterProps[9]);
             GlobalVariable.AllMonsters.Add(monsterProps[0], monsterObject);
-            GlobalVariable.monsterIllustration.Add(monsterObject, false);
+            GlobalVariable.monsterIllustration.Add(monsterObject.SerialNumber, false);
         }
     }
 
@@ -188,13 +190,13 @@ public class LoadFightData : MonoBehaviour {
             switch (fileName)
             {
                 case "card":
-                    GlobalVariable.cardIllustration.Add(gamePropObject, false);
+                    GlobalVariable.cardIllustration.Add(gamePropObject.SerialNumber, false);
                     break;
                 case "item_battle":
-                    GlobalVariable.itemIllustration.Add(gamePropObject, false);
+                    GlobalVariable.itemIllustration.Add(gamePropObject.SerialNumber, false);
                     break;
                 case "item_mission":
-                    GlobalVariable.itemIllustration.Add(gamePropObject, false);
+                    GlobalVariable.itemIllustration.Add(gamePropObject.SerialNumber, false);
                     break;
             }
         }

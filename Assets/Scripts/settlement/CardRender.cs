@@ -44,7 +44,7 @@ public class CardRender : MonoBehaviour {
             cardRawImg.sprite = rawImg;
             cardRawImg.sortingOrder = cardStyle.sortingOrder + 1;
             GlobalVariable.ExistingCards.Add(randomCard);
-            GlobalVariable.cardIllustration[randomCard] = true;
+            GlobalVariable.cardIllustration[randomCard.SerialNumber] = true;
         }
     }
 	

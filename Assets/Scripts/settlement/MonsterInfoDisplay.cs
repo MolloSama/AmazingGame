@@ -24,7 +24,7 @@ public class MonsterInfoDisplay : MonoBehaviour {
             TextMesh description = monsterInfo.transform.Find("monsterDescription").GetComponent<TextMesh>();
             description.text = monster.Description;
             ++index;
-            GlobalVariable.monsterIllustration[monster] = true;
+            GlobalVariable.monsterIllustration[monster.SerialNumber] = true;
         }
         sceneName.GetComponent<TextMesh>().text = GlobalVariable.Mountains[GlobalVariable.currentScene].name;
     }

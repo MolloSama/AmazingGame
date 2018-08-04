@@ -58,13 +58,13 @@ public class IllustrationControl : MonoBehaviour {
         switch (currentIllustration)
         {
             case "card":
-                props = new List<GameProp>(GlobalVariable.cardIllustration.Keys);
+                props = new List<GameProp>(GlobalVariable.AllCards.Values);
                 break;
             case "item":
-                props = new List<GameProp>(GlobalVariable.itemIllustration.Keys);
+                props = new List<GameProp>(GlobalVariable.AllGameItems.Values);
                 break;
             case "monster":
-                monsters = new List<Monster>(GlobalVariable.monsterIllustration.Keys);
+                monsters = new List<Monster>(GlobalVariable.AllMonsters.Values);
                 break;
         }
         for (int i = 0; i < count; ++i)
@@ -79,15 +79,15 @@ public class IllustrationControl : MonoBehaviour {
             {
                 case "card":
                     DisplayCard(props[i + currentPage * maxPageCount], prop, 
-                        GlobalVariable.cardIllustration[props[i + currentPage * maxPageCount]]);
+                        GlobalVariable.cardIllustration[props[i + currentPage * maxPageCount].SerialNumber]);
                     break;
                 case "item":
                     DisplayItem(props[i + currentPage * maxPageCount], prop, 
-                        GlobalVariable.itemIllustration[props[i + currentPage * maxPageCount]]);
+                        GlobalVariable.itemIllustration[props[i + currentPage * maxPageCount].SerialNumber]);
                     break;
                 case "monster":
                     DisplayMonster(monsters[i + currentPage * maxPageCount], prop, 
-                        GlobalVariable.monsterIllustration[monsters[i + currentPage * maxPageCount]]);
+                        GlobalVariable.monsterIllustration[monsters[i + currentPage * maxPageCount].SerialNumber]);
                     break;
             }
             gameObjects.Add(prop);

@@ -80,6 +80,7 @@ public class GameControll : MonoBehaviour {
             monsters.Add(monster);
         }
         kraken = DeepCopy(GlobalVariable.kraKen);
+        kraken.BloodVolume = GlobalVariable.currentBlood;
         krakenMaxHealth = GlobalVariable.kraKen.BloodVolume;
         krakenBaseAttact = GlobalVariable.kraKen.AttactPower;
         krakenBaseDefend = GlobalVariable.kraKen.DefensivePower;
@@ -123,6 +124,11 @@ public class GameControll : MonoBehaviour {
                 playButton.SetActive(false);
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        GlobalVariable.currentBlood = kraken.BloodVolume;
     }
 
     private void EffectPropertyItem(GameProp item)
@@ -1013,17 +1019,16 @@ public class GameControll : MonoBehaviour {
         isAnimationEnd = false;
         currentCard.transform.DOMove(cardOutPosition.position, 0.5f)
             .OnComplete(()=>
-            {             
+            {
                 DestoryCard(currentCard, currentCardIndex);
             });
         CardAction.isCardSelected = false;
-        
         foreach (int i in handCardsSprite.Keys)
         {
             if (i > currentCardIndex)
             {
                 handCardsSprite[i].transform.DOMove(handCardsSprite[i].transform.position + 
-                    new Vector3(-0.15f, 0, 0), 0.6f);
+                    new Vector3(-0.15f, 0, 0), 0.6f).OnComplete(()=> { isAnimationEnd = true; });
             }          
         }       
     }

@@ -162,13 +162,13 @@ public class LoadConversation : MonoBehaviour {
                             GlobalVariable.PlotItems.Add(temp2);
                         }
                         else GlobalVariable.BattleItems.Add(temp2);
-                        GlobalVariable.itemIllustration[temp2] = true;
+                        GlobalVariable.itemIllustration[temp2.SerialNumber] = true;
                     }
                     break;
                 case "get_card":
                     GlobalVariable.ExistingCards.Add(GlobalVariable.AllCards[data[1]]);
                     GlobalVariable.FightCards.Add(GlobalVariable.AllCards[data[1]]);
-                    GlobalVariable.cardIllustration[GlobalVariable.AllCards[data[1]]] = true;
+                    GlobalVariable.cardIllustration[GlobalVariable.AllCards[data[1]].SerialNumber] = true;
                     break;
             }
         }

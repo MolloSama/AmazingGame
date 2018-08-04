@@ -43,6 +43,7 @@ public class LoadFile : MonoBehaviour {
         GlobalVariable.HasFightScenes = save.HasFightScenes;
         GlobalVariable.currentScene = save.CurrentScenes;
         GlobalVariable.LeadName = save.LeadName;
+        GlobalVariable.Realm = save.Realm;
         GlobalVariable.ExistingTalent = save.ExistTalents;
         GlobalVariable.ExistingMissions = save.ExistMissinos;
     }

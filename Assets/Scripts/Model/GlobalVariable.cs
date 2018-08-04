@@ -31,10 +31,11 @@ public static class GlobalVariable{
     public static List<Level> AllLevel = new List<Level>();
     public static Dictionary<string, Talent> AllTalent = new Dictionary<string, Talent>();
     public static List<Talent> ExistingTalent = new List<Talent>();
-    public static Dictionary<GameProp, bool> cardIllustration = new Dictionary<GameProp, bool>();
-    public static Dictionary<GameProp, bool> itemIllustration = new Dictionary<GameProp, bool>();
-    public static Dictionary<Monster, bool> monsterIllustration = new Dictionary<Monster, bool>();
-    public static Monster kraKen = new Monster("0", "", "kraken", 30, 15, 10, null, 1, "", "");
+    public static Dictionary<string, bool> cardIllustration = new Dictionary<string, bool>();
+    public static Dictionary<string, bool> itemIllustration = new Dictionary<string, bool>();
+    public static Dictionary<string, bool> monsterIllustration = new Dictionary<string, bool>();
+    public static Monster kraKen = new Monster("0", "", "kraken", 30, 15, 300, null, 1, "", "");
+    public static int currentBlood = 300;
     public static string LeadName;
     public static Level Realm;
     public static string currentScene = "scene2";

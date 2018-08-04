@@ -18,6 +18,7 @@ public class SaveModel{
     private string currentScenes;
     private string time;
     private string leadName;
+    private Level realm;
     private List<Talent> existTalents;
     private List<Mission> existMissinos;
 
@@ -216,6 +217,19 @@ public class SaveModel{
         }
     }
 
+    public Level Realm
+    {
+        get
+        {
+            return realm;
+        }
+
+        set
+        {
+            realm = value;
+        }
+    }
+
     public SaveModel()
     {
         existCards = GlobalVariable.ExistingCards;
@@ -231,6 +245,7 @@ public class SaveModel{
         currentScenes = GlobalVariable.currentScene;
         time = DateTime.Now.ToString();
         leadName = GlobalVariable.LeadName;
+        realm = GlobalVariable.Realm;
         existTalents = GlobalVariable.ExistingTalent;
         existMissinos = GlobalVariable.ExistingMissions;
     }

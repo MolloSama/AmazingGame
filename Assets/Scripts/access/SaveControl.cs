@@ -44,8 +44,7 @@ public class SaveControl : MonoBehaviour {
         TextMesh time = savePane.transform.Find("time").GetComponent<TextMesh>();
         time.text = save.Time;
         TextMesh attribute = savePane.transform.Find("attribute").GetComponent<TextMesh>();
-        attribute.text = "攻击 " + save.Kraken.AttactPower + "防御 " +
-            save.Kraken.defensivePower + "血量 " + save.Kraken.BloodVolume;
+        attribute.text = save.LeadName+"     "+save.Realm.Name;
         TextMesh mountain = savePane.transform.Find("mountain").GetComponent<TextMesh>();
         mountain.text = GlobalVariable.Mountains[save.CurrentScenes].name;
         SpriteRenderer spr = savePane.transform.Find("kraken").GetComponent<SpriteRenderer>();

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 [System.Serializable]
 public class IllustrationSave{
-    private Dictionary<GameProp, bool> cardIllustration = new Dictionary<GameProp, bool>();
-    private Dictionary<GameProp, bool> itemIllustration = new Dictionary<GameProp, bool>();
-    private Dictionary<Monster, bool> monsterIllustration = new Dictionary<Monster, bool>();
+    private Dictionary<string, bool> cardIllustration = new Dictionary<string, bool>();
+    private Dictionary<string, bool> itemIllustration = new Dictionary<string, bool>();
+    private Dictionary<string, bool> monsterIllustration = new Dictionary<string, bool>();
 
-    public Dictionary<GameProp, bool> CardIllustration
+    public Dictionary<string, bool> CardIllustration
     {
         get
         {
@@ -20,7 +20,7 @@ public class IllustrationSave{
         }
     }
 
-    public Dictionary<GameProp, bool> ItemIllustration
+    public Dictionary<string, bool> ItemIllustration
     {
         get
         {
@@ -33,7 +33,7 @@ public class IllustrationSave{
         }
     }
 
-    public Dictionary<Monster, bool> MonsterIllustration
+    public Dictionary<string, bool> MonsterIllustration
     {
         get
         {
