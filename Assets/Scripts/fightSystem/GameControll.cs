@@ -28,6 +28,8 @@ public class GameControll : MonoBehaviour {
     public Escape escape;
     public GameObject tipGameObject;
     public GameObject talentNamePrefab;
+    public GameObject friendPosition1;
+    public GameObject friendPosition2;
     [HideInInspector]
     public List<string> monsterNumber = new List<string>();
     private Dictionary<int, GameObject> handCardsSprite = new Dictionary<int, GameObject>();
@@ -65,6 +67,7 @@ public class GameControll : MonoBehaviour {
     private bool isKrakenDeath = false;
     [HideInInspector]
     public List<GameProp> cardGroup = new List<GameProp>();
+    private List<Monster> friendMonsters = new List<Monster>();
     private int maxCardCount = 14;
     private int drawCardCount = 0;
     private bool isTalent3Effect = false;
@@ -87,7 +90,7 @@ public class GameControll : MonoBehaviour {
         currentEnergy = maxEnergy;
         playButton = GameObject.Find("playButton");
         energyStartPosition = energy.transform.position;
-        InitializeItem();  
+        InitializeItem();
     }
 	
 	// Update is called once per frame
@@ -450,7 +453,9 @@ public class GameControll : MonoBehaviour {
                         AddStatus(kraken, card.StatusIcon, card.ConsecutiveRounds, 
                         card.Value, krakenPosition.position));
                 break;
-            
+            case "a3d2":
+
+                break;
         }
     }
 

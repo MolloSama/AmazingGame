@@ -29,6 +29,7 @@ public class LoadFightData : MonoBehaviour {
             LoadAllMissions();
             LoadAllLevel();
             LoadAllTalent();
+            LoadPriceReflect();
             GlobalVariable.Realm = GlobalVariable.AllLevel[0];
             GlobalVariable.ExistingTalent.Add(GlobalVariable.AllTalent["001"]);
         }
@@ -37,6 +38,20 @@ public class LoadFightData : MonoBehaviour {
             LoadTestData();
         }
         LoadIllustrationSave();
+    }
+
+    void LoadTestData()
+    {
+        GlobalVariable.ExistingCards = new List<GameProp>(GlobalVariable.AllCards.Values);
+        GlobalVariable.FightCards = new List<GameProp>(GlobalVariable.AllCards.Values);
+        GlobalVariable.BattleItems = new List<GameProp>(GlobalVariable.AllGameItems.Values);
+        GlobalVariable.ExistingLeadSkills = new List<GameProp>(GlobalVariable.AllLeadSkills.Values);
+        List<GameProp> list = new List<GameProp>(GlobalVariable.AllLeadSkills.Values);
+        for (int i = 0; i <= 2; ++i)
+        {
+            GlobalVariable.FightSkills[i] = list[i];
+        }
+        GlobalVariable.ExistingTalent = new List<Talent>(GlobalVariable.AllTalent.Values);
     }
 
     void LoadIllustrationSave()
@@ -57,18 +72,14 @@ public class LoadFightData : MonoBehaviour {
         }
     }
 
-    void LoadTestData()
+    void LoadPriceReflect()
     {
-        GlobalVariable.ExistingCards = new List<GameProp>(GlobalVariable.AllCards.Values);
-        GlobalVariable.FightCards = new List<GameProp>(GlobalVariable.AllCards.Values);
-        GlobalVariable.BattleItems = new List<GameProp>(GlobalVariable.AllGameItems.Values);
-        GlobalVariable.ExistingLeadSkills = new List<GameProp>(GlobalVariable.AllLeadSkills.Values);
-        List<GameProp> list = new List<GameProp>(GlobalVariable.AllLeadSkills.Values);
-        for (int i = 0; i <= 2; ++i)
+        List<string> reflects = LoadAllLineToList("price-reflect");
+        foreach(string reflect in reflects)
         {
-            GlobalVariable.FightSkills[i] = list[i];
+            string[] details = reflect.Split('=');
+            GlobalVariable.priceReflect.Add(details[0], details[1]);
         }
-        GlobalVariable.ExistingTalent = new List<Talent>(GlobalVariable.AllTalent.Values);
     }
 
     void LoadAllConversationList()

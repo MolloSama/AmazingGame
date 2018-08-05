@@ -34,13 +34,15 @@ public static class GlobalVariable{
     public static Dictionary<string, bool> cardIllustration = new Dictionary<string, bool>();
     public static Dictionary<string, bool> itemIllustration = new Dictionary<string, bool>();
     public static Dictionary<string, bool> monsterIllustration = new Dictionary<string, bool>();
+    public static Dictionary<string, string> priceReflect = new Dictionary<string, string>();
     public static Monster kraKen = new Monster("0", "", "kraken", 30, 15, 300, null, 1, "", "");
     public static int currentBlood = 300;
     public static string LeadName;
     public static Level Realm;
     public static string currentScene = "scene2";
     public static string preMap = null;
-    public static readonly int MAX_NUMBER_OF_FIGHT_CARDS = 30; 
+    public static readonly int MAX_NUMBER_OF_FIGHT_CARDS = 30;
+    public static int money = 0;
     public static bool Chance(int demarcationline)
     {
         int randomInt = Random.Range(1, 101);
