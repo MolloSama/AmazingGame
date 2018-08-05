@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 212553936426993030}
   - component: {fileID: 61453308668117410}
   - component: {fileID: 114612592892729788}
+  - component: {fileID: 114056228594540156}
   m_Layer: 0
   m_Name: itemSell
   m_TagString: Untagged
@@ -67,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1551840911257130}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.58, y: -2.434886, z: 0}
+  m_LocalPosition: {x: -6.58, y: -2.04, z: 0}
   m_LocalScale: {x: 0.22, y: 0.22, z: 1}
   m_Children:
   - {fileID: 4324622554349044}
@@ -154,6 +155,17 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4278190080
+--- !u!114 &114056228594540156
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1551840911257130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fafb83e60a3a1154282220c7bc045c62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114459708648740754
 MonoBehaviour:
   m_ObjectHideFlags: 1

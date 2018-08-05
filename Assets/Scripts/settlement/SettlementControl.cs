@@ -83,6 +83,11 @@ public class SettlementControl : MonoBehaviour {
                 {
                     GlobalVariable.AfterFight();
                 }
+            }
+            else
+            {
+                TertiaryMapSelect.SetScene(GlobalVariable.preMap);
+                SceneManager.LoadScene("tertiaryMap");
             } 
             return;
         }

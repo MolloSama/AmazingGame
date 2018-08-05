@@ -27,10 +27,8 @@ public class MonsterInfoDisplay : MonoBehaviour {
             GlobalVariable.monsterIllustration[monster.SerialNumber] = true;
         }
         sceneName.GetComponent<TextMesh>().text = GlobalVariable.Mountains[GlobalVariable.currentScene].name;
+        int money = Random.Range(25, 35) * GlobalVariable.sceneMonsterNumber.Count;
+        transform.Find("money").GetComponent<TextMesh>().text = "获得灵魂之凝: "+ money;
+        GlobalVariable.money += money;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

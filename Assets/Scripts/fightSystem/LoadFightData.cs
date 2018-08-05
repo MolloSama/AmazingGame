@@ -30,6 +30,7 @@ public class LoadFightData : MonoBehaviour {
             LoadAllLevel();
             LoadAllTalent();
             LoadPriceReflect();
+            LoadStoreScene();
             GlobalVariable.Realm = GlobalVariable.AllLevel[0];
             GlobalVariable.ExistingTalent.Add(GlobalVariable.AllTalent["001"]);
         }
@@ -70,6 +71,11 @@ public class LoadFightData : MonoBehaviour {
             }
             stream.Close();
         }
+    }
+
+    void LoadStoreScene()
+    {
+        GlobalVariable.StoreScenes = LoadAllLineToList("num-mount-business");
     }
 
     void LoadPriceReflect()

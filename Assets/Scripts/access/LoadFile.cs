@@ -46,5 +46,6 @@ public class LoadFile : MonoBehaviour {
         GlobalVariable.Realm = save.Realm;
         GlobalVariable.ExistingTalent = save.ExistTalents;
         GlobalVariable.ExistingMissions = save.ExistMissinos;
+        GlobalVariable.money = save.Money;
     }
 }

@@ -21,6 +21,7 @@ public class SaveModel{
     private Level realm;
     private List<Talent> existTalents;
     private List<Mission> existMissinos;
+    private int money;
 
     public List<GameProp> ExistCards
     {
@@ -230,6 +231,19 @@ public class SaveModel{
         }
     }
 
+    public int Money
+    {
+        get
+        {
+            return money;
+        }
+
+        set
+        {
+            money = value;
+        }
+    }
+
     public SaveModel()
     {
         existCards = GlobalVariable.ExistingCards;
@@ -248,5 +262,6 @@ public class SaveModel{
         realm = GlobalVariable.Realm;
         existTalents = GlobalVariable.ExistingTalent;
         existMissinos = GlobalVariable.ExistingMissions;
+        money = GlobalVariable.money;
     }
 }

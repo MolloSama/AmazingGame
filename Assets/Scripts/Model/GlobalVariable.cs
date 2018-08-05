@@ -35,6 +35,7 @@ public static class GlobalVariable{
     public static Dictionary<string, bool> itemIllustration = new Dictionary<string, bool>();
     public static Dictionary<string, bool> monsterIllustration = new Dictionary<string, bool>();
     public static Dictionary<string, string> priceReflect = new Dictionary<string, string>();
+    public static List<string> StoreScenes = new List<string>();
     public static Monster kraKen = new Monster("0", "", "kraken", 30, 15, 300, null, 1, "", "");
     public static int currentBlood = 300;
     public static string LeadName;

@@ -11,7 +11,6 @@ public class StoreControl : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        GlobalVariable.money = 10000;
 		for(int i = 0; i < 5; ++i)
         {
             GameObject cardObject = Instantiate(cardPrefab, cardPrefab.transform.position + 
