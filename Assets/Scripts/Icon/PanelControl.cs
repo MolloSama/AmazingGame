@@ -50,10 +50,11 @@ public class PanelControl : MonoBehaviour {
                         break;
                     case "SelectCard":
                         GlobalVariable.FightCards.Clear();
-
+                        GlobalVariable.FightCardsIndex.Clear();
                         for (int i = 0; i < CardSelect.count; i++)
                         {
                             GlobalVariable.FightCards.Add(CardSelect.fightCardsGrids[i].gameProp);
+                            GlobalVariable.FightCardsIndex.Add(CardSelect.fightCardsGrids[i].index);
                         }
                         CardSelect.Clear();
                         BarScript.Clear();
@@ -78,9 +79,11 @@ public class PanelControl : MonoBehaviour {
                         break;
                     case "SelectCard":
                         GlobalVariable.FightCards.Clear();
+                        GlobalVariable.FightCardsIndex.Clear();
                         for (int i = 0; i < CardSelect.count; i++)
                         {
                             GlobalVariable.FightCards.Add(CardSelect.fightCardsGrids[i].gameProp);
+                            GlobalVariable.FightCardsIndex.Add(CardSelect.fightCardsGrids[i].index);
                         }
                         CardSelect.Clear();
                         BarScript.Clear();

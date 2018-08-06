@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BarScript : MonoBehaviour {
+public class BarScript : MonoBehaviour
+{
     private CardProp gameProp = null;
 
     public static bool clickable = true;
@@ -14,15 +15,17 @@ public class BarScript : MonoBehaviour {
     {
         clickable = true;
     }
-	// Use this for initialization
-	void Start () {
-        
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     public void SetGameProp(CardProp temp)
     {

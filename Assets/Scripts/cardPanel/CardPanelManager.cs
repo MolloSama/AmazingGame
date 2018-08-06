@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-public class CardPanelManager : MonoBehaviour {
+public class CardPanelManager : MonoBehaviour
+{
 
     private readonly float firstPositionX = 0.375f;
 
@@ -32,20 +33,22 @@ public class CardPanelManager : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         CardSelect.LoadData();
         LoadCards();
-        
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     public void CancelSelect(CardProp card)
     {
-        foreach(GameObject t in cardgridobjects)
+        foreach (GameObject t in cardgridobjects)
         {
             if (t.GetComponent<CardSelect>().gameProp.Equal(card.index))
             {
@@ -59,13 +62,13 @@ public class CardPanelManager : MonoBehaviour {
 
     private void LoadCards()
     {
-        foreach(GameObject t in cardgridobjects)
+        foreach (GameObject t in cardgridobjects)
         {
             Destroy(t);
         }
         cardgridobjects.Clear();
 
-        for (int i = 0; i < row * column && (i + index) < GlobalVariable.ExistingCards.Count; i++) 
+        for (int i = 0; i < row * column && (i + index) < GlobalVariable.ExistingCards.Count; i++)
         {
             bool contains = false;
             for (int j = 0; j < CardSelect.count; j++)
@@ -85,7 +88,7 @@ public class CardPanelManager : MonoBehaviour {
                 switch (t.name)
                 {
                     case "skill-text":
-                        t.GetComponent<TextMesh>().text = 
+                        t.GetComponent<TextMesh>().text =
                             Regex.Replace(GlobalVariable.ExistingCards[i + index].Description, @"\S{8}", "$0\r\n");
                         break;
                     case "card-name":

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class CardSelect : MonoBehaviour {
+public class CardSelect : MonoBehaviour
+{
 
     public static CardSelect _instance;
 
@@ -12,7 +13,7 @@ public class CardSelect : MonoBehaviour {
     private static float positionX = -3.29f;
 
     private static float positionY = 3.678f;
-    
+
     private static float positionZ = 0.5f;
 
     private static float grapY = -0.714f;
@@ -25,7 +26,7 @@ public class CardSelect : MonoBehaviour {
 
     public static int firstindex = 0;
 
-    public static int pagenum=10;
+    public static int pagenum = 10;
 
     public static int onShowNum = 0;
 
@@ -53,9 +54,10 @@ public class CardSelect : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
-	}
+    }
 
     public void LoadCard(GameProp temp, int t)
     {
@@ -73,7 +75,7 @@ public class CardSelect : MonoBehaviour {
                     contains = true;
                     break;
                 }
-            if (!contains && clickable && BarScript.clickable) 
+            if (!contains && clickable && BarScript.clickable)
             {
                 gameObject.transform.Find("card-style").GetComponent<SpriteRenderer>().material = Resources.Load<Material>("materials/SpriteGray");
                 gameObject.transform.Find("card-raw-img").GetComponent<SpriteRenderer>().material = Resources.Load<Material>("materials/SpriteGray");
@@ -82,23 +84,23 @@ public class CardSelect : MonoBehaviour {
             }
         }
     }
-    public void CallAlterFithtGrids(bool add,int index)
+    public void CallAlterFithtGrids(bool add, int index)
     {
-        if(clickable&&BarScript.clickable)
+        if (clickable && BarScript.clickable)
             StartCoroutine(AlterFithtGrids(add, index));
     }
 
     public static void LoadData()
     {
-        for(int i = 0; i < GlobalVariable.FightCards.Count; i++)
+        for (int i = 0; i < GlobalVariable.FightCards.Count; i++)
         {
-            fightCardsGrids[i] = new CardProp(GlobalVariable.FightCards[i], i);
+            fightCardsGrids[i] = new CardProp(GlobalVariable.FightCards[i], GlobalVariable.FightCardsIndex[i]);
             count++;
         }
         Show();
     }
 
-    public IEnumerator AlterFithtGrids(bool add,int index)
+    public IEnumerator AlterFithtGrids(bool add, int index)
     {
         clickable = false;
         BarScript.clickable = false;
@@ -164,12 +166,12 @@ public class CardSelect : MonoBehaviour {
 
     private static void Show()
     {
-        foreach(GameObject t in fightCardsOnShow)
+        foreach (GameObject t in fightCardsOnShow)
         {
             Destroy(t);
         }
         onShowNum = 0;
-        for(int i = 0; i < pagenum && i + firstindex < count; i++)
+        for (int i = 0; i < pagenum && i + firstindex < count; i++)
         {
             GameObject temp = Instantiate(Resources.Load<GameObject>("cardpanel/bar2"), new Vector3(positionX, positionY + i * grapY, positionZ), Quaternion.identity);
             temp.GetComponent<BarScript>().index = firstindex + i;
@@ -193,7 +195,7 @@ public class CardSelect : MonoBehaviour {
     }
     public void PrevPage()
     {
-        if (firstindex - pagenum >= 0) 
+        if (firstindex - pagenum >= 0)
         {
             firstindex -= pagenum;
             Show();
@@ -205,7 +207,7 @@ public class CardProp
 {
     public GameProp gameProp;
     public int index;
-    public CardProp(GameProp t,int a)
+    public CardProp(GameProp t, int a)
     {
         gameProp = t;
         index = a;

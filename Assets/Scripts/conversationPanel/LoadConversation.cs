@@ -15,6 +15,8 @@ public class LoadConversation : MonoBehaviour {
 
     private List<string> conversation = new List<string>();
 
+    private int _count = 0;
+
     private int index = 0;
 
     private bool isConversationOver = false;
@@ -168,6 +170,7 @@ public class LoadConversation : MonoBehaviour {
                 case "get_card":
                     GlobalVariable.ExistingCards.Add(GlobalVariable.AllCards[data[1]]);
                     GlobalVariable.FightCards.Add(GlobalVariable.AllCards[data[1]]);
+                    GlobalVariable.FightCardsIndex.Add(GlobalVariable.ExistingCards.Count - 1);
                     GlobalVariable.cardIllustration[GlobalVariable.AllCards[data[1]].SerialNumber] = true;
                     break;
             }
@@ -238,6 +241,7 @@ public class LoadConversation : MonoBehaviour {
                             {
                                 GlobalVariable.ExistingCards.Add(GlobalVariable.AllCards["001"]);
                                 GlobalVariable.FightCards.Add(GlobalVariable.AllCards["001"]);
+                                GlobalVariable.FightCardsIndex.Add(GlobalVariable.ExistingCards.Count - 1);
                             }
                             SetConversation("0-1-1", 0, "fighting", "");
                         }
