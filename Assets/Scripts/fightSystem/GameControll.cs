@@ -72,6 +72,8 @@ public class GameControll : MonoBehaviour {
     private int maxCardCount = 14;
     private int drawCardCount = 0;
     private bool isTalent3Effect = false;
+    private bool hasEnterFriendRound = false;
+    private bool isFriendFull = false;
 
     // Use this for initialization
     void Start() {
@@ -110,20 +112,22 @@ public class GameControll : MonoBehaviour {
             selectedMonster = gameObjectMonsterReflect
              [indexGameObjectReflect[RenderMonster.currentIndex]];
         }
-        if (isMonsterFight)
+        if (isMonsterFight && !hasEnterFriendRound)
         {
             StartCoroutine(MonsterRound(friendMonsters, monsters, true));
+            hasEnterFriendRound = true;
         }
         if (isFriendRoundOver)
         {
-            friendMonsters.Add(kraken);
-            StartCoroutine(MonsterRound(monsters, friendMonsters, false));
+            List<Monster> enemys = new List<Monster>(friendMonsters);
+            enemys.Add(kraken);
+            StartCoroutine(MonsterRound(monsters, enemys, false));
             isFriendRoundOver = false;
             isMonsterFight = false;
+            hasEnterFriendRound = false;
         }
         if (playButton != null)
         {
-
             if ((CardAction.isCardSelected && RenderMonster.needClickMonster
             && RenderMonster.isMonsterSelected && !isMonsterFight) ||
             (CardAction.isCardSelected && !RenderMonster.needClickMonster && !isMonsterFight))
@@ -135,12 +139,13 @@ public class GameControll : MonoBehaviour {
                 playButton.SetActive(false);
             }
         }
-    }
-
-    IEnumerator StartMonsterRound()
-    {
-        yield return new WaitForSeconds(1f);
-
+        if (!gameObjectMonsterReflect.ContainsKey(friendPosition1) ||
+            gameObjectMonsterReflect[friendPosition1] == null ||
+            !gameObjectMonsterReflect.ContainsKey(friendPosition2) ||
+            gameObjectMonsterReflect[friendPosition2] == null)
+        {
+            isFriendFull = false;
+        }
     }
 
     private void OnDestroy()
@@ -244,6 +249,11 @@ public class GameControll : MonoBehaviour {
         if(currentEnergy - card.EnergyConsumption < 0)
         {
             SetTip("精力值不足");
+            return false;
+        }
+        else if (card.Type.Equals("a3d2") && isFriendFull)
+        {
+            SetTip("助阵异兽已满");
             return false;
         }
         else
@@ -403,24 +413,30 @@ public class GameControll : MonoBehaviour {
                 if(!gameObjectMonsterReflect.ContainsKey(friendPosition1) ||
                     gameObjectMonsterReflect[friendPosition1] == null)
                 {
-                    gameObjectMonsterReflect.Add(friendPosition1, friend);
-                    SpriteRenderer spr = friendPosition1.GetComponent<SpriteRenderer>();
-                    spr.sprite = Resources.Load<Sprite>("monsters/" + card.StatusIcon);
+                    AddFriend(friendPosition1, card, friend);
                     return;
                 }
                 else if(!gameObjectMonsterReflect.ContainsKey(friendPosition2) ||
                     gameObjectMonsterReflect[friendPosition2] == null)
                 {
-                    gameObjectMonsterReflect.Add(friendPosition2, friend);
-                    SpriteRenderer spr = friendPosition2.GetComponent<SpriteRenderer>();
-                    spr.sprite = Resources.Load<Sprite>("monsters/" + card.StatusIcon);
+                    AddFriend(friendPosition2, card, friend);
                 }
                 else
                 {
-                    SetTip("助阵异兽已满");
+                    isFriendFull = true;
                 }
                 break;
         }
+    }
+
+    void AddFriend(GameObject position, GameProp card, Monster friend)
+    {
+        gameObjectMonsterReflect.Add(position, friend);
+        SpriteRenderer spr = position.GetComponent<SpriteRenderer>();
+        spr.sprite = Resources.Load<Sprite>("monsters/" + card.StatusIcon);
+        cardGroup.Remove(card);
+        GlobalVariable.ExistingCards.Remove(GlobalVariable.AllCards[card.SerialNumber]);
+        GlobalVariable.FightCards.Remove(GlobalVariable.AllCards[card.SerialNumber]);
     }
 
     void KrakenAttackMonster(Monster monster, GameProp card, bool hasState)
@@ -447,8 +463,9 @@ public class GameControll : MonoBehaviour {
 
     IEnumerator MonsterRound(List<Monster> ownSide, List<Monster> enemys, bool isFriend)
     {
-        foreach (Monster monster in ownSide)
+        for(int i = 0; i < ownSide.Count; ++i)
         {
+            Monster monster = ownSide[i];
             int randomIndex = Random.Range(0, monster.SkillList.Count);
             GameProp skill = monster.SkillList[randomIndex];
             int randomEnemyIndex;
@@ -527,7 +544,6 @@ public class GameControll : MonoBehaviour {
         }
         else
         {
-            friendMonsters.Remove(kraken);
             isMonsterRoundOver = true;
         }
     }
@@ -805,12 +821,12 @@ public class GameControll : MonoBehaviour {
                     isAnimationEnd = true;
                 });
             }
-            if (itemCondition.KillPromote != 0)
+            if (itemCondition.KillPromote != 0 && hasEnterFriendRound)
             {
                 kraken.AttactPower += krakenBaseAttact * itemCondition.KillPromote;
                 kraken.DefensivePower += krakenBaseDefend * itemCondition.KillPromote;
             }
-            if (IsTalentEffect(2, 100))
+            if (IsTalentEffect(2, 100) && hasEnterFriendRound)
             {
                 SetEnergyFull();
                 DisplayTalentName(GlobalVariable.AllTalent["002"].Name);
@@ -967,17 +983,10 @@ public class GameControll : MonoBehaviour {
     {
         isAnimationEnd = false;
         int diff = cardGroup.Count - count;
-        if(diff == 0)
+        if(diff <= 0)
         {
-            cardGroup = DeepCopy(GlobalVariable.FightCards);
-            for (int i = 0; i < count; ++i)
-            {
-                StartCoroutine(AddOneCard(lastCardEndPosition + new Vector3(i * 0.15f, 0, 0), isDestory));
-            }
-        }
-        else if(diff < 0)
-        {
-            for(int i = 0; i < cardGroup.Count; ++i)
+            count = cardGroup.Count;
+            for(int i = 0; i < count; ++i)
             {
                 lastCardEndPosition += new Vector3(i * 0.15f, 0, 0);
                 StartCoroutine(AddOneCard(lastCardEndPosition, isDestory));
@@ -1037,7 +1046,7 @@ public class GameControll : MonoBehaviour {
         SpriteRenderer cardStyle = currentCard.transform.Find("card-style").GetComponent<SpriteRenderer>();
         SetDefaultMaterial(cardStyle);
         DOTween.ToAlpha(() => cardStyle.color
-        , x => cardStyle.color = x, 0, 1f)
+        , x => cardStyle.color = x, 0, 0.5f)
         .OnComplete(() =>
         {
             Destroy(currentCard);
@@ -1046,13 +1055,13 @@ public class GameControll : MonoBehaviour {
         });
         SpriteRenderer cardRawImg = currentCard.transform.Find("card-raw-img").GetComponent<SpriteRenderer>();
         DOTween.ToAlpha(() => cardRawImg.color
-        , x => cardRawImg.color = x, 0, 1f);
+        , x => cardRawImg.color = x, 0, 0.5f);
         TextMesh cardName = currentCard.transform.Find("card-name").GetComponent<TextMesh>();
         DOTween.ToAlpha(() => cardName.color
-        , x => cardName.color = x, 0, 1f);
+        , x => cardName.color = x, 0, 0.5f);
         TextMesh skillText = currentCard.transform.Find("skill-text").GetComponent<TextMesh>();
         DOTween.ToAlpha(() => skillText.color
-        , x => skillText.color = x, 0, 1f);
+        , x => skillText.color = x, 0, 0.5f);
         handCards.Remove(currentCardIndex);
     }
 

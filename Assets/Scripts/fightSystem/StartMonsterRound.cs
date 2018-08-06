@@ -23,7 +23,7 @@ public class StartMonsterRound : MonoBehaviour {
 
     private void OnMouseDown()
     {
-        if (gameControll.isAnimationEnd)
+        if (gameControll.isAnimationEnd && !gameControll.isMonsterFight)
         {
             StartCoroutine(JudgeKrakenStatus());
             gameControll.SetEnergyFull();
@@ -43,7 +43,7 @@ public class StartMonsterRound : MonoBehaviour {
 
     IEnumerator AddCards()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.6f);
         gameControll.AddTwoCards();
     }
 }
