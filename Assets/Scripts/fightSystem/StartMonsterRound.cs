@@ -38,6 +38,6 @@ public class StartMonsterRound : MonoBehaviour {
     IEnumerator JudgeKrakenStatus()
     {
         yield return new WaitForSeconds(gameControll.monsterNumber.Count * 0.6f);
-        gameControll.JudegStatus(gameControll.kraken, gameControll.krakenPosition.transform.position);
+        gameControll.JudegStatus(gameControll.kraken, gameControll.krakenObject.transform.position);
     }
 }

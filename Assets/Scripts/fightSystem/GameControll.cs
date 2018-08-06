@@ -20,7 +20,7 @@ public class GameControll : MonoBehaviour {
     public Transform cardStartPosition;
     public Transform cardEndPosition;
     public Transform cardOutPosition;
-    public Transform krakenPosition;
+    public GameObject krakenObject;
     public GameObject statusIcon;
     public GameObject healthChangePrefab;
     public GameObject itemPrefab;
@@ -87,6 +87,7 @@ public class GameControll : MonoBehaviour {
         krakenMaxHealth = GlobalVariable.kraKen.BloodVolume;
         krakenBaseAttact = GlobalVariable.kraKen.AttactPower;
         krakenBaseDefend = GlobalVariable.kraKen.DefensivePower;
+        gameObjectMonsterReflect.Add(krakenObject, kraken);
         currentEnergy = maxEnergy;
         playButton = GameObject.Find("playButton");
         energyStartPosition = energy.transform.position;
@@ -110,7 +111,8 @@ public class GameControll : MonoBehaviour {
         }
         if (isMonsterFight)
         {
-            StartCoroutine(MonsterRound());
+            friendMonsters.Add(kraken);
+            StartCoroutine(MonsterRound(monsters, friendMonsters));
             isMonsterFight = false;
         }
         if (playButton != null)
@@ -175,7 +177,7 @@ public class GameControll : MonoBehaviour {
         switch (item.Type)
         {
             case "a4e3":
-                AddStatus(kraken, item.StatusIcon, item.ConsecutiveRounds, item.Value, krakenPosition.position);
+                AddStatus(kraken, item.StatusIcon, item.ConsecutiveRounds, item.Value, krakenObject.transform.position);
                 break;
             case "a4e5":
                 AddStatus(kraken, item.StatusIcon, item.ConsecutiveRounds, item.Value, Vector3.zero);
@@ -258,24 +260,12 @@ public class GameControll : MonoBehaviour {
 
     public void KrakenRound(GameProp card)
     {
-        Status status;
         switch (card.Type)
         {
             case "a1b1":
                 if (card.TargetQuantity == 1)
-                {                     
-                    
-                    int demage = GetDamageValue(kraken.AttactPower * card.Value,
-                                            selectedMonster, card.Attribute);
-                    ReduceBlood(selectedMonster, demage);
-                    if ((status = HaveReboundStatus(selectedMonster.StatusList)) != null)
-                    {
-                        ReduceBlood(kraken, System.Convert.ToInt32(demage * status.Value));
-                    }
-                    if(itemCondition.BloodSucking != 0)
-                    {
-                        AddBlood(kraken, System.Convert.ToInt32(demage * itemCondition.BloodSucking));
-                    }
+                {
+                    KrakenAttackMonster(selectedMonster, card, false);
                     StartCoroutine(PlayCardAnimation(card.SerialNumber,
                         GetGameObjectByMonster(selectedMonster).transform));
                 }
@@ -285,17 +275,7 @@ public class GameControll : MonoBehaviour {
                     monstersPosition5.transform));
                     foreach (Monster monster in monsters)
                     {
-                        int demage = GetDamageValue(kraken.AttactPower * card.Value,
-                        monster, monster.Attribute);
-                        ReduceBlood(monster, demage);
-                        if ((status = HaveReboundStatus(monster.StatusList)) != null)
-                        {
-                            ReduceBlood(kraken, System.Convert.ToInt32(demage * status.Value));
-                        }
-                        if (itemCondition.BloodSucking != 0)
-                        {
-                            AddBlood(kraken, System.Convert.ToInt32(demage * itemCondition.BloodSucking));
-                        }
+                        KrakenAttackMonster(monster, card, false);
                     }
                 }
                 else
@@ -306,39 +286,17 @@ public class GameControll : MonoBehaviour {
                     {
                         int randomIndex = Random.Range(0, monsters.Count);
                         Monster monster = monsters[randomIndex];
-                        int demage = GetDamageValue(kraken.AttactPower * card.Value,
-                        monster, monster.Attribute);
-                        ReduceBlood(monster, demage);
-                        if ((status = HaveReboundStatus(monster.StatusList)) != null)
-                        {
-                            ReduceBlood(kraken, System.Convert.ToInt32(demage * status.Value));
-                        }
-                        if (itemCondition.BloodSucking != 0)
-                        {
-                            AddBlood(kraken, System.Convert.ToInt32(demage * itemCondition.BloodSucking));
-                        }
+                        KrakenAttackMonster(monster, card, false);
                     }
                 }            
                 break;
             case "a1b2":
                 if (card.TargetQuantity == 1)
                 {
-                    int demage = GetDamageValue(kraken.AttactPower * card.Value,
-                        selectedMonster, card.Attribute);
-                    EffectPropertyStatus(selectedMonster, 
-                        AddStatus(selectedMonster, card.StatusIcon, card.ConsecutiveRounds, card.Value,
-                        GetGameObjectByMonster(selectedMonster).transform.position));
                     StartCoroutine(PlayCardAnimation(card.SerialNumber,
                         GetGameObjectByMonster(selectedMonster).transform));
-                    ReduceBlood(selectedMonster, demage);
-                    if ((status = HaveReboundStatus(selectedMonster.StatusList)) != null)
-                    {
-                        ReduceBlood(kraken, System.Convert.ToInt32(demage * status.Value));
-                    }
-                    if (itemCondition.BloodSucking != 0)
-                    {
-                        AddBlood(kraken, System.Convert.ToInt32(demage * itemCondition.BloodSucking));
-                    }
+                    KrakenAttackMonster(selectedMonster, card, true);
+                    
                 }
                 else if (card.TargetQuantity == 6)
                 {
@@ -346,20 +304,7 @@ public class GameControll : MonoBehaviour {
                     monstersPosition5.transform));
                     foreach (Monster monster in monsters)
                     {
-                        int demage = GetDamageValue(kraken.AttactPower * card.Value,
-                        monster, monster.Attribute);
-                        EffectPropertyStatus(monster,
-                        AddStatus(monster, card.StatusIcon, card.ConsecutiveRounds, card.Value,
-                        GetGameObjectByMonster(monster).transform.position));
-                        ReduceBlood(monster, demage);
-                        if ((status = HaveReboundStatus(monster.StatusList)) != null)
-                        {
-                            ReduceBlood(kraken, demage);
-                        }
-                        if (itemCondition.BloodSucking != 0)
-                        {
-                            AddBlood(kraken, System.Convert.ToInt32(demage * itemCondition.BloodSucking));
-                        }
+                        KrakenAttackMonster(monster, card, true);
                     }
                 }
                 else
@@ -370,32 +315,19 @@ public class GameControll : MonoBehaviour {
                     {
                         int randomIndex = Random.Range(0, monsters.Count);
                         Monster monster = monsters[randomIndex];
-                        int demage = GetDamageValue(kraken.AttactPower * card.Value,
-                        monster, monster.Attribute);
-                        EffectPropertyStatus(monster,
-                        AddStatus(monster, card.StatusIcon, card.ConsecutiveRounds, card.Value, 
-                        GetGameObjectByMonster(monster).transform.position));
-                        ReduceBlood(monster, demage);
-                        if ((status = HaveReboundStatus(monster.StatusList)) != null)
-                        {
-                            ReduceBlood(kraken, System.Convert.ToInt32(demage * status.Value));
-                        }
-                        if (itemCondition.BloodSucking != 0)
-                        {
-                            AddBlood(kraken, System.Convert.ToInt32(demage * itemCondition.BloodSucking));
-                        }
+                        KrakenAttackMonster(monster, card, true);
                     }
                 }
                 break;
             case "a1b3":
                 isDrawCard = true;
                 StartCoroutine(PlayCardAnimation(card.SerialNumber,
-                        krakenPosition));
+                        krakenObject.transform));
                 StartCoroutine(WaitForRemoveCard(1.7f));
                 break;
             case "a1b4":
                 StartCoroutine(PlayCardAnimation(card.SerialNumber,
-                        krakenPosition));
+                        krakenObject.transform));
                 int energyValue = int.Parse(card.Value.ToString());
                 if (currentEnergy + energyValue >= maxEnergy)
                 {
@@ -409,7 +341,7 @@ public class GameControll : MonoBehaviour {
                 break;
             case "a1b5":
                 StartCoroutine(PlayCardAnimation(card.SerialNumber,
-                        krakenPosition));
+                        krakenObject.transform));
                 AddBlood(kraken, System.Convert.ToInt32(card.Value*krakenMaxHealth));
                 if (kraken.BloodVolume > krakenMaxHealth)
                 {
@@ -440,81 +372,77 @@ public class GameControll : MonoBehaviour {
                 }
                 break;
             case "a2c2":
-                StartCoroutine(PlayCardAnimation(card.SerialNumber, 
-                    krakenPosition));
+                StartCoroutine(PlayCardAnimation(card.SerialNumber,
+                    krakenObject.transform));
                 EffectPropertyStatus(kraken,
                         AddStatus(kraken, card.StatusIcon, card.ConsecutiveRounds, 
-                        card.Value, krakenPosition.position));
+                        card.Value, krakenObject.transform.position));
                 break;
             case "a3d1":
                 StartCoroutine(PlayCardAnimation(card.SerialNumber,
-                   krakenPosition));
+                   krakenObject.transform));
                 EffectPropertyStatus(kraken,
                         AddStatus(kraken, card.StatusIcon, card.ConsecutiveRounds, 
-                        card.Value, krakenPosition.position));
+                        card.Value, krakenObject.transform.position));
                 break;
             case "a3d2":
-
+                friendMonsters.Add(GlobalVariable.AllMonsters[card.Value.ToString()]);
                 break;
         }
     }
 
-    IEnumerator MonsterRound()
+    void KrakenAttackMonster(Monster monster, GameProp card, bool hasState)
     {
-        foreach (Monster monster in monsters)
+        Status status;
+        int demage = GetDamageValue(kraken.AttactPower * card.Value,
+                                            monster, card.Attribute);
+        ReduceBlood(monster, demage);
+        if (hasState)
+        {
+            EffectPropertyStatus(monster,
+                       AddStatus(monster, card.StatusIcon, card.ConsecutiveRounds, card.Value,
+                       GetGameObjectByMonster(monster).transform.position));
+        }
+        if ((status = HaveReboundStatus(monster.StatusList)) != null)
+        {
+            ReduceBlood(kraken, System.Convert.ToInt32(demage * status.Value));
+        }
+        if (itemCondition.BloodSucking != 0)
+        {
+            AddBlood(kraken, System.Convert.ToInt32(demage * itemCondition.BloodSucking));
+        }
+    }
+
+    IEnumerator MonsterRound(List<Monster> ownSide, List<Monster> enemys)
+    {
+        foreach (Monster monster in ownSide)
         {
             int randomIndex = Random.Range(0, monster.SkillList.Count);
             GameProp skill = monster.SkillList[randomIndex];
-            Status status;
-            int demage;
+            int randomEnemyIndex;
+            Monster randomEnemy;
             switch (skill.Type)
             {
                 case "a1b1":
-                    demage = GetDamageValue(monster.AttactPower * skill.Value,
-                        kraken, skill.Attribute);
-                    ReduceBlood(kraken, demage);
-                    GetGameObjectByMonster(monster).transform.DOShakePosition(1f, 0.07f);
-                    if ((status = HaveReboundStatus(kraken.StatusList)) != null)
+                    if(skill.TargetQuantity == 3)
                     {
-                        ReduceBlood(monster, System.Convert.ToInt32(demage * status.Value));
-                    }
-                    if (IsTalentEffect(4, 10))
-                    {
-                        foreach (Status state in kraken.StatusList)
+                        foreach(Monster enemy in enemys)
                         {
-                            if (IsStateBad(state))
-                            {
-                                TackBackStatus(kraken, state);
-                            }
+                            MonsterAttactEnemy(monster, enemy, skill, false);
                         }
-                        DisplayTalentName(GlobalVariable.AllTalent["004"].Name);
                     }
-                    StartCoroutine(PlayCardAnimation(skill.SerialNumber, krakenPosition));
+                    else
+                    {
+                        randomEnemyIndex = Random.Range(0, enemys.Count);
+                        randomEnemy = enemys[randomEnemyIndex];
+                        MonsterAttactEnemy(monster, randomEnemy, skill, false);
+                    }
                     yield return new WaitForSeconds(1f);
                     break;
                 case "a1b2":
-                   demage = GetDamageValue(monster.AttactPower * skill.Value,
-                            kraken, skill.Attribute);
-                    ReduceBlood(kraken, demage);
-                    EffectPropertyStatus(kraken,
-                            AddStatus(kraken, skill.StatusIcon, skill.ConsecutiveRounds, skill.Value,
-                        krakenPosition.position));
-                    GetGameObjectByMonster(monster).transform.DOShakePosition(1f);
-                    if ((status = HaveReboundStatus(kraken.StatusList)) != null)
-                    {
-                        ReduceBlood(monster, System.Convert.ToInt32(demage * status.Value));
-                    }
-                    if (IsTalentEffect(4, 10))
-                    {
-                        foreach (Status state in kraken.StatusList)
-                        {
-                            if (IsStateBad(state))
-                            {
-                                TackBackStatus(kraken, state);
-                            }
-                        }
-                        DisplayTalentName(GlobalVariable.AllTalent["004"].Name);
-                    }
+                    randomEnemyIndex = Random.Range(0, enemys.Count);
+                    randomEnemy = enemys[randomEnemyIndex];
+                    MonsterAttactEnemy(monster, randomEnemy, skill, true);
                     yield return new WaitForSeconds(1f);
                     break;
                 case "a1b5":
@@ -526,18 +454,20 @@ public class GameControll : MonoBehaviour {
                     }
                     else if (skill.TargetQuantity == 7)
                     {
-                        foreach (Monster m in monsters)
+                        foreach (Monster m in ownSide)
                         {
                             int value = System.Convert.ToInt32(skill.Value * GlobalVariable.
                         AllMonsters[m.SerialNumber].BloodVolume);
-                            AddBlood(monster, value);
+                            AddBlood(m, value);
                         }
                     }
                     break;
                 case "a2c1":
-                    EffectPropertyStatus(kraken,
-                           AddStatus(kraken, skill.StatusIcon, skill.ConsecutiveRounds, skill.Value, 
-                           krakenPosition.position));
+                    randomEnemyIndex = Random.Range(0, enemys.Count);
+                    randomEnemy = enemys[randomEnemyIndex];
+                    EffectPropertyStatus(randomEnemy,
+                           AddStatus(randomEnemy, skill.StatusIcon, skill.ConsecutiveRounds, skill.Value,
+                           GetGameObjectByMonster(randomEnemy).transform.position));
                     break;
                 case "a2c2":
                     if (skill.TargetQuantity == 0)
@@ -548,7 +478,7 @@ public class GameControll : MonoBehaviour {
                     }
                     else if (skill.TargetQuantity == 7)
                     {
-                        foreach (Monster m in monsters)
+                        foreach (Monster m in ownSide)
                         {
                             EffectPropertyStatus(m,
                           AddStatus(m, skill.StatusIcon, skill.ConsecutiveRounds, skill.Value,
@@ -560,6 +490,37 @@ public class GameControll : MonoBehaviour {
             JudegStatus(monster, GetGameObjectByMonster(monster).transform.position);
         }
         isMonsterRoundOver = true;
+    }
+
+    void MonsterAttactEnemy(Monster monster, Monster enemy, GameProp skill, bool hasState)
+    {
+        Status status;
+        int demage = GetDamageValue(monster.AttactPower * skill.Value,
+                                           enemy, skill.Attribute);
+        ReduceBlood(enemy, demage);
+        if (hasState)
+        {
+            EffectPropertyStatus(enemy,
+                           AddStatus(enemy, skill.StatusIcon, skill.ConsecutiveRounds, skill.Value,
+                       GetGameObjectByMonster(enemy).transform.position));
+        }
+        GetGameObjectByMonster(monster).transform.DOShakePosition(1f, 0.07f);
+        if ((status = HaveReboundStatus(enemy.StatusList)) != null)
+        {
+            ReduceBlood(monster, System.Convert.ToInt32(demage * status.Value));
+        }
+        if (enemy.Name.Equals("kraken") && IsTalentEffect(4, 10))
+        {
+            foreach (Status state in enemy.StatusList)
+            {
+                if (IsStateBad(state))
+                {
+                    TackBackStatus(enemy, state);
+                }
+            }
+            DisplayTalentName(GlobalVariable.AllTalent["004"].Name);
+        }
+        StartCoroutine(PlayCardAnimation(skill.SerialNumber, GetGameObjectByMonster(enemy).transform));
     }
 
     IEnumerator WaitForRemoveCard(float second)
@@ -740,15 +701,7 @@ public class GameControll : MonoBehaviour {
 
     void SetHealthChangeValue(int value, Monster monster, string mark)
     {
-        Vector3 positon;
-        if (monster.Name == "kraken")
-        {
-            positon = krakenPosition.position;
-        }
-        else
-        {
-            positon = GetGameObjectByMonster(monster).transform.position;
-        }
+        Vector3 positon = GetGameObjectByMonster(monster).transform.position;
         if(mark == "+")
         {
             positon = positon + new Vector3(-0.6f, 0.23f, 0);
