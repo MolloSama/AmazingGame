@@ -39,6 +39,7 @@ public class GameControll : MonoBehaviour {
     public bool isMonsterFight = false;
     [HideInInspector]
     public bool isMonsterRoundOver = false;
+    private bool isFriendRoundOver = false;
     private Monster selectedMonster;
     [HideInInspector]
     public Monster kraken;
@@ -67,7 +68,7 @@ public class GameControll : MonoBehaviour {
     private bool isKrakenDeath = false;
     [HideInInspector]
     public List<GameProp> cardGroup = new List<GameProp>();
-    private List<Monster> friendMonsters = new List<Monster>();
+    public List<Monster> friendMonsters = new List<Monster>();
     private int maxCardCount = 14;
     private int drawCardCount = 0;
     private bool isTalent3Effect = false;
@@ -111,8 +112,13 @@ public class GameControll : MonoBehaviour {
         }
         if (isMonsterFight)
         {
+            StartCoroutine(MonsterRound(friendMonsters, monsters, true));
+        }
+        if (isFriendRoundOver)
+        {
             friendMonsters.Add(kraken);
-            StartCoroutine(MonsterRound(monsters, friendMonsters));
+            StartCoroutine(MonsterRound(monsters, friendMonsters, false));
+            isFriendRoundOver = false;
             isMonsterFight = false;
         }
         if (playButton != null)
@@ -129,6 +135,12 @@ public class GameControll : MonoBehaviour {
                 playButton.SetActive(false);
             }
         }
+    }
+
+    IEnumerator StartMonsterRound()
+    {
+        yield return new WaitForSeconds(1f);
+
     }
 
     private void OnDestroy()
@@ -386,7 +398,27 @@ public class GameControll : MonoBehaviour {
                         card.Value, krakenObject.transform.position));
                 break;
             case "a3d2":
-                friendMonsters.Add(GlobalVariable.AllMonsters[card.Value.ToString()]);
+                Monster friend = DeepCopy(GlobalVariable.AllMonsters[card.Value.ToString()]);
+                friendMonsters.Add(friend);
+                if(!gameObjectMonsterReflect.ContainsKey(friendPosition1) ||
+                    gameObjectMonsterReflect[friendPosition1] == null)
+                {
+                    gameObjectMonsterReflect.Add(friendPosition1, friend);
+                    SpriteRenderer spr = friendPosition1.GetComponent<SpriteRenderer>();
+                    spr.sprite = Resources.Load<Sprite>("monsters/" + card.StatusIcon);
+                    return;
+                }
+                else if(!gameObjectMonsterReflect.ContainsKey(friendPosition2) ||
+                    gameObjectMonsterReflect[friendPosition2] == null)
+                {
+                    gameObjectMonsterReflect.Add(friendPosition2, friend);
+                    SpriteRenderer spr = friendPosition2.GetComponent<SpriteRenderer>();
+                    spr.sprite = Resources.Load<Sprite>("monsters/" + card.StatusIcon);
+                }
+                else
+                {
+                    SetTip("助阵异兽已满");
+                }
                 break;
         }
     }
@@ -413,7 +445,7 @@ public class GameControll : MonoBehaviour {
         }
     }
 
-    IEnumerator MonsterRound(List<Monster> ownSide, List<Monster> enemys)
+    IEnumerator MonsterRound(List<Monster> ownSide, List<Monster> enemys, bool isFriend)
     {
         foreach (Monster monster in ownSide)
         {
@@ -489,7 +521,15 @@ public class GameControll : MonoBehaviour {
             }
             JudegStatus(monster, GetGameObjectByMonster(monster).transform.position);
         }
-        isMonsterRoundOver = true;
+        if (isFriend)
+        {
+            isFriendRoundOver = true;
+        }
+        else
+        {
+            friendMonsters.Remove(kraken);
+            isMonsterRoundOver = true;
+        }
     }
 
     void MonsterAttactEnemy(Monster monster, Monster enemy, GameProp skill, bool hasState)
@@ -751,6 +791,7 @@ public class GameControll : MonoBehaviour {
                 {
                     spr.sprite = Resources.Load<Sprite>("monsters/transparent");
                     monsters.Remove(monster);
+                    gameObjectMonsterReflect[gameObject] = null;
                     isAnimationEnd = true;
                 });
             foreach (GameObject status in monster.StatusIndexReflect.Values)

@@ -868,7 +868,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: b180f920877fcb54785f7c2ac2ffe42c, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1555,8 +1555,8 @@ MonoBehaviour:
   tipGameObject: {fileID: 697306521}
   talentNamePrefab: {fileID: 1164876192713352, guid: b770ca758e89ede4eb28d1d2747792e9,
     type: 2}
-  friendPosition1: {fileID: 0}
-  friendPosition2: {fileID: 0}
+  friendPosition1: {fileID: 369405729}
+  friendPosition2: {fileID: 1231664295}
   monsterNumber: []
   isMonsterFight: 0
   isMonsterRoundOver: 0
@@ -1568,6 +1568,7 @@ MonoBehaviour:
   isDrawCard: 0
   isItemAnimationEnd: 1
   cardGroup: []
+  friendMonsters: []
 --- !u!4 &783834606
 Transform:
   m_ObjectHideFlags: 0
@@ -2831,7 +2832,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: b180f920877fcb54785f7c2ac2ffe42c, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

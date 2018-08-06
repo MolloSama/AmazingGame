@@ -15,7 +15,7 @@ public class StartMonsterRound : MonoBehaviour {
 	void Update () {
         if(gameControll.isMonsterRoundOver && isClick)
         {
-            gameControll.AddTwoCards();
+            StartCoroutine(AddCards());
             gameControll.isMonsterRoundOver = false;
             isClick = false;
         }
@@ -32,12 +32,18 @@ public class StartMonsterRound : MonoBehaviour {
             gameControll.ClickSelectedMonster();
             gameControll.ClickSelectedCard();
             gameControll.isAnimationEnd = false;
-        }      
+        }
     }
 
     IEnumerator JudgeKrakenStatus()
     {
         yield return new WaitForSeconds(gameControll.monsterNumber.Count * 0.6f);
         gameControll.JudegStatus(gameControll.kraken, gameControll.krakenObject.transform.position);
+    }
+
+    IEnumerator AddCards()
+    {
+        yield return new WaitForSeconds(0.5f);
+        gameControll.AddTwoCards();
     }
 }
