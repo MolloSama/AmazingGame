@@ -8,6 +8,7 @@ public static class GlobalVariable{
     public static Dictionary<string, GameProp> AllCards = new Dictionary<string, GameProp>();
     public static List<GameProp> ExistingCards = new List<GameProp>();
     public static List<GameProp> FightCards = new List<GameProp>();
+    public static List<int> FightCardsIndex = new List<int>();
     public static Dictionary<string, GameProp> AllGameItems = new Dictionary<string, GameProp>();
     public static List<GameProp> BattleItems = new List<GameProp>();
     public static List<GameProp> PlotItems = new List<GameProp>();
