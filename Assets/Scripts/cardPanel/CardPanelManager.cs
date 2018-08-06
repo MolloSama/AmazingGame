@@ -50,7 +50,7 @@ public class CardPanelManager : MonoBehaviour
     {
         foreach (GameObject t in cardgridobjects)
         {
-            if (t.GetComponent<CardSelect>().gameProp.Equal(card.index))
+            if (t.GetComponent<CardSelect>().gameProp.index.Equals(card.index))
             {
                 t.transform.Find("card-style").GetComponent<SpriteRenderer>().material = Resources.Load<Material>("materials/Default");
                 t.transform.Find("card-raw-img").GetComponent<SpriteRenderer>().material = Resources.Load<Material>("materials/Default");
@@ -73,7 +73,7 @@ public class CardPanelManager : MonoBehaviour
             bool contains = false;
             for (int j = 0; j < CardSelect.count; j++)
             {
-                if (CardSelect.fightCardsGrids[j].Equal(i + index))
+                if (CardSelect.fightCardsGrids[j].index.Equals(i + index))
                 {
                     contains = true;
                     break;

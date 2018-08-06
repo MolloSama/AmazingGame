@@ -70,7 +70,7 @@ public class CardSelect : MonoBehaviour
         if (count < GlobalVariable.MAX_NUMBER_OF_FIGHT_CARDS)
         {
             for (int i = 0; i < count; i++)
-                if (fightCardsGrids[i].Equal(gameProp.index))
+                if (fightCardsGrids[i].index.Equals(gameProp.index))
                 {
                     contains = true;
                     break;
@@ -203,19 +203,5 @@ public class CardSelect : MonoBehaviour
     }
 }
 
-public class CardProp
-{
-    public GameProp gameProp;
-    public int index;
-    public CardProp(GameProp t, int a)
-    {
-        gameProp = t;
-        index = a;
-    }
-    public bool Equal(int s)
-    {
-        return index == s;
-    }
-}
 
 

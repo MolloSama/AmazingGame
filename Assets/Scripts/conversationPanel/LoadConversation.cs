@@ -15,8 +15,6 @@ public class LoadConversation : MonoBehaviour {
 
     private List<string> conversation = new List<string>();
 
-    private int _count = 0;
-
     private int index = 0;
 
     private bool isConversationOver = false;

@@ -9,6 +9,8 @@ public class MergeSelect : MonoBehaviour {
     public bool isMerge = false;
     public bool isSelect = false;
     public int number;
+    public static GameObject[] mergeCardsGrids = new GameObject[3];
+
 
 	// Use this for initialization
 	void Start () {
@@ -37,6 +39,8 @@ public class MergeSelect : MonoBehaviour {
                     temp.GetComponent<MergeSelect>().LoadCard(card.gameProp, card.index);
                     temp.GetComponent<MergeSelect>().isMerge = true;
                     temp.GetComponent<MergeSelect>().number = i;
+
+                    temp.transform.parent = gameObject.transform.parent.parent;
                     foreach (Transform t in temp.transform)
                     {
                         switch (t.name)
@@ -67,6 +71,7 @@ public class MergeSelect : MonoBehaviour {
                     gameObject.GetComponent<SpriteRenderer>().material = Resources.Load<Material>("materials/SpriteGray");
                     gameObject.transform.Find("number").GetComponent<SpriteRenderer>().material = Resources.Load<Material>("materials/SpriteGray");
                     MergeManager._instance.mergeCards[i] = card;
+                    mergeCardsGrids[i] = temp;
                     break;
                 }
             }
@@ -84,6 +89,8 @@ public class MergeSelect : MonoBehaviour {
             }
             MergeManager._instance.mergeCards[number] = null;
             Destroy(gameObject);
+            int i = gameObject.GetComponent<MergeSelect>().number;
+            mergeCardsGrids[i] = null;
         }
     }
 }

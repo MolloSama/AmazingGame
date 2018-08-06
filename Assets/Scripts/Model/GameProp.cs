@@ -44,3 +44,13 @@ public class GameProp{
         StatusIcon = statusIcon;
     }
 }
+public class CardProp
+{
+    public GameProp gameProp;
+    public int index;
+    public CardProp(GameProp t, int a)
+    {
+        gameProp = t;
+        index = a;
+    }
+}

@@ -15,8 +15,6 @@ public class MergeManager : MonoBehaviour {
 
     public List<GameObject> cardGridObjects = new List<GameObject>();
 
-    public Dictionary<GameObject, GameProp> gameObjectPropReflect = new Dictionary<GameObject, GameProp>();
-
     public CardProp[] mergeCards = new CardProp[3];
 
     public GameObject[] mergePosition = new GameObject[4];
@@ -26,6 +24,8 @@ public class MergeManager : MonoBehaviour {
     public static MergeManager _instance;
 
     public GameObject mergeButton;
+
+    public bool clearMergeCards = false;
 
     private void Awake()
     {
@@ -61,18 +61,26 @@ public class MergeManager : MonoBehaviour {
         return false;
     }
 
-    private void LoadCards()
+    public void LoadCards()
     {
+        if (clearMergeCards)
+        {
+            for (int i = 0; i < 3; i++)
+                mergeCards[i] = null;
+        }
+        clearMergeCards = false;
         foreach (GameObject t in cardGridObjects)
         {
             if(t!=null)
                 Destroy(t);
         }
         cardGridObjects.Clear();
+        if (index >= GlobalVariable.ExistingCards.Count)
+            index -= 9;
         for (int i = 0; i < 9 && (i + index) < GlobalVariable.ExistingCards.Count; i++)
         {
             bool contains = false;
-            for(int j = 0; j < mergeCards.Length; j++)
+            for(int j = 0; j < 3; j++)
             {
                 if (mergeCards[j] != null && mergeCards[j].index == i + index)
                 {
