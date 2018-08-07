@@ -211,11 +211,8 @@ public class LoadConversation : MonoBehaviour {
                     GlobalVariable.BeforeFight();
                     break;
                 case "tertiaryMap":
-                    if(conversationSerialNumber.Split('-').Length > 4)
-                    {
-                        SceneManager.LoadScene(nextScene);
-                    }
-                    else if (!GlobalVariable.JudgeMission(false))
+                    if(conversationSerialNumber.Split('-').Length > 4 || 
+                        !GlobalVariable.JudgeMission(false))
                     {
                         SceneManager.LoadScene(nextScene);
                     }

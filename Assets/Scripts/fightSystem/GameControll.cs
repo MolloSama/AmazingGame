@@ -478,10 +478,8 @@ public class GameControll : MonoBehaviour {
         for(int i = 0; i < ownSide.Count; ++i)
         {
             Monster monster = ownSide[i];
-            int randomIndex = Random.Range(0, monster.SkillList.Count);
-            GameProp skill = monster.SkillList[randomIndex];
-            int randomEnemyIndex;
-            Monster randomEnemy;
+            GameProp skill = SkillAI(monster);
+            Monster selectEnemy = EnemyAI(enemys);
             switch (skill.Type)
             {
                 case "a1b1":
@@ -494,16 +492,12 @@ public class GameControll : MonoBehaviour {
                     }
                     else
                     {
-                        randomEnemyIndex = Random.Range(0, enemys.Count);
-                        randomEnemy = enemys[randomEnemyIndex];
-                        MonsterAttactEnemy(monster, randomEnemy, skill, false);
+                        MonsterAttactEnemy(monster, selectEnemy, skill, false);
                     }
                     yield return new WaitForSeconds(1f);
                     break;
                 case "a1b2":
-                    randomEnemyIndex = Random.Range(0, enemys.Count);
-                    randomEnemy = enemys[randomEnemyIndex];
-                    MonsterAttactEnemy(monster, randomEnemy, skill, true);
+                    MonsterAttactEnemy(monster, selectEnemy, skill, true);
                     yield return new WaitForSeconds(1f);
                     break;
                 case "a1b5":
@@ -524,11 +518,9 @@ public class GameControll : MonoBehaviour {
                     }
                     break;
                 case "a2c1":
-                    randomEnemyIndex = Random.Range(0, enemys.Count);
-                    randomEnemy = enemys[randomEnemyIndex];
-                    EffectPropertyStatus(randomEnemy,
-                           AddStatus(randomEnemy, skill.StatusIcon, skill.ConsecutiveRounds, skill.Value,
-                           GetGameObjectByMonster(randomEnemy).transform.position));
+                    EffectPropertyStatus(selectEnemy,
+                           AddStatus(selectEnemy, skill.StatusIcon, skill.ConsecutiveRounds, skill.Value,
+                           GetGameObjectByMonster(selectEnemy).transform.position));
                     break;
                 case "a2c2":
                     if (skill.TargetQuantity == 0)
@@ -558,6 +550,114 @@ public class GameControll : MonoBehaviour {
         {
             isMonsterRoundOver = true;
         }
+    }
+
+    GameProp SkillAI(Monster monster)
+    {
+        GameProp skill;
+        if (monster.BloodVolume < GlobalVariable.AllMonsters[monster.SerialNumber].BloodVolume * 0.2)
+        {
+            if ((skill = GetMonsterAddBloodSkill(monster)) != null)
+            {
+                return skill;
+            }
+            else if((skill = GetMonsterDefendSkill(monster)) != null)
+            {
+                return skill;
+            }
+        } 
+        if ((skill = GetMonsterAttactSkill(monster)) != null)
+        {
+            if (kraken.BloodVolume < krakenMaxHealth * 0.3)
+            {
+                return skill;
+            }
+            foreach (Status status in monster.StatusList)
+            {
+                if (status.Code.Equals("attack_add"))
+                {
+                    return skill;
+                }
+            }
+        }
+        if (GetDefendStateCount(monster) >= 2 &&
+            GetMonsterAttactSkill(monster) != null)
+        {
+            do
+            {
+                int index = Random.Range(0, monster.SkillList.Count);
+                skill = monster.SkillList[index];
+            } while (skill.SerialNumber.Equals("1002"));
+            return skill;
+        }
+        int randomIndex = Random.Range(0, monster.SkillList.Count);
+        skill = monster.SkillList[randomIndex];
+        return skill;
+    }
+
+    Monster EnemyAI(List<Monster> enemys)
+    {
+        if (enemys.Contains(kraken) &&
+            kraken.BloodVolume < krakenMaxHealth * 0.3)
+        {
+            return kraken;
+        }
+        int randomEnemyIndex = Random.Range(0, enemys.Count);
+        Monster randomEnemy = enemys[randomEnemyIndex];
+        return randomEnemy;
+    }
+
+    GameProp GetMonsterAttactSkill(Monster monster)
+    {
+        foreach(GameProp skill in monster.SkillList)
+        {
+            if (skill.SerialNumber.Equals("1001") ||
+                skill.SerialNumber.Equals("1011"))
+            {
+                return skill;
+            }
+        }
+        return null;
+    }
+
+    GameProp GetMonsterAddBloodSkill(Monster monster)
+    {
+        foreach (GameProp skill in monster.SkillList)
+        {
+            if (skill.SerialNumber.Equals("1008") ||
+                skill.SerialNumber.Equals("1009") ||
+                skill.SerialNumber.Equals("1010"))
+            {
+                return skill;
+            }
+        }
+        return null;
+    }
+
+    GameProp GetMonsterDefendSkill(Monster monster)
+    {
+        foreach (GameProp skill in monster.SkillList)
+        {
+            if (skill.SerialNumber.Equals("1002") ||
+                skill.SerialNumber.Equals("1007"))
+            {
+                return skill;
+            }
+        }
+        return null;
+    }
+
+    int GetDefendStateCount(Monster monster)
+    {
+        int count = 0;
+        foreach (Status status in monster.StatusList)
+        {
+            if (status.Code.Equals("defend_add"))
+            {
+                ++count;
+            }
+        }
+        return count;
     }
 
     void MonsterAttactEnemy(Monster monster, Monster enemy, GameProp skill, bool hasState)
