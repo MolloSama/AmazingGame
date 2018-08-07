@@ -7,7 +7,7 @@ public class MapTextOrder : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         MeshRenderer myMeshRenderer = gameObject.GetComponent<MeshRenderer>();
-        myMeshRenderer.sortingLayerName = "midleground";
-        myMeshRenderer.sortingOrder = 1;
+        myMeshRenderer.sortingLayerName = "foreground";
+        myMeshRenderer.sortingOrder = 4;
     }
 }

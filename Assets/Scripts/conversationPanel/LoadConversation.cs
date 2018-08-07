@@ -210,7 +210,7 @@ public class LoadConversation : MonoBehaviour {
                 case "mainLine":
                     GlobalVariable.BeforeFight();
                     break;
-                case "tertiaryMap":
+                case "ready":
                     if(conversationSerialNumber.Split('-').Length > 4 || 
                         !GlobalVariable.JudgeMission(false))
                     {

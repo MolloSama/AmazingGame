@@ -273,12 +273,12 @@
     <Compile Include="Assets\Scripts\illustration\IllustrationControl.cs" />
     <Compile Include="Assets\Scripts\illustration\ReturnStart.cs" />
     <Compile Include="Assets\Scripts\illustration\TurnPage.cs" />
+    <Compile Include="Assets\Scripts\map\FirstMap.cs" />
     <Compile Include="Assets\Scripts\map\IntoFight.cs" />
-    <Compile Include="Assets\Scripts\map\MainMapMouse.cs" />
     <Compile Include="Assets\Scripts\map\MapTextOrder.cs" />
     <Compile Include="Assets\Scripts\map\ReturnGray.cs" />
-    <Compile Include="Assets\Scripts\map\SecondarySelect.cs" />
-    <Compile Include="Assets\Scripts\map\TertiaryMapSelect.cs" />
+    <Compile Include="Assets\Scripts\map\SecondMap.cs" />
+    <Compile Include="Assets\Scripts\map\ThridMap.cs" />
     <Compile Include="Assets\Scripts\Merge\Merge.cs" />
     <Compile Include="Assets\Scripts\Merge\MergeControl.cs" />
     <Compile Include="Assets\Scripts\Merge\MergeManager.cs" />

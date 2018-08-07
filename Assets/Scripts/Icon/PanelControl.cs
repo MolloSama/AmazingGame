@@ -7,42 +7,22 @@ public class PanelControl : MonoBehaviour {
     public static bool open = false;
     public static GameObject openObject;
     public static int count;
+    public static PanelControl _instance;
+
 
 	// Use this for initialization
 	void Start () {
-		
+        _instance = this;
 	}
 
     private void OnMouseUpAsButton()
     {
         if (open)
         {
+            
+
             if (openObject.name.Equals(name))
             {
-                switch (SceneManager.GetActiveScene().name)
-                {
-                    case "mainMap":
-                        GameObject.Find("1").GetComponent<BoxCollider2D>().enabled = true;
-                        break;
-                    case "secondaryMap":
-                        GameObject.Find("1").GetComponent<BoxCollider2D>().enabled = true;
-                        GameObject.Find("2").GetComponent<BoxCollider2D>().enabled = true;
-                        GameObject.Find("3").GetComponent<BoxCollider2D>().enabled = true;
-                        GameObject.Find("4").GetComponent<BoxCollider2D>().enabled = true;
-                        GameObject.Find("5").GetComponent<BoxCollider2D>().enabled = true;
-                        GameObject.Find("6").GetComponent<BoxCollider2D>().enabled = true;
-                        GameObject.Find("7").GetComponent<BoxCollider2D>().enabled = true;
-                        GameObject.Find("8").GetComponent<BoxCollider2D>().enabled = true;
-                        break;
-                    case "tertiaryMap":
-                        for (int i = 1; i < count + 1; i++)
-                        {
-                            GameObject.Find(i.ToString()).GetComponent<BoxCollider>().enabled = true;
-                        }
-                        break;
-                    default:
-                        break;
-                }
                 switch (name)
                 {
                     case "Backpack":
@@ -62,6 +42,13 @@ public class PanelControl : MonoBehaviour {
                         break;
                     case "SkillSelect":
                         SkillSelect.Clear();
+                        Destroy(openObject);
+                        break;
+                    case "Merge":
+                        MergeSelect.Clear();
+                        Destroy(openObject);
+                        break;
+                    case "Map":
                         Destroy(openObject);
                         break;
                     default:
@@ -93,6 +80,13 @@ public class PanelControl : MonoBehaviour {
                         SkillSelect.Clear();
                         Destroy(openObject);
                         break;
+                    case "Merge":
+                        MergeSelect.Clear();
+                        Destroy(openObject);
+                        break;
+                    case "Map":
+                        Destroy(openObject);
+                        break;
                     default:
                         break;
                 }
@@ -110,6 +104,13 @@ public class PanelControl : MonoBehaviour {
                         openObject = Instantiate(Resources.Load<GameObject>("PanelPrefabs/SkillSelect"), new Vector3(0, 0, 0), Quaternion.identity);
                         openObject.name = "SkillSelect";
                         break;
+                    case "Merge":
+                        openObject = Instantiate(Resources.Load<GameObject>("PanelPrefabs/MergeCard"), new Vector3(0, 0, 0), Quaternion.identity);
+                        openObject.name = "Merge";
+                        break;
+                    case "Map":
+                        OpenMap();
+                        break;
                     default:
                         break;
                 }
@@ -119,30 +120,6 @@ public class PanelControl : MonoBehaviour {
         }
         if (!open)
         {
-            switch (SceneManager.GetActiveScene().name)
-            {
-                case "mainMap":
-                    GameObject.Find("1").GetComponent<BoxCollider2D>().enabled = false;
-                    break;
-                case "secondaryMap":
-                    GameObject.Find("1").GetComponent<BoxCollider2D>().enabled = false;
-                    GameObject.Find("2").GetComponent<BoxCollider2D>().enabled = false;
-                    GameObject.Find("3").GetComponent<BoxCollider2D>().enabled = false;
-                    GameObject.Find("4").GetComponent<BoxCollider2D>().enabled = false;
-                    GameObject.Find("5").GetComponent<BoxCollider2D>().enabled = false;
-                    GameObject.Find("6").GetComponent<BoxCollider2D>().enabled = false;
-                    GameObject.Find("7").GetComponent<BoxCollider2D>().enabled = false;
-                    GameObject.Find("8").GetComponent<BoxCollider2D>().enabled = false;
-                    break;
-                case "tertiaryMap":
-                    for (int i = 1; i < count + 1; i++) 
-                    {
-                        GameObject.Find(i.ToString()).GetComponent<BoxCollider>().enabled = false;
-                    }
-                    break;
-                default:
-                    break;
-            }
             switch (name)
             {
                 case "Backpack":
@@ -157,6 +134,13 @@ public class PanelControl : MonoBehaviour {
                     openObject = Instantiate(Resources.Load<GameObject>("PanelPrefabs/SkillSelect"), new Vector3(0, 0, 0), Quaternion.identity);
                     openObject.name = "SkillSelect";
                     break;
+                case "Merge":
+                    openObject=Instantiate(Resources.Load<GameObject>("PanelPrefabs/MergeCard"), new Vector3(0, 0, 0), Quaternion.identity);
+                    openObject.name = "Merge";
+                    break;
+                case "Map":
+                    OpenMap();
+                    break;
                 default:
                     break;
             }
@@ -168,5 +152,27 @@ public class PanelControl : MonoBehaviour {
     {
         open = false;
         openObject = null;
+    }
+    public void OpenMap()
+    {
+        if (GlobalVariable.sceneflag == 3)
+        {
+            ThridMap.SetScene(GlobalVariable.preMap);
+            openObject = Instantiate(Resources.Load<GameObject>("PanelPrefabs/ThridMap"), new Vector3(0, 0, 0), Quaternion.identity);
+            openObject.name = "Map";
+        }
+        if (GlobalVariable.sceneflag == 2)
+        {
+            //ThridMap.SetScene(GlobalVariable.preMap);
+            openObject = Instantiate(Resources.Load<GameObject>("PanelPrefabs/SecondMap"), new Vector3(0, 0, 0), Quaternion.identity);
+            openObject.name = "Map";
+        }
+        if (GlobalVariable.sceneflag == 1)
+        {
+            //ThridMap.SetScene(GlobalVariable.preMap);
+            openObject = Instantiate(Resources.Load<GameObject>("PanelPrefabs/FirstMap"), new Vector3(0, 0, 0), Quaternion.identity);
+            openObject.name = "Map";
+        }
+        open = true;
     }
 }

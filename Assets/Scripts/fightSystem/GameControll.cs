@@ -963,8 +963,7 @@ public class GameControll : MonoBehaviour {
             else if (itemCondition.Revive != null)
             {
                 Destroy(itemSpriteReflect[itemCondition.Revive]);
-                TertiaryMapSelect.SetScene(GlobalVariable.preMap);
-                SceneManager.LoadScene("tertiaryMap");
+                SceneManager.LoadScene("ready");
             }
             else
             {

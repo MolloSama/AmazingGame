@@ -25,8 +25,8 @@ public class AcceptMission : MonoBehaviour {
             case "mainLine":
                 GlobalVariable.BeforeFight();
                 break;
-            case "tertiaryMap":
-                SceneManager.LoadScene("tertiaryMap");
+            case "ready":
+                SceneManager.LoadScene("ready");
                 break;
         }
     }

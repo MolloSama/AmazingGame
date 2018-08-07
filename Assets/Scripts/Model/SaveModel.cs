@@ -22,6 +22,7 @@ public class SaveModel{
     private List<Talent> existTalents;
     private List<Mission> existMissinos;
     private int money;
+    private List<int> fightCardsIndex;
 
     public List<GameProp> ExistCards
     {
@@ -244,6 +245,19 @@ public class SaveModel{
         }
     }
 
+    public List<int> FightCardsIndex
+    {
+        get
+        {
+            return fightCardsIndex;
+        }
+
+        set
+        {
+            fightCardsIndex = value;
+        }
+    }
+
     public SaveModel()
     {
         existCards = GlobalVariable.ExistingCards;
@@ -263,5 +277,6 @@ public class SaveModel{
         existTalents = GlobalVariable.ExistingTalent;
         existMissinos = GlobalVariable.ExistingMissions;
         money = GlobalVariable.money;
+        fightCardsIndex = GlobalVariable.FightCardsIndex;
     }
 }

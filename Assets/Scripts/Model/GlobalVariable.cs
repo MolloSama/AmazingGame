@@ -42,9 +42,10 @@ public static class GlobalVariable{
     public static string LeadName;
     public static Level Realm;
     public static string currentScene = "scene2";
-    public static string preMap = null;
+    public static string preMap = "1-1";
     public static readonly int MAX_NUMBER_OF_FIGHT_CARDS = 30;
     public static int money = 0;
+    public static int sceneflag = 3;
     public static bool Chance(int demarcationline)
     {
         int randomInt = Random.Range(1, 101);
@@ -109,7 +110,7 @@ public static class GlobalVariable{
                     }
                     else
                     {
-                        nextScene = "tertiaryMap";
+                        nextScene = "ready";
                     }
                     isLoadMission = true;
                     if(currentMission != null)
@@ -160,20 +161,18 @@ public static class GlobalVariable{
                 }
                 else
                 {
-                    TertiaryMapSelect.SetScene("1-1");
-                    LoadConversation.SetConversation(currentScene, 1, "tertiaryMap", "");
+                    LoadConversation.SetConversation(currentScene, 1, "ready", "");
                 }
             }
             else
             {
                 if (!HasFightScenes.Contains(currentScene))
                 {
-                    LoadConversation.SetConversation(currentScene, 1, "tertiaryMap", "");
+                    LoadConversation.SetConversation(currentScene, 1, "ready", "");
                 }
                 else
                 {
-                    TertiaryMapSelect.SetScene(preMap);
-                    SceneManager.LoadScene("tertiaryMap");
+                    SceneManager.LoadScene("ready");
                 }
             }
         }
@@ -181,19 +180,19 @@ public static class GlobalVariable{
         {
             if (!JudgeMission(false))
             {
-                TertiaryMapSelect.SetScene(preMap);
-                SceneManager.LoadScene("tertiaryMap");
+                SceneManager.LoadScene("ready");
             }
         }
         HasFightScenes.Add(currentScene);
         Mountains[currentScene].status = true;
+        PanelControl.Clear();
     }
 
     public static void BeforeFight()
     {
         if (HasFightBossScenes.Contains(currentScene))
         {
-            LoadConversation.SetConversation("0-9-0", 0, "tertiaryMap", "");
+            LoadConversation.SetConversation("0-9-0", 0, "ready", "");
         }
         else
         {

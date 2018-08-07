@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TertiaryMapSelect : MonoBehaviour {
+public class ThridMap : MonoBehaviour {
 
-    private static string sceneName;
-
-    public static bool setOver = false;
+    public static string sceneName;
 
     private int count = 0;
 
@@ -14,19 +12,12 @@ public class TertiaryMapSelect : MonoBehaviour {
     void Start () {
         GameObject.Find("mountain").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(string.Format("map/{0}", sceneName));
         LoadMountains();
-        setOver = false;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public static void SetScene(string temp)
     {
         sceneName = temp;
         GlobalVariable.preMap = temp;
-        setOver = true;
     }
 
     private void LoadMountains()
@@ -35,13 +26,15 @@ public class TertiaryMapSelect : MonoBehaviour {
         {
             sceneName = sceneName.Split('-')[0] + '-' + sceneName.Split('-')[1];
         }
-        for(int i=1; ; i++)
+        for (int i = 1; ; i++)
         {
             MountainInformation mountainInformation;
             if (GlobalVariable.Mountains.TryGetValue(sceneName + '-' + i, out mountainInformation))
             {
                 count++;
-                GameObject temp = Instantiate(Resources.Load<GameObject>("map/tertiarymountain"), new Vector3(mountainInformation.x, mountainInformation.y), Quaternion.identity);
+                GameObject temp = Instantiate(Resources.Load<GameObject>("map/tertiarymountain"), new Vector3(mountainInformation.x * 0.8f, mountainInformation.y * 0.8f), Quaternion.identity);
+                temp.transform.parent = gameObject.transform.parent;
+                temp.transform.localScale = new Vector3(temp.transform.localScale.x * 0.8f, temp.transform.localScale.y * 0.8f);
                 temp.GetComponent<IntoFight>().mountainInformation = mountainInformation;
                 temp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("map/mountain" + mountainInformation.index % 3);
                 temp.transform.Find("hillname").GetComponent<TextMesh>().text = mountainInformation.name;
@@ -55,11 +48,6 @@ public class TertiaryMapSelect : MonoBehaviour {
                     }
 
                 }
-
-
-
-                //if (mountainInformation.status)
-                //    temp.transform.Find("hillstatus").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("map/mark");
             }
             else break;
         }

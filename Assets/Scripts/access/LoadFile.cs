@@ -18,14 +18,7 @@ public class LoadFile : MonoBehaviour {
         if (saveControl.saveNumberReflect.ContainsKey(MoveBorder.currentIndex))
         {
             LoadGameData(saveControl.saveNumberReflect[MoveBorder.currentIndex]);
-            string[] sceneNumber = GlobalVariable.currentScene.Split('-');
-            string sceneName = sceneNumber[0] + "-" + sceneNumber[1];
-            if (sceneName.Equals("0-1"))
-            {
-                sceneName = "1-1";
-            }
-            TertiaryMapSelect.SetScene(sceneName);
-            SceneManager.LoadScene("tertiaryMap");
+            SceneManager.LoadScene("ready");
         }      
     }
 
@@ -47,5 +40,6 @@ public class LoadFile : MonoBehaviour {
         GlobalVariable.ExistingTalent = save.ExistTalents;
         GlobalVariable.ExistingMissions = save.ExistMissinos;
         GlobalVariable.money = save.Money;
+        GlobalVariable.FightCardsIndex = save.FightCardsIndex;
     }
 }

@@ -11,6 +11,14 @@ public class MergeSelect : MonoBehaviour {
     public int number;
     public static GameObject[] mergeCardsGrids = new GameObject[3];
 
+    public static void Clear()
+    {
+        for(int i=0;i<3;i++)
+        {
+            Destroy(mergeCardsGrids[i]);
+            mergeCardsGrids[i] = null;
+        }
+    }
 
 	// Use this for initialization
 	void Start () {

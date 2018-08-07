@@ -7,12 +7,12 @@ public class LoadSaveScene : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        PanelControl._instance.OpenMap();
 	}
 
     private void OnMouseDown()
     {
-        ReturnPre.preScene = "tertiaryMap";
+        ReturnPre.preScene = "ready";
         SceneManager.LoadScene("accessProgress");
     }
 }

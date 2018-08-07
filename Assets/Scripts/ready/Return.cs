@@ -19,16 +19,28 @@ public class Return : MonoBehaviour {
     {
         switch (gameObject.name)
         {
-            case "return":
-                SceneManager.LoadScene("ready");
-                break;
             case "returnMap":
-                SceneManager.LoadScene("mainMap");
+                GlobalVariable.sceneflag = 1;
+                gameObject.transform.parent.gameObject.SetActive(false);
+                GameObject temp = Instantiate(Resources.Load<GameObject>("PanelPrefabs/FirstMap"), new Vector3(0, 0, 0), Quaternion.identity);
+                temp.name = "Map";
+                PanelControl.openObject = temp;
+                Destroy(gameObject.transform.parent.gameObject);
+                //SceneManager.LoadScene("mainMap");
                 break;
             case "returnToSecondary":
+                GlobalVariable.sceneflag = 2;
                 if (GlobalVariable.HasFightAreaBoss.ContainsKey(GlobalVariable.preMap))
                 {
-                    SceneManager.LoadScene("secondaryMap");
+                    GameObject current = gameObject.transform.parent.gameObject;
+                    SecondMap.SetScene(GlobalVariable.preMap.Split('-')[0]);
+                    current.SetActive(false);
+                    GameObject temp1 = Instantiate(Resources.Load<GameObject>("PanelPrefabs/SecondMap"), new Vector3(0, 0, 0), Quaternion.identity);
+                    temp1.name = "Map";
+                    PanelControl.openObject = temp1;
+                    string[] mapNumber = GlobalVariable.currentScene.Split('-');
+                    GlobalVariable.preMap = mapNumber[0] + "-" + mapNumber[1];
+                    Destroy(current);
                 }
                 break;
             case "cardPanelReturn":

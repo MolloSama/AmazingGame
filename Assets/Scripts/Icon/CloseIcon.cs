@@ -15,30 +15,6 @@ public class CloseIcon : MonoBehaviour {
     {
         if (PanelControl.open)
         {
-            switch (SceneManager.GetActiveScene().name)
-            {
-                case "mainMap":
-                    GameObject.Find("1").GetComponent<BoxCollider2D>().enabled = true;
-                    break;
-                case "secondaryMap":
-                    GameObject.Find("1").GetComponent<BoxCollider2D>().enabled = true;
-                    GameObject.Find("2").GetComponent<BoxCollider2D>().enabled = true;
-                    GameObject.Find("3").GetComponent<BoxCollider2D>().enabled = true;
-                    GameObject.Find("4").GetComponent<BoxCollider2D>().enabled = true;
-                    GameObject.Find("5").GetComponent<BoxCollider2D>().enabled = true;
-                    GameObject.Find("6").GetComponent<BoxCollider2D>().enabled = true;
-                    GameObject.Find("7").GetComponent<BoxCollider2D>().enabled = true;
-                    GameObject.Find("8").GetComponent<BoxCollider2D>().enabled = true;
-                    break;
-                case "tertiaryMap":
-                    for (int i = 1; i < count + 1; i++)
-                    {
-                        GameObject.Find(i.ToString()).GetComponent<BoxCollider>().enabled = true;
-                    }
-                    break;
-                default:
-                    break;
-            }
             switch (PanelControl.openObject.name)
             {
                 case "Backpack":
@@ -58,6 +34,13 @@ public class CloseIcon : MonoBehaviour {
                     break;
                 case "SkillSelect":
                     SkillSelect.Clear();
+                    Destroy(PanelControl.openObject);
+                    break;
+                case "Merge":
+                    MergeSelect.Clear();
+                    Destroy(PanelControl.openObject);
+                    break;
+                case "Map":
                     Destroy(PanelControl.openObject);
                     break;
                 default:

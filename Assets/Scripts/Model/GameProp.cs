@@ -54,3 +54,21 @@ public class CardProp
         index = a;
     }
 }
+public class MountainInformation
+{
+    public string serialnumber;
+    public string name;
+    public float x;
+    public float y;
+    public bool status;
+    public int index;
+    public MountainInformation(string a, string b, float c, float d, bool e, int f)
+    {
+        serialnumber = a;
+        name = b;
+        x = c;
+        y = d;
+        status = e;
+        index = f;
+    }
+}

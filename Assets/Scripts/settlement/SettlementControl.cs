@@ -88,8 +88,7 @@ public class SettlementControl : MonoBehaviour {
             {
                 if (!GlobalVariable.JudgeMission(false))
                 {
-                    TertiaryMapSelect.SetScene(GlobalVariable.preMap);
-                    SceneManager.LoadScene("tertiaryMap");
+                    SceneManager.LoadScene("ready");
                 }
             } 
             return;

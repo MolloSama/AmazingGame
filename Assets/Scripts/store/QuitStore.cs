@@ -7,7 +7,6 @@ public class QuitStore : MonoBehaviour {
 
     private void OnMouseDown()
     {
-        TertiaryMapSelect.SetScene(GlobalVariable.preMap);
-        SceneManager.LoadScene("tertiaryMap");
+        SceneManager.LoadScene("ready");
     }
 }
