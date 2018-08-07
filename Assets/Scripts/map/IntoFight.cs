@@ -24,22 +24,7 @@ public class IntoFight : MonoBehaviour {
         {
             if (!GlobalVariable.JudgeMission(true))
             {
-                if (GlobalVariable.HasFightBossScenes.Contains(GlobalVariable.currentScene))
-                {
-                    LoadConversation.SetConversation("0-9-0", 0, "tertiaryMap", "");
-                }
-                else
-                {
-                    if (GlobalVariable.AllConversationList.Contains(GlobalVariable.currentScene + "-0") &&
-                        !GlobalVariable.HasFightScenes.Contains(GlobalVariable.currentScene))
-                    {
-                        LoadConversation.SetConversation(GlobalVariable.currentScene, 0, "fighting", "");
-                    }
-                    else
-                    {
-                        SceneManager.LoadScene("fighting");
-                    }
-                }
+                GlobalVariable.BeforeFight();
             }
         }
     }

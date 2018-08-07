@@ -434,7 +434,19 @@ public class GameControll : MonoBehaviour {
         gameObjectMonsterReflect.Add(position, friend);
         SpriteRenderer spr = position.GetComponent<SpriteRenderer>();
         spr.sprite = Resources.Load<Sprite>("monsters/" + card.StatusIcon);
-        cardGroup.Remove(card);
+        RemoveFriendCard(card);
+    }
+    
+    void RemoveFriendCard(GameProp card)
+    {
+        for (int i = 0; i < cardGroup.Count; ++i)
+        {
+            if (cardGroup[i].SerialNumber.Equals(card.SerialNumber))
+            {
+                cardGroup.RemoveAt(i);
+                break;
+            }
+        }
         GlobalVariable.ExistingCards.Remove(GlobalVariable.AllCards[card.SerialNumber]);
         GlobalVariable.FightCards.Remove(GlobalVariable.AllCards[card.SerialNumber]);
     }
@@ -968,7 +980,10 @@ public class GameControll : MonoBehaviour {
             if ((drawCardCount == 1 && !isTalent3Effect) ||
             (drawCardCount == 2 && isTalent3Effect) || drawCardCount == 0)
             {
-                isAnimationEnd = true;
+                if (!isDestory)
+                {
+                    isAnimationEnd = true;
+                }
                 isDrawCard = false;
                 drawCardCount = 0;
             }

@@ -179,11 +179,34 @@ public static class GlobalVariable{
         }
         else
         {
-            TertiaryMapSelect.SetScene(preMap);
-            SceneManager.LoadScene("tertiaryMap");
+            if (!JudgeMission(false))
+            {
+                TertiaryMapSelect.SetScene(preMap);
+                SceneManager.LoadScene("tertiaryMap");
+            }
         }
         HasFightScenes.Add(currentScene);
         Mountains[currentScene].status = true;
+    }
+
+    public static void BeforeFight()
+    {
+        if (HasFightBossScenes.Contains(currentScene))
+        {
+            LoadConversation.SetConversation("0-9-0", 0, "tertiaryMap", "");
+        }
+        else
+        {
+            if (AllConversationList.Contains(currentScene + "-0") &&
+                !HasFightScenes.Contains(currentScene))
+            {
+                LoadConversation.SetConversation(currentScene, 0, "fighting", "");
+            }
+            else
+            {
+                SceneManager.LoadScene("fighting");
+            }
+        }
     }
 
     static bool HasBoss()

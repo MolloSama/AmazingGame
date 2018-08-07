@@ -23,7 +23,7 @@ public class AcceptMission : MonoBehaviour {
         switch (LoadConversation.nextScene)
         {
             case "mainLine":
-                LoadConversation.SetConversation(GlobalVariable.currentScene, 0, "fighting", "");
+                GlobalVariable.BeforeFight();
                 break;
             case "tertiaryMap":
                 SceneManager.LoadScene("tertiaryMap");

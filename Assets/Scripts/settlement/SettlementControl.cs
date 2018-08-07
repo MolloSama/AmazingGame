@@ -62,7 +62,7 @@ public class SettlementControl : MonoBehaviour {
         if (Input.GetMouseButtonDown(0) && isThridClick && !isFourthClick && AttributeUp.isUp)
         {
             if (isFirstUp &&
-                !GlobalVariable.HasFightScenes.Contains(GlobalVariable.currentScene))
+                !GlobalVariable.HasFightScenes.Contains(GlobalVariable.currentScene))//无法升级属性时只需点击一次
             {
                 isFirstUp = false;
                 return;
@@ -86,8 +86,11 @@ public class SettlementControl : MonoBehaviour {
             }
             else
             {
-                TertiaryMapSelect.SetScene(GlobalVariable.preMap);
-                SceneManager.LoadScene("tertiaryMap");
+                if (!GlobalVariable.JudgeMission(false))
+                {
+                    TertiaryMapSelect.SetScene(GlobalVariable.preMap);
+                    SceneManager.LoadScene("tertiaryMap");
+                }
             } 
             return;
         }

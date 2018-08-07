@@ -208,7 +208,7 @@ public class LoadConversation : MonoBehaviour {
             switch (nextScene)
             {
                 case "mainLine":
-                    SetConversation(GlobalVariable.currentScene, 0, "fighting", "");
+                    GlobalVariable.BeforeFight();
                     break;
                 case "tertiaryMap":
                     if(conversationSerialNumber.Split('-').Length > 4)
