@@ -239,6 +239,7 @@
     <Compile Include="Assets\Scripts\access\SaveControl.cs" />
     <Compile Include="Assets\Scripts\access\SaveFile.cs" />
     <Compile Include="Assets\Scripts\backpack\DisplayLevelText.cs" />
+    <Compile Include="Assets\Scripts\backpack\DisplayMoney.cs" />
     <Compile Include="Assets\Scripts\backpack\Inventory.cs" />
     <Compile Include="Assets\Scripts\backpack\InventoryItem.cs" />
     <Compile Include="Assets\Scripts\backpack\InventoryItemGrid.cs" />
