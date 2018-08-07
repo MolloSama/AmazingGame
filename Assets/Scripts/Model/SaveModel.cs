@@ -21,8 +21,10 @@ public class SaveModel{
     private Level realm;
     private List<Talent> existTalents;
     private List<Mission> existMissinos;
+    private Dictionary<string, Mission> allMissions;
     private int money;
     private List<int> fightCardsIndex;
+    private int sceneflag;
 
     public List<GameProp> ExistCards
     {
@@ -258,6 +260,32 @@ public class SaveModel{
         }
     }
 
+    public int Sceneflag
+    {
+        get
+        {
+            return sceneflag;
+        }
+
+        set
+        {
+            sceneflag = value;
+        }
+    }
+
+    public Dictionary<string, Mission> AllMissions
+    {
+        get
+        {
+            return allMissions;
+        }
+
+        set
+        {
+            allMissions = value;
+        }
+    }
+
     public SaveModel()
     {
         existCards = GlobalVariable.ExistingCards;
@@ -276,7 +304,9 @@ public class SaveModel{
         realm = GlobalVariable.Realm;
         existTalents = GlobalVariable.ExistingTalent;
         existMissinos = GlobalVariable.ExistingMissions;
+        allMissions = GlobalVariable.AllMissions;
         money = GlobalVariable.money;
         fightCardsIndex = GlobalVariable.FightCardsIndex;
+        sceneflag = GlobalVariable.sceneflag;
     }
 }

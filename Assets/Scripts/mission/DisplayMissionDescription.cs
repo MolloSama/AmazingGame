@@ -7,15 +7,12 @@ public class DisplayMissionDescription : MonoBehaviour {
     public GameObject missionDescriptionPrefab;
     private static List<GameObject> missionDescriptionObjects = new List<GameObject>();
     private TextMesh textMesh;
+    private Transform missionParent;
 
     // Use this for initialization
     void Start () {
+        missionParent = GameObject.FindGameObjectWithTag("MissionButton").transform;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     private void OnMouseDown()
     {
@@ -30,6 +27,8 @@ public class DisplayMissionDescription : MonoBehaviour {
         {
             GameObject missionDescription = Instantiate(missionDescriptionPrefab, 
                 missionDescriptionPrefab.transform.position + new Vector3(0, -1f * i, 0), Quaternion.identity);
+            
+            missionDescription.transform.parent = missionParent;
             textMesh = missionDescription.GetComponent<TextMesh>();
             if (i == GlobalVariable.AllMissions[gameObject.name].CurrentIndex - 1)
             {

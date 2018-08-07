@@ -19,8 +19,6 @@ public class PanelControl : MonoBehaviour {
     {
         if (open)
         {
-            
-
             if (openObject.name.Equals(name))
             {
                 switch (name)
@@ -46,6 +44,9 @@ public class PanelControl : MonoBehaviour {
                         break;
                     case "Merge":
                         MergeSelect.Clear();
+                        Destroy(openObject);
+                        break;
+                    case "Mission":
                         Destroy(openObject);
                         break;
                     case "Map":
@@ -84,6 +85,9 @@ public class PanelControl : MonoBehaviour {
                         MergeSelect.Clear();
                         Destroy(openObject);
                         break;
+                    case "Mission":
+                        Destroy(openObject);
+                        break;
                     case "Map":
                         Destroy(openObject);
                         break;
@@ -107,6 +111,10 @@ public class PanelControl : MonoBehaviour {
                     case "Merge":
                         openObject = Instantiate(Resources.Load<GameObject>("PanelPrefabs/MergeCard"), new Vector3(0, 0, 0), Quaternion.identity);
                         openObject.name = "Merge";
+                        break;
+                    case "Mission":
+                        openObject = Instantiate(Resources.Load<GameObject>("PanelPrefabs/missionPane"), new Vector3(0, 0, 0), Quaternion.identity);
+                        openObject.name = "Mission";
                         break;
                     case "Map":
                         OpenMap();
@@ -138,6 +146,10 @@ public class PanelControl : MonoBehaviour {
                     openObject=Instantiate(Resources.Load<GameObject>("PanelPrefabs/MergeCard"), new Vector3(0, 0, 0), Quaternion.identity);
                     openObject.name = "Merge";
                     break;
+                case "Mission":
+                    openObject = Instantiate(Resources.Load<GameObject>("PanelPrefabs/missionPane"), new Vector3(0, 0, 0), Quaternion.identity);
+                    openObject.name = "Mission";
+                    break;
                 case "Map":
                     OpenMap();
                     break;
@@ -163,13 +175,11 @@ public class PanelControl : MonoBehaviour {
         }
         if (GlobalVariable.sceneflag == 2)
         {
-            //ThridMap.SetScene(GlobalVariable.preMap);
             openObject = Instantiate(Resources.Load<GameObject>("PanelPrefabs/SecondMap"), new Vector3(0, 0, 0), Quaternion.identity);
             openObject.name = "Map";
         }
         if (GlobalVariable.sceneflag == 1)
         {
-            //ThridMap.SetScene(GlobalVariable.preMap);
             openObject = Instantiate(Resources.Load<GameObject>("PanelPrefabs/FirstMap"), new Vector3(0, 0, 0), Quaternion.identity);
             openObject.name = "Map";
         }

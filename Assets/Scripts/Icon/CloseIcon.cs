@@ -40,6 +40,9 @@ public class CloseIcon : MonoBehaviour {
                     MergeSelect.Clear();
                     Destroy(PanelControl.openObject);
                     break;
+                case "Mission":
+                    Destroy(PanelControl.openObject);
+                    break;
                 case "Map":
                     Destroy(PanelControl.openObject);
                     break;

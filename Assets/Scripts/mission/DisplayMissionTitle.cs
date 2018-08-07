@@ -8,12 +8,13 @@ public class DisplayMissionTitle : MonoBehaviour {
     public int currentPage;
     public int maxCount;
     private List<GameObject> missionTitleObjects = new List<GameObject>();
+    private Transform missionParent;
 
 	// Use this for initialization
 	void Start () {
-        GlobalVariable.ExistingMissions = new List<Mission>(GlobalVariable.AllMissions.Values);
         currentPage = 0;
         maxCount = 7;
+        missionParent = GameObject.FindGameObjectWithTag("MissionButton").transform;
         LoadMissionTitle();
 	}
 
@@ -36,6 +37,7 @@ public class DisplayMissionTitle : MonoBehaviour {
         {
             GameObject missionTitle = Instantiate(missionTilePrefab, missionTilePrefab.transform.position + 
                 new Vector3(0, -1.25f * i, 0), Quaternion.identity);
+            missionTitle.transform.parent = missionParent;
             missionTitle.GetComponent<TextMesh>().text = GlobalVariable.ExistingMissions[i + currentPage * maxCount].Title;
             missionTitle.name = GlobalVariable.ExistingMissions[i + currentPage * maxCount].SerialNumber;
             missionTitleObjects.Add(missionTitle);

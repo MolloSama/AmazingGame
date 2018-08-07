@@ -39,7 +39,9 @@ public class LoadFile : MonoBehaviour {
         GlobalVariable.Realm = save.Realm;
         GlobalVariable.ExistingTalent = save.ExistTalents;
         GlobalVariable.ExistingMissions = save.ExistMissinos;
+        GlobalVariable.AllMissions = save.AllMissions;
         GlobalVariable.money = save.Money;
         GlobalVariable.FightCardsIndex = save.FightCardsIndex;
+        GlobalVariable.sceneflag = save.Sceneflag;
     }
 }

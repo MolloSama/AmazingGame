@@ -8,6 +8,7 @@ public class StoreControl : MonoBehaviour {
     public GameObject cardPrefab;
     public GameObject itemPrefab;
     public static Dictionary<GameObject, GameProp> reflect = new Dictionary<GameObject, GameProp>();
+    private Dictionary<TextMesh, int> allPrice = new Dictionary<TextMesh, int>();
 
 	// Use this for initialization
 	void Start () {
@@ -39,6 +40,17 @@ public class StoreControl : MonoBehaviour {
         }
 	}
 
+    private void Update()
+    {
+        foreach(TextMesh textMesh in allPrice.Keys)
+        {
+            if(allPrice[textMesh] > GlobalVariable.money)
+            {
+                textMesh.color = Color.red;
+            }
+        }
+    }
+
     void DisplayCard(GameProp cardData, GameObject cardObject)
     {
         Transform skillText = cardObject.transform.Find("skill-text");
@@ -55,10 +67,7 @@ public class StoreControl : MonoBehaviour {
         cardRawImg.sprite = rawImg;
         TextMesh textMesh = cardObject.transform.Find("price").GetComponent<TextMesh>();
         int price = GetPrice("card");
-        if(price > GlobalVariable.money)
-        {
-            textMesh.color = Color.red;
-        }
+        allPrice.Add(textMesh, price);
         textMesh.text = price.ToString();
             
     }
@@ -69,10 +78,7 @@ public class StoreControl : MonoBehaviour {
         spr.sprite = Resources.Load<Sprite>("item/" + itemData.SerialNumber);
         TextMesh priceMesh = itemObject.transform.Find("price").GetComponent<TextMesh>();
         int price = GetPrice("item");
-        if (price > GlobalVariable.money)
-        {
-            priceMesh.color = Color.red;
-        }
+        allPrice.Add(priceMesh, price);
         priceMesh.text = price.ToString();
     }
 

@@ -448,7 +448,24 @@ public class GameControll : MonoBehaviour {
             }
         }
         GlobalVariable.ExistingCards.Remove(GlobalVariable.AllCards[card.SerialNumber]);
-        GlobalVariable.FightCards.Remove(GlobalVariable.AllCards[card.SerialNumber]);
+        List<GameProp> temp = new List<GameProp>();
+        List<int> indextemp = new List<int>();
+        bool delete = false;
+        for(int i = 0; i < GlobalVariable.FightCards.Count; i++)
+        {
+            if (!delete && !GlobalVariable.FightCards[i].SerialNumber.Equals(card.SerialNumber))
+            {
+                temp.Add(GlobalVariable.FightCards[i]);
+                indextemp.Add(GlobalVariable.FightCardsIndex[i]);
+            }
+            else
+            {
+                delete = true;
+            }
+        }
+        GlobalVariable.FightCards = temp;
+        GlobalVariable.FightCardsIndex = indextemp;
+        delete = false;
     }
 
     void KrakenAttackMonster(Monster monster, GameProp card, bool hasState)
