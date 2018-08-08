@@ -20,7 +20,6 @@ public class Return : MonoBehaviour {
         switch (gameObject.name)
         {
             case "returnMap":
-                GlobalVariable.sceneflag = 1;
                 gameObject.transform.parent.gameObject.SetActive(false);
                 GameObject temp = Instantiate(Resources.Load<GameObject>("PanelPrefabs/FirstMap"), new Vector3(0, 0, 0), Quaternion.identity);
                 temp.name = "Map";
@@ -29,7 +28,6 @@ public class Return : MonoBehaviour {
                 //SceneManager.LoadScene("mainMap");
                 break;
             case "returnToSecondary":
-                GlobalVariable.sceneflag = 2;
                 if (GlobalVariable.HasFightAreaBoss.ContainsKey(GlobalVariable.preMap))
                 {
                     GameObject current = gameObject.transform.parent.gameObject;
@@ -46,7 +44,7 @@ public class Return : MonoBehaviour {
             case "cardPanelReturn":
                 for (int i = 0; i < CardSelect.count; i++)
                 {
-                    GlobalVariable.FightCards.Add(CardSelect.fightCardsGrids[i].gameProp);
+                    GlobalVariable.FightCards.Add(GlobalVariable.fightCardsGrids[i].gameProp);
                 }
                 break;
             case "backpackReturn":

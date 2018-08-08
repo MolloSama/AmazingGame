@@ -44,6 +44,7 @@ public static class GlobalVariable{
     public static string currentScene = "scene2";
     public static string preMap = "1-1";
     public static readonly int MAX_NUMBER_OF_FIGHT_CARDS = 30;
+    public static CardProp[] fightCardsGrids = new CardProp[MAX_NUMBER_OF_FIGHT_CARDS];
     public static int money = 0;
     public static int sceneflag = 3;
     public static bool Chance(int demarcationline)

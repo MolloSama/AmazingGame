@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using DG.Tweening;
 
 public class MergeManager : MonoBehaviour {
 
@@ -33,8 +34,12 @@ public class MergeManager : MonoBehaviour {
     }
     // Use this for initialization
     void Start () {
-        LoadCards();
 	}
+
+    public void AnShow()
+    {
+        LoadCards();
+    }
 
     private void Update()
     {
@@ -94,11 +99,15 @@ public class MergeManager : MonoBehaviour {
                 new Vector3(startX, startY + i * grap, startZ), 
                 Quaternion.identity);
             temp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("cardpanel/" + GlobalVariable.ExistingCards[i + index].SerialNumber);
+            temp.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+            DOTween.ToAlpha(() => temp.GetComponent<SpriteRenderer>().color, x => temp.GetComponent<SpriteRenderer>().color = x, 1, 0.3f);
             temp.transform.Find("info").GetComponent<TextMesh>().text = GlobalVariable.ExistingCards[i + index].Name;
             temp.transform.Find("number").GetComponent<SpriteRenderer>().sprite = 
                 Resources.Load<Sprite>("cardpanel/" + 
                                         GlobalVariable.ExistingCards[i + index].Type.Substring(0, 2) + 
                                         GlobalVariable.ExistingCards[i + index].EnergyConsumption);
+            temp.transform.Find("number").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+            DOTween.ToAlpha(() => temp.transform.Find("number").GetComponent<SpriteRenderer>().color, x => temp.transform.Find("number").GetComponent<SpriteRenderer>().color = x, 1, 0.3f);
             if (contains)
             {
                 temp.GetComponent<SpriteRenderer>().material = Resources.Load<Material>("materials/SpriteGray");

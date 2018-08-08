@@ -8,8 +8,20 @@ public class ThridMap : MonoBehaviour {
 
     private int count = 0;
 
+    public static ThridMap _instance;
+
+    private void Awake()
+    {
+        _instance = this;
+    }
+
     // Use this for initialization
     void Start () {
+    }
+
+    public void AnShow()
+    {
+        GlobalVariable.sceneflag = 3;
         GameObject.Find("mountain").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(string.Format("map/{0}", sceneName));
         LoadMountains();
     }

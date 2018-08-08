@@ -18,8 +18,6 @@ public class CardSelect : MonoBehaviour
 
     private static float grapY = -0.714f;
 
-    public static CardProp[] fightCardsGrids = new CardProp[GlobalVariable.MAX_NUMBER_OF_FIGHT_CARDS];
-
     public static GameObject[] fightCardsOnShow = new GameObject[10];
 
     public static int count = 0;
@@ -38,9 +36,9 @@ public class CardSelect : MonoBehaviour
         clickable = true;
         onShowNum = 0;
         firstindex = 0;
-        for (int i = 0; i < fightCardsGrids.Length; i++)
+        for (int i = 0; i < GlobalVariable.fightCardsGrids.Length; i++)
         {
-            fightCardsGrids[i] = null;
+            GlobalVariable.fightCardsGrids[i] = null;
         }
         for (int i = 0; i < fightCardsOnShow.Length; i++)
         {
@@ -70,7 +68,7 @@ public class CardSelect : MonoBehaviour
         if (count < GlobalVariable.MAX_NUMBER_OF_FIGHT_CARDS)
         {
             for (int i = 0; i < count; i++)
-                if (fightCardsGrids[i].index.Equals(gameProp.index))
+                if (GlobalVariable.fightCardsGrids[i].index.Equals(gameProp.index))
                 {
                     contains = true;
                     break;
@@ -94,9 +92,10 @@ public class CardSelect : MonoBehaviour
     {
         for (int i = 0; i < GlobalVariable.FightCards.Count; i++)
         {
-            fightCardsGrids[i] = new CardProp(GlobalVariable.FightCards[i], GlobalVariable.FightCardsIndex[i]);
+            GlobalVariable.fightCardsGrids[i] = new CardProp(GlobalVariable.FightCards[i], GlobalVariable.FightCardsIndex[i]);
             count++;
         }
+        CardPanelManager._instance.LoadCards();
         Show();
     }
 
@@ -113,7 +112,7 @@ public class CardSelect : MonoBehaviour
                 temp.GetComponent<BarScript>().index = index;
                 onShowNum++;
                 fightCardsOnShow[index - firstindex] = temp;
-                fightCardsGrids[index] = gameProp;
+                GlobalVariable.fightCardsGrids[index] = gameProp;
                 temp.GetComponent<BarScript>().SetGameProp(gameProp);
                 temp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("cardpanel/" + gameProp.gameProp.SerialNumber);
                 temp.transform.Find("info").GetComponent<TextMesh>().text = gameProp.gameProp.Name;
@@ -121,14 +120,14 @@ public class CardSelect : MonoBehaviour
             }
             if (index >= firstindex + pagenum)
             {
-                fightCardsGrids[count] = gameProp;
+                GlobalVariable.fightCardsGrids[count] = gameProp;
             }
         }
         else
         {
             for (int i = index; i < count; i++)
             {
-                fightCardsGrids[i] = (i + 1 == count) ? null : fightCardsGrids[i + 1];
+                GlobalVariable.fightCardsGrids[i] = (i + 1 == count) ? null : GlobalVariable.fightCardsGrids[i + 1];
             }
             count--;
             Destroy(fightCardsOnShow[index % pagenum]);
@@ -148,10 +147,10 @@ public class CardSelect : MonoBehaviour
             {
                 GameObject temp = Instantiate(Resources.Load<GameObject>("cardpanel/bar2"), new Vector3(positionX, positionY + (onShowNum - 1) * grapY, positionZ), Quaternion.identity);
                 temp.GetComponent<BarScript>().index = firstindex + onShowNum - 1;
-                temp.GetComponent<BarScript>().SetGameProp(fightCardsGrids[firstindex + onShowNum - 1]);
-                temp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("cardpanel/" + fightCardsGrids[firstindex + onShowNum - 1].gameProp.SerialNumber);
-                temp.transform.Find("info").GetComponent<TextMesh>().text = fightCardsGrids[firstindex + onShowNum - 1].gameProp.Name;
-                temp.transform.Find("number").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("cardpanel/" + fightCardsGrids[firstindex + onShowNum - 1].gameProp.Type.Substring(0, 2) + fightCardsGrids[firstindex + onShowNum - 1].gameProp.EnergyConsumption);
+                temp.GetComponent<BarScript>().SetGameProp(GlobalVariable.fightCardsGrids[firstindex + onShowNum - 1]);
+                temp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("cardpanel/" + GlobalVariable.fightCardsGrids[firstindex + onShowNum - 1].gameProp.SerialNumber);
+                temp.transform.Find("info").GetComponent<TextMesh>().text = GlobalVariable.fightCardsGrids[firstindex + onShowNum - 1].gameProp.Name;
+                temp.transform.Find("number").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("cardpanel/" + GlobalVariable.fightCardsGrids[firstindex + onShowNum - 1].gameProp.Type.Substring(0, 2) + GlobalVariable.fightCardsGrids[firstindex + onShowNum - 1].gameProp.EnergyConsumption);
                 fightCardsOnShow[onShowNum - 1] = temp;
                 temp.transform.parent = gameObject.transform.parent;
             }
@@ -174,13 +173,17 @@ public class CardSelect : MonoBehaviour
         for (int i = 0; i < pagenum && i + firstindex < count; i++)
         {
             GameObject temp = Instantiate(Resources.Load<GameObject>("cardpanel/bar2"), new Vector3(positionX, positionY + i * grapY, positionZ), Quaternion.identity);
+            temp.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+            DOTween.ToAlpha(() => temp.GetComponent<SpriteRenderer>().color, x => temp.GetComponent<SpriteRenderer>().color = x, 1f, 0.3f);
             temp.GetComponent<BarScript>().index = firstindex + i;
             onShowNum++;
             temp.transform.parent = GameObject.Find("GameObject").transform.parent;
-            temp.GetComponent<BarScript>().SetGameProp(fightCardsGrids[i + firstindex]);
-            temp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("cardpanel/" + fightCardsGrids[i + firstindex].gameProp.SerialNumber);
-            temp.transform.Find("info").GetComponent<TextMesh>().text = fightCardsGrids[i + firstindex].gameProp.Name;
-            temp.transform.Find("number").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("cardpanel/" + fightCardsGrids[i + firstindex].gameProp.Type.Substring(0, 2) + fightCardsGrids[i + firstindex].gameProp.EnergyConsumption);
+            temp.GetComponent<BarScript>().SetGameProp(GlobalVariable.fightCardsGrids[i + firstindex]);
+            temp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("cardpanel/" + GlobalVariable.fightCardsGrids[i + firstindex].gameProp.SerialNumber);
+            temp.transform.Find("info").GetComponent<TextMesh>().text = GlobalVariable.fightCardsGrids[i + firstindex].gameProp.Name;
+            temp.transform.Find("number").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("cardpanel/" + GlobalVariable.fightCardsGrids[i + firstindex].gameProp.Type.Substring(0, 2) + GlobalVariable.fightCardsGrids[i + firstindex].gameProp.EnergyConsumption);
+            temp.transform.Find("number").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+            DOTween.ToAlpha(() => temp.transform.Find("number").GetComponent<SpriteRenderer>().color, x => temp.transform.Find("number").GetComponent<SpriteRenderer>().color = x, 1f, 0.3f);
             fightCardsOnShow[i] = temp;
         }
     }

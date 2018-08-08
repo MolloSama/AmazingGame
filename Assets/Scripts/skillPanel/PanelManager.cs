@@ -38,7 +38,6 @@ public class PanelManager : MonoBehaviour {
         {
             if (GlobalVariable.FightSkills[i] != null)
             {
-                GameObject t = GameObject.Find("skillgrid" + (i + 1).ToString());
                 GameObject.Find("skillgrid" + (i + 1).ToString()).transform.Find("skill").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("skill/" + GlobalVariable.FightSkills[i].SerialNumber);
                 GameObject.Find("skillgrid" + (i + 1).ToString()).GetComponent<SkillGridSelect>().gameProp = GlobalVariable.FightSkills[i];
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using DG.Tweening;
 
 public class CardPanelManager : MonoBehaviour
 {
@@ -35,15 +36,11 @@ public class CardPanelManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        CardSelect.LoadData();
-        LoadCards();
-
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AnShow()
     {
-
+        CardSelect.LoadData();
     }
 
     public void CancelSelect(CardProp card)
@@ -60,7 +57,7 @@ public class CardPanelManager : MonoBehaviour
 
 
 
-    private void LoadCards()
+    public void LoadCards()
     {
         foreach (GameObject t in cardgridobjects)
         {
@@ -73,13 +70,15 @@ public class CardPanelManager : MonoBehaviour
             bool contains = false;
             for (int j = 0; j < CardSelect.count; j++)
             {
-                if (CardSelect.fightCardsGrids[j].index.Equals(i + index))
+                if (GlobalVariable.fightCardsGrids[j].index.Equals(i + index))
                 {
                     contains = true;
                     break;
                 }
             }
             GameObject temp = Instantiate(Resources.Load<GameObject>("cardpanel/card"), new Vector3(firstPositionX + (i % column) * grapX, firstPositionY + (i / column) * grapY, firstPositionZ), Quaternion.identity);
+            //temp.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+            //DOTween.ToAlpha(() => temp.GetComponent<SpriteRenderer>().color, x => temp.GetComponent<SpriteRenderer>().color = x, 1f, 0.3f);
             temp.GetComponent<CardSelect>().LoadCard(GlobalVariable.ExistingCards[i + index], i + index);
             cardgridobjects.Add(temp);
             temp.transform.parent = gameObject.transform;
@@ -98,6 +97,8 @@ public class CardPanelManager : MonoBehaviour
                         t.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(string.Format("cardRawImg/{0}", GlobalVariable.ExistingCards[i + index].SerialNumber));
                         if (contains)
                             t.GetComponent<SpriteRenderer>().material = Resources.Load<Material>("materials/SpriteGray");
+                        t.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                        DOTween.ToAlpha(() => t.GetComponent<SpriteRenderer>().color, x => t.GetComponent<SpriteRenderer>().color = x, 1f, 0.3f);
                         break;
                     case "card-style":
                         Sprite style = Resources.Load<Sprite>("cardStyle/" +
@@ -105,6 +106,8 @@ public class CardPanelManager : MonoBehaviour
                         t.GetComponent<SpriteRenderer>().sprite = style;
                         if (contains)
                             t.GetComponent<SpriteRenderer>().material = Resources.Load<Material>("materials/SpriteGray");
+                        t.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                        DOTween.ToAlpha(() => t.GetComponent<SpriteRenderer>().color, x => t.GetComponent<SpriteRenderer>().color = x, 1f, 0.3f);
                         break;
                     default:
                         break;

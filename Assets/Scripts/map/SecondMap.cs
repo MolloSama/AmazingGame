@@ -10,7 +10,7 @@ public class SecondMap : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
+        GlobalVariable.sceneflag = 2;
 	}
 	
     public static void SetScene(string temp)
@@ -20,7 +20,6 @@ public class SecondMap : MonoBehaviour {
 
     public void OnMouseUpAsButton()
     {
-        GlobalVariable.sceneflag = 3;
         if (sceneName == null)
         {
             sceneName = num;
@@ -31,5 +30,6 @@ public class SecondMap : MonoBehaviour {
         temp.name = "Map";
         PanelControl.openObject = temp;
         Destroy(gameObject.transform.parent.gameObject);
+        ThridMap._instance.AnShow();
     }
 }
