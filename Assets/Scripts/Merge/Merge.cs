@@ -20,6 +20,8 @@ public class Merge : MonoBehaviour {
 
     private void OnMouseDown()
     {
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "Default";
         mergeNumber = GlobalVariable.mergeReflect[mergeManager.mergeCards[0].gameProp.SerialNumber + "+" +
             mergeManager.mergeCards[1].gameProp.SerialNumber + "+" + mergeManager.mergeCards[2].gameProp.SerialNumber];
         MergeManager._instance.clearMergeCards = true;
@@ -64,24 +66,9 @@ public class Merge : MonoBehaviour {
 
     private void DeleteCards()
     {
-        //List<GameProp> fightCardsTemp = new List<GameProp>();
-        //List<int> fightCardsIndexTemp = new List<int>();
-        //for (int i = 0; i < GlobalVariable.FightCards.Count; i++)
-        //{
-        //    if (i != MergeManager._instance.mergeCards[0].index &&
-        //        i != MergeManager._instance.mergeCards[1].index &&
-        //        i != MergeManager._instance.mergeCards[2].index)
-        //    {
-        //        fightCardsTemp.Add(GlobalVariable.FightCards[i]);
-        //        fightCardsIndexTemp.Add(GlobalVariable.FightCardsIndex[i]);
-        //    }
-        //}
-        //GlobalVariable.FightCards.Clear();
-        //GlobalVariable.FightCardsIndex.Clear();
-        //GlobalVariable.FightCards = fightCardsTemp;
-        //GlobalVariable.FightCardsIndex = fightCardsIndexTemp;
-
         List<GameProp> existingCardsTemp = new List<GameProp>();
+        List<GameProp> fightCardsTemp = new List<GameProp>();
+        List<int> fightCardsIndexTemp = new List<int>();
         for (int i = 0; i < GlobalVariable.ExistingCards.Count; i++)
         {
             if (i != MergeManager._instance.mergeCards[0].index &&
@@ -91,8 +78,40 @@ public class Merge : MonoBehaviour {
                 existingCardsTemp.Add(GlobalVariable.ExistingCards[i]);
             }
         }
+        for (int i = 0; i < GlobalVariable.FightCards.Count; i++)
+        {
+            if (GlobalVariable.FightCardsIndex[i] != MergeManager._instance.mergeCards[0].index &&
+                GlobalVariable.FightCardsIndex[i] != MergeManager._instance.mergeCards[1].index &&
+                GlobalVariable.FightCardsIndex[i] != MergeManager._instance.mergeCards[2].index)
+            {
+                if (GlobalVariable.FightCardsIndex[i] < MergeManager._instance.mergeCards[0].index)
+                {
+                    fightCardsTemp.Add(GlobalVariable.FightCards[i]);
+                    fightCardsIndexTemp.Add(GlobalVariable.FightCardsIndex[i]);
+                }
+                if (GlobalVariable.FightCardsIndex[i] > MergeManager._instance.mergeCards[0].index && GlobalVariable.FightCardsIndex[i] < MergeManager._instance.mergeCards[1].index)
+                {
+                    fightCardsTemp.Add(GlobalVariable.FightCards[i]);
+                    fightCardsIndexTemp.Add(GlobalVariable.FightCardsIndex[i] - 1);
+                }
+                if (GlobalVariable.FightCardsIndex[i] > MergeManager._instance.mergeCards[1].index && GlobalVariable.FightCardsIndex[i] < MergeManager._instance.mergeCards[2].index)
+                {
+                    fightCardsTemp.Add(GlobalVariable.FightCards[i]);
+                    fightCardsIndexTemp.Add(GlobalVariable.FightCardsIndex[i] - 2);
+                }
+                if (GlobalVariable.FightCardsIndex[i] > MergeManager._instance.mergeCards[2].index)
+                {
+                    fightCardsTemp.Add(GlobalVariable.FightCards[i]);
+                    fightCardsIndexTemp.Add(GlobalVariable.FightCardsIndex[i] - 3);
+                }
+            }
+        }
         GlobalVariable.ExistingCards.Clear();
+        GlobalVariable.FightCards.Clear();
+        GlobalVariable.FightCardsIndex.Clear();
         GlobalVariable.ExistingCards = existingCardsTemp;
+        GlobalVariable.FightCards = fightCardsTemp;
+        GlobalVariable.FightCardsIndex = fightCardsIndexTemp;
     }
 
     private IEnumerator MergeCardsMove()
@@ -101,14 +120,14 @@ public class Merge : MonoBehaviour {
         float y = MergeManager._instance.mergePosition[3].transform.position.y;
         for(int i = 0; i < 3; i++)
         {
-            MergeSelect.mergeCardsGrids[i].transform.DOMove(new Vector3(x, y), 0.5f);
-            yield return new WaitForSeconds(0.6f);
+            MergeSelect.mergeCardsGrids[i].transform.DOMove(new Vector3(x, y), 0.3f);
+            yield return new WaitForSeconds(0.4f);
             Destroy(MergeSelect.mergeCardsGrids[i]);
             MergeSelect.mergeCardsGrids[i] = null;
         }
         GameObject temp = Instantiate(Resources.Load<GameObject>("cardpanel/merge"),
-                                    new Vector3(MergeManager._instance.mergePosition[3].transform.position.x,
-                                                MergeManager._instance.mergePosition[3].transform.position.y),
+                                    new Vector3(MergeManager._instance.mergePosition[3].transform.position.x - 0.3f,
+                                                MergeManager._instance.mergePosition[3].transform.position.y - 0.3f),
                                     Quaternion.identity);
         temp.transform.parent = gameObject.transform.parent;
         temp.GetComponent<BoxCollider2D>().enabled = false;
@@ -135,13 +154,15 @@ public class Merge : MonoBehaviour {
                     break;
             }
         }
-        temp.transform.DOScale(new Vector3(temp.transform.localScale.x * 2.0f, temp.transform.localScale.y * 2.0f), 1.0f).OnComplete(() => Destroy(temp));
+        temp.transform.DOScale(new Vector3(temp.transform.localScale.x * 2.0f, temp.transform.localScale.y * 2.0f), 0.6f).OnComplete(() => Destroy(temp));
     }
 
     private IEnumerator te()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.5f);
         MergeManager._instance.LoadCards();
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "foreground";
     }
 
     void WriteReflectTxt()

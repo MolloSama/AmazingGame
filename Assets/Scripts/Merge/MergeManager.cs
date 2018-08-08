@@ -40,10 +40,12 @@ public class MergeManager : MonoBehaviour {
     {
         if (JudgeArrayNull())
         {
+            mergeButton.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
             mergeButton.SetActive(false);
         }
         else
         {
+            mergeButton.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
             mergeButton.SetActive(true);
         }
     }
