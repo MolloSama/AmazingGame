@@ -30,6 +30,9 @@ public class GameControll : MonoBehaviour {
     public GameObject talentNamePrefab;
     public GameObject friendPosition1;
     public GameObject friendPosition2;
+    public GameObject youRoundObject;
+    public GameObject enemyRoundObject;
+    public GameObject monsterSkillNamePrefab;
     [HideInInspector]
     public List<string> monsterNumber = new List<string>();
     private Dictionary<int, GameObject> handCardsSprite = new Dictionary<int, GameObject>();
@@ -78,6 +81,7 @@ public class GameControll : MonoBehaviour {
     // Use this for initialization
     void Start() {
         SetMosters();
+        DisplayRoundText(youRoundObject);
         GlobalVariable.sceneMonsterNumber = monsterNumber;
         cardGroup = DeepCopy(GlobalVariable.FightCards);
         AddCards(4, cardEndPosition.position, false);
@@ -119,9 +123,17 @@ public class GameControll : MonoBehaviour {
         }
         if (isFriendRoundOver)
         {
-            List<Monster> enemys = new List<Monster>(friendMonsters);
-            enemys.Add(kraken);
-            StartCoroutine(MonsterRound(monsters, enemys, false));
+            GameObject roundTextObject = Instantiate(enemyRoundObject);
+            SpriteRenderer spr = roundTextObject.GetComponent<SpriteRenderer>();
+            DOTween.ToAlpha(() => spr.color, x => spr.color = x, 1, 0.3f).OnComplete(() =>
+            {
+                DOTween.ToAlpha(() => spr.color, x => spr.color = x, 0, 0.6f).OnComplete(()=>
+                {
+                    List<Monster> enemys = new List<Monster>(friendMonsters);
+                    enemys.Add(kraken);
+                    StartCoroutine(MonsterRound(monsters, enemys, false));
+                });
+            });
             isFriendRoundOver = false;
             isMonsterFight = false;
             hasEnterFriendRound = false;
@@ -241,6 +253,16 @@ public class GameControll : MonoBehaviour {
             EffectStatusItem(itemProp);
             SetSpecialItem(itemProp);
         }
+    }
+
+    void DisplayRoundText(GameObject roundText)
+    {
+        GameObject roundTextObject = Instantiate(roundText);
+        SpriteRenderer spr = roundTextObject.GetComponent<SpriteRenderer>();
+        DOTween.ToAlpha(() => spr.color, x => spr.color = x, 1, 0.3f).OnComplete(()=>
+        {
+            DOTween.ToAlpha(() => spr.color, x => spr.color = x, 0, 0.6f);
+        });
     }
 
     public bool PlayCard()
@@ -365,10 +387,23 @@ public class GameControll : MonoBehaviour {
                 StartCoroutine(PlayCardAnimation(card.SerialNumber,
                         krakenObject.transform));
                 AddBlood(kraken, System.Convert.ToInt32(card.Value*krakenMaxHealth));
-                if (kraken.BloodVolume > krakenMaxHealth)
+                break;
+            case "a1b6":
+                StartCoroutine(PlayCardAnimation(card.SerialNumber,
+                        krakenObject.transform));
+                int demage = KrakenAttackMonster(selectedMonster, card, false);
+                AddBlood(kraken, demage);
+                break;
+            case "a1b7":
+                for(int i = 0; i < monsters.Count; ++i)
                 {
-                    kraken.BloodVolume = krakenMaxHealth;
+                    ReduceBlood(monsters[i], System.Convert.ToInt32(monsters[i].AttactPower * 2));
                 }
+                for(int j = 0; j < friendMonsters.Count; ++j)
+                {
+                    ReduceBlood(friendMonsters[j], System.Convert.ToInt32(friendMonsters[j].AttactPower * 2));
+                }
+                ReduceBlood(kraken, System.Convert.ToInt32(kraken.AttactPower));
                 break;
             case "a2c1":
                 if (card.TargetQuantity == 1)
@@ -468,7 +503,7 @@ public class GameControll : MonoBehaviour {
         delete = false;
     }
 
-    void KrakenAttackMonster(Monster monster, GameProp card, bool hasState)
+    int KrakenAttackMonster(Monster monster, GameProp card, bool hasState)
     {
         Status status;
         int demage = GetDamageValue(kraken.AttactPower * card.Value,
@@ -488,6 +523,7 @@ public class GameControll : MonoBehaviour {
         {
             AddBlood(kraken, System.Convert.ToInt32(demage * itemCondition.BloodSucking));
         }
+        return demage;
     }
 
     IEnumerator MonsterRound(List<Monster> ownSide, List<Monster> enemys, bool isFriend)
@@ -497,6 +533,7 @@ public class GameControll : MonoBehaviour {
             Monster monster = ownSide[i];
             GameProp skill = SkillAI(monster);
             Monster selectEnemy = EnemyAI(enemys);
+            DisplayMonsterSkillName(skill, monster);
             switch (skill.Type)
             {
                 case "a1b1":
@@ -566,7 +603,19 @@ public class GameControll : MonoBehaviour {
         else
         {
             isMonsterRoundOver = true;
+            DisplayRoundText(youRoundObject);
         }
+    }
+
+    void DisplayMonsterSkillName(GameProp skill, Monster monster)
+    {
+        GameObject monsterSkillNameObject = Instantiate(monsterSkillNamePrefab, 
+            GetGameObjectByMonster(monster).transform.position + new Vector3(-0.2f, 0.3f, 0), Quaternion.identity);
+        TextMesh monsterSkillName = monsterSkillNameObject.GetComponent<TextMesh>();
+        monsterSkillName.text = skill.Name;
+        Vector3 initPosition = monsterSkillNameObject.transform.position;
+        monsterSkillNameObject.transform.DOMove(initPosition + new Vector3(0, 0.1f, 0), 1f);
+        DOTween.ToAlpha(() => monsterSkillName.color, x => monsterSkillName.color = x, 0, 1f);
     }
 
     GameProp SkillAI(Monster monster)
@@ -902,6 +951,8 @@ public class GameControll : MonoBehaviour {
         {
             textMesh.color = Color.green;
         }
+        Vector3 initPosition = healthChange.transform.position;
+        healthChange.transform.DOMove(initPosition + new Vector3(0, 0.2f, 0), 1f);
         DOTween.ToAlpha(() => textMesh.color, (color) => textMesh.color = color, 0, 1f).
            OnComplete(()=>Destroy(healthChange));
     }
@@ -919,7 +970,9 @@ public class GameControll : MonoBehaviour {
         GameObject talentName = Instantiate(talentNamePrefab);
         TextMesh talentText = talentName.GetComponent<TextMesh>();
         talentText.text = name;
-        DOTween.ToAlpha(() => talentText.color, (color) => talentText.color = color, 0, 2f).
+        Vector3 initPosition = talentName.transform.position;
+        talentName.transform.DOMove(initPosition + new Vector3(0, 0.2f, 0), 1f);
+        DOTween.ToAlpha(() => talentText.color, (color) => talentText.color = color, 0, 1f).
            OnComplete(() => Destroy(talentName));
     }
 

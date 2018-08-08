@@ -213,7 +213,7 @@ public class PanelControl : MonoBehaviour {
                     case "Mission":
                         openObject = Instantiate(Resources.Load<GameObject>("PanelPrefabs/missionPane"), new Vector3(0, 0, 0), Quaternion.identity);
                         openObject.transform.DOMove(new Vector3(0, 0, 0), 0.3f);
-                        openObject.transform.DOScale(new Vector3(1, 1, 1), 0.3f).OnComplete(() => clickable = true);
+                        openObject.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.3f).OnComplete(() => clickable = true);
                         openObject.name = "Mission";
                         break;
                     case "Map":
@@ -305,7 +305,7 @@ public class PanelControl : MonoBehaviour {
             case "Mission":
                 openObject = Instantiate(Resources.Load<GameObject>("PanelPrefabs/missionPane"), new Vector3(0, 0, 0), Quaternion.identity);
                 openObject.transform.DOMove(new Vector3(0, 0, 0), 0.3f);
-                openObject.transform.DOScale(new Vector3(1, 1, 1), 0.3f).OnComplete(() => clickable = true); ;
+                openObject.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.3f).OnComplete(() => clickable = true);
                 openObject.name = "Mission";
                 break;
             case "Map":
