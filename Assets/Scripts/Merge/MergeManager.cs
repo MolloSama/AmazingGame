@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class MergeManager : MonoBehaviour {
 
-    private readonly float startX = -3.0f;
+    private readonly float startX = -3.8f;
 
     private readonly float startY = 3.6f;
 

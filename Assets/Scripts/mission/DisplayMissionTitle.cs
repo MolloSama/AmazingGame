@@ -9,14 +9,23 @@ public class DisplayMissionTitle : MonoBehaviour {
     public int maxCount;
     private List<GameObject> missionTitleObjects = new List<GameObject>();
     private Transform missionParent;
+    public static DisplayMissionTitle _instance;
 
-	// Use this for initialization
-	void Start () {
+    private void Awake()
+    {
+        _instance = this;
+    }
+    // Use this for initialization
+    void Start () {
+	}
+
+    public void AnShow()
+    {
         currentPage = 0;
         maxCount = 7;
         missionParent = GameObject.FindGameObjectWithTag("MissionButton").transform;
         LoadMissionTitle();
-	}
+    }
 
     public void LoadMissionTitle()
     {

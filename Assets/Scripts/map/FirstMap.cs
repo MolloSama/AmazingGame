@@ -8,7 +8,7 @@ public class FirstMap : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         GlobalVariable.sceneflag = 1;
-	}
+    }
 
     private void OnMouseUpAsButton()
     {
