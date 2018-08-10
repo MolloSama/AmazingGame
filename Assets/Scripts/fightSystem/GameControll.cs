@@ -34,6 +34,9 @@ public class GameControll : MonoBehaviour {
     public GameObject enemyRoundObject;
     public GameObject monsterSkillNamePrefab;
     public GameObject attributeRestraintTextPrefab;
+    public GameObject currentAttributeText;
+    public GameObject currentAttributeIcon;
+    public Transform currentAttributeIconEndPosition;
     [HideInInspector]
     public List<string> monsterNumber = new List<string>();
     private Dictionary<int, GameObject> handCardsSprite = new Dictionary<int, GameObject>();
@@ -171,6 +174,27 @@ public class GameControll : MonoBehaviour {
     {
         int attribute = Random.Range(1, 4);
         kraken.Attribute = attribute;
+        SpriteRenderer spr = currentAttributeIcon.GetComponent<SpriteRenderer>();
+        string picture = "";
+        switch (attribute)
+        {
+            case 1:
+                picture = "kraken/fire";
+                break;
+            case 2:
+                picture = "kraken/thunder";
+                break;
+            case 3:
+                picture = "kraken/ice";
+                break;
+        }
+        spr.sprite = Resources.Load<Sprite>(picture);
+        TextMesh textMesh = currentAttributeText.GetComponent<TextMesh>();
+        DOTween.ToAlpha(() => textMesh.color, x => textMesh.color = x, 0, 2.3f).OnComplete(() =>
+        {
+            Destroy(currentAttributeText);
+            currentAttributeIcon.transform.DOMove(currentAttributeIconEndPosition.position, 1f);
+        });
     }
 
     private void EffectPropertyItem(GameProp item)
