@@ -398,6 +398,7 @@
     <None Include="Assets\Shaders\Circle.shader" />
     <None Include="Assets\Shaders\ShaderOutline.shader" />
     <None Include="Assets\Shaders\SpriteGray.shader" />
+    <None Include="Assets\_Art_Assets\shader\sha_fx_maker_mask_additive_tint.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

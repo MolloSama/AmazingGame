@@ -126,7 +126,7 @@ TextMesh:
   m_Font: {fileID: 12800000, guid: ab0109d23e69ca14e9ba9be9fc106a0e, type: 3}
   m_Color:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4294967295
 --- !u!114 &114782627746139336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -180,5 +180,5 @@ SpriteRenderer:
   m_Size: {x: 4.5, y: 4.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
