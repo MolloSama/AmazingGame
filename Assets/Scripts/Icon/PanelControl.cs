@@ -249,7 +249,7 @@ public class PanelControl : MonoBehaviour {
         }
         if (GlobalVariable.sceneflag == 2)
         {
-            openObject = Instantiate(Resources.Load<GameObject>("PanelPrefabs/SecondMap"), new Vector3(-7.22f, -4.15f, 0), Quaternion.identity);
+            openObject = Instantiate(Resources.Load<GameObject>("PanelPrefabs/SecondMap" + GlobalVariable.preMap.Split('-')[0]), new Vector3(-7.22f, -4.15f, 0), Quaternion.identity);
             openObject.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
             openObject.transform.DOMove(new Vector3(0, 0, 0), 0.3f);
             openObject.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.3f).OnComplete(() => clickable = true);

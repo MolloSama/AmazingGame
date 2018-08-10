@@ -33,7 +33,7 @@ public class Return : MonoBehaviour {
                     GameObject current = gameObject.transform.parent.gameObject;
                     SecondMap.SetScene(GlobalVariable.preMap.Split('-')[0]);
                     current.SetActive(false);
-                    GameObject temp1 = Instantiate(Resources.Load<GameObject>("PanelPrefabs/SecondMap"), new Vector3(0, 0, 0), Quaternion.identity);
+                    GameObject temp1 = Instantiate(Resources.Load<GameObject>("PanelPrefabs/SecondMap" + GlobalVariable.preMap.Split('-')[0]), new Vector3(0, 0, 0), Quaternion.identity);
                     temp1.name = "Map";
                     PanelControl.openObject = temp1;
                     string[] mapNumber = GlobalVariable.currentScene.Split('-');

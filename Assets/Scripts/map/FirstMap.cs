@@ -14,7 +14,7 @@ public class FirstMap : MonoBehaviour {
     {
         SecondMap.SetScene(gameObject.name);
         gameObject.transform.parent.gameObject.SetActive(false);
-        GameObject temp = Instantiate(Resources.Load<GameObject>("PanelPrefabs/SecondMap"), new Vector3(0, 0, 0), Quaternion.identity);
+        GameObject temp = Instantiate(Resources.Load<GameObject>("PanelPrefabs/SecondMap" + gameObject.name), new Vector3(0, 0, 0), Quaternion.identity);
         temp.name = "Map";
         PanelControl.openObject = temp;
         Destroy(gameObject.transform.parent.gameObject);
