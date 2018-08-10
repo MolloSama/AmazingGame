@@ -1,2 +1,1 @@
-﻿scene=pic002=获得道具——山神令牌·捌
-get_item=10027
+﻿scene=pic002=获得道具——山神令牌·捌=get_item=10027

@@ -26,13 +26,14 @@ public class GameControll : MonoBehaviour {
     public GameObject itemPrefab;
     public Transform itemFirstPosition;
     public Escape escape;
-    public GameObject tipGameObject;
+    public GameObject tipPrefab;
     public GameObject talentNamePrefab;
     public GameObject friendPosition1;
     public GameObject friendPosition2;
     public GameObject youRoundObject;
     public GameObject enemyRoundObject;
     public GameObject monsterSkillNamePrefab;
+    public GameObject attributeRestraintTextPrefab;
     [HideInInspector]
     public List<string> monsterNumber = new List<string>();
     private Dictionary<int, GameObject> handCardsSprite = new Dictionary<int, GameObject>();
@@ -99,6 +100,7 @@ public class GameControll : MonoBehaviour {
         playButton = GameObject.Find("playButton");
         energyStartPosition = energy.transform.position;
         InitializeItem();
+        SetKrakenAttribute();
     }
 	
 	// Update is called once per frame
@@ -163,6 +165,12 @@ public class GameControll : MonoBehaviour {
     private void OnDestroy()
     {
         GlobalVariable.currentBlood = kraken.BloodVolume;
+    }
+
+    void SetKrakenAttribute()
+    {
+        int attribute = Random.Range(1, 4);
+        kraken.Attribute = attribute;
     }
 
     private void EffectPropertyItem(GameProp item)
@@ -503,11 +511,75 @@ public class GameControll : MonoBehaviour {
         delete = false;
     }
 
+    int AttributeRestraintState(int attackAttribute, int defendAttribute)//0表示无1表示克制2表示抵抗
+    {
+        if(attackAttribute == 0 || defendAttribute == 0)
+        {
+            return 0;
+        }
+        switch(attackAttribute - defendAttribute)
+        {
+            case 0:
+                return 0;
+            case 1:
+                return 2;
+            case 2:
+                return 1;
+            case -1:
+                return 1;
+            case -2:
+                return 2;
+        }
+        return 0;
+    }
+
+    void ShowAttributeRestraintText(Monster monster, bool isRestraint)
+    {
+        GameObject attributeObject = Instantiate(attributeRestraintTextPrefab, 
+            GetGameObjectByMonster(monster).transform.position + new Vector3(-0.25f, 0.1f, 0), Quaternion.identity);
+        TextMesh textMesh = attributeObject.GetComponent<TextMesh>();
+        if (isRestraint)
+        {
+            textMesh.text = "克制";
+        }
+        else
+        {
+            textMesh.text = "抵抗";
+            textMesh.color = new Color(0.7f, 0.7f, 0.7f);
+        }
+        Vector3 initPosition = attributeObject.transform.position;
+        attributeObject.transform.DOMove(initPosition + new Vector3(0, 0.2f, 0), 1f);
+        DOTween.ToAlpha(() => textMesh.color, x => textMesh.color = x, 0, 2f)
+            .OnComplete(() => Destroy(attributeObject));
+    }
+
+    float SetAttributeResult(int attackAttribute, int defendAttribute, Monster enemyMonster)
+    {
+        float multiple = 1;
+        switch (AttributeRestraintState(attackAttribute, defendAttribute))
+        {
+            case 0:
+                multiple = 1;
+                break;
+            case 1:
+                multiple = 2;
+                ShowAttributeRestraintText(enemyMonster, true);
+                break;
+            case 2:
+                multiple = 0.5f;
+                ShowAttributeRestraintText(enemyMonster, false);
+                break;
+        }
+        return multiple;
+    }
+
     int KrakenAttackMonster(Monster monster, GameProp card, bool hasState)
     {
         Status status;
-        int demage = GetDamageValue(kraken.AttactPower * card.Value,
-                                            monster, card.Attribute);
+        
+        int demage = GetDamageValue(kraken.AttactPower * card.Value * 
+            SetAttributeResult(card.Attribute, monster.Attribute, monster),
+                                            monster);
         ReduceBlood(monster, demage);
         if (hasState)
         {
@@ -729,8 +801,9 @@ public class GameControll : MonoBehaviour {
     void MonsterAttactEnemy(Monster monster, Monster enemy, GameProp skill, bool hasState)
     {
         Status status;
-        int demage = GetDamageValue(monster.AttactPower * skill.Value,
-                                           enemy, skill.Attribute);
+        int demage = GetDamageValue(monster.AttactPower * skill.Value * 
+            SetAttributeResult(monster.Attribute, enemy.Attribute, enemy),
+                                           enemy);
         ReduceBlood(enemy, demage);
         if (hasState)
         {
@@ -865,7 +938,11 @@ public class GameControll : MonoBehaviour {
                 monster.AttactPower += aIntPart;
                 monster.DefensivePower -= dIntPart;
                 break;
-            
+            case "defend_add_attack_sub":
+                monster.AttactPower -= aIntPart;
+                monster.DefensivePower += dIntPart;
+                break;
+
         }
     }
 
@@ -957,7 +1034,7 @@ public class GameControll : MonoBehaviour {
            OnComplete(()=>Destroy(healthChange));
     }
 
-    int GetDamageValue(float attact, Monster monster, int attribute)
+    int GetDamageValue(float attact, Monster monster)
     {
         float defend = monster.DefensivePower;
         int value = System.Convert.ToInt32(attact*attact/(attact+defend)) < 0 ? 0 : 
@@ -1267,11 +1344,12 @@ public class GameControll : MonoBehaviour {
 
     public GameObject GetGameObjectByMonster(Monster monster)
     {
-        foreach(GameObject gameObject in gameObjectMonsterReflect.Keys)
+        List<GameObject> objects = new List<GameObject>(gameObjectMonsterReflect.Keys);
+        for(int i = 0; i < objects.Count; ++i)
         {
-            if(gameObjectMonsterReflect[gameObject] == monster)
+            if(gameObjectMonsterReflect[objects[i]] == monster)
             {
-                return gameObject;
+                return objects[i];
             }
         }
         return null;
@@ -1444,10 +1522,11 @@ public class GameControll : MonoBehaviour {
 
     public void SetTip(string tip)
     {
+        GameObject tipGameObject = Instantiate(tipPrefab);
         TextMesh textMesh = tipGameObject.GetComponent<TextMesh>();
         textMesh.text = tip;
         DOTween.ToAlpha(() => textMesh.color, (color) => textMesh.color = color, 0, 1.2f)
-            .OnComplete(() => { textMesh.color = new Color(1, 1, 1, 1); textMesh.text = ""; });
+            .OnComplete(() => { Destroy(tipGameObject); });
     }
 
     public static T DeepCopy<T>(T RealObject)

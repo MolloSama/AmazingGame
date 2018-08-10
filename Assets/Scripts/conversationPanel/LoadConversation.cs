@@ -28,7 +28,7 @@ public class LoadConversation : MonoBehaviour {
 
     public GameObject cancelButton;
 
-    public TextMesh tipTextMesh;
+    public GameObject tipPrefab;
 
 	// Use this for initialization
 	void Start () {
@@ -189,9 +189,11 @@ public class LoadConversation : MonoBehaviour {
 
     public void SetTip(string tip)
     {
-        tipTextMesh.text = tip;
-        DOTween.ToAlpha(() => tipTextMesh.color, (color) => tipTextMesh.color = color, 0, 1.2f)
-            .OnComplete(() => { tipTextMesh.color = new Color(1, 1, 1, 1); tipTextMesh.text = ""; });
+        GameObject tipGameObject = Instantiate(tipPrefab);
+        TextMesh textMesh = tipGameObject.GetComponent<TextMesh>();
+        textMesh.text = tip;
+        DOTween.ToAlpha(() => textMesh.color, (color) => textMesh.color = color, 0, 1.2f)
+            .OnComplete(() => { Destroy(tipGameObject); });
     }
 
     private string ReplaceText(string text)

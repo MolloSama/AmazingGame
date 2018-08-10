@@ -1,2 +1,1 @@
-﻿scene=pic002=获得技能——纯阳内功·第四阶
-get_skill=100006
+﻿scene=pic002=获得技能——纯阳内功·第四阶=get_skill=100006
