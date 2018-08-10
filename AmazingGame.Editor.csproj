@@ -361,6 +361,7 @@
     <None Include="Assets\Resources\data\scene-mosters.txt" />
     <None Include="Assets\Resources\data\skill.txt" />
     <None Include="Assets\Resources\data\state.txt" />
+    <None Include="Assets\Resources\data\tabloidText.txt" />
     <None Include="Assets\Resources\mission\missionDetails\1.txt" />
     <None Include="Assets\Resources\mission\missionDetails\2.txt" />
     <None Include="Assets\Resources\mission\missionDialogue\1-1-1-1-1-1.txt" />

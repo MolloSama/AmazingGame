@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -26,6 +27,8 @@ public class LoadConversation : MonoBehaviour {
     public GameObject okButton;
 
     public GameObject cancelButton;
+
+    public TextMesh tipTextMesh;
 
 	// Use this for initialization
 	void Start () {
@@ -63,7 +66,7 @@ public class LoadConversation : MonoBehaviour {
     {
         string[] data = conversation[index].Split('=');
         GameObject panel = GameObject.Find("white");
-        if(data.Length==3 || data.Length == 4)
+        if(data.Length >= 3)
         {
             if (data[0].Equals("叶明卿"))
             {
@@ -129,14 +132,14 @@ public class LoadConversation : MonoBehaviour {
                 }
             }
         }
-        if (data.Length == 2)
+        if (data.Length == 5)
         {
             isConversationOver = true;
-            switch(data[0])
+            switch(data[3])
             {
                 case "get_skill":
                     GameProp temp1;
-                    if(GlobalVariable.AllLeadSkills.TryGetValue(data[1], out temp1))
+                    if(GlobalVariable.AllLeadSkills.TryGetValue(data[4], out temp1))
                     {
                         GlobalVariable.ExistingLeadSkills.Add(temp1);
                         if (conversationSerialNumber.Split('-')[0].Equals("0"))
@@ -151,11 +154,12 @@ public class LoadConversation : MonoBehaviour {
                             }
                             GlobalVariable.FightSkills[count] = temp1;
                         }
+                        SetTip("获得技能：" + temp1.Name);
                     }             
                     break;
                 case "get_item":
                     GameProp temp2;
-                    if (GlobalVariable.AllGameItems.TryGetValue(data[1], out temp2))
+                    if (GlobalVariable.AllGameItems.TryGetValue(data[4], out temp2))
                     {
                         if (temp2.Type.Equals("a4e17"))
                         {
@@ -163,13 +167,15 @@ public class LoadConversation : MonoBehaviour {
                         }
                         else GlobalVariable.BattleItems.Add(temp2);
                         GlobalVariable.itemIllustration[temp2.SerialNumber] = true;
+                        SetTip("获得物品：" + temp2.Name);
                     }
                     break;
                 case "get_card":
-                    GlobalVariable.ExistingCards.Add(GlobalVariable.AllCards[data[1]]);
-                    GlobalVariable.FightCards.Add(GlobalVariable.AllCards[data[1]]);
+                    GlobalVariable.ExistingCards.Add(GlobalVariable.AllCards[data[4]]);
+                    GlobalVariable.FightCards.Add(GlobalVariable.AllCards[data[4]]);
                     GlobalVariable.FightCardsIndex.Add(GlobalVariable.ExistingCards.Count - 1);
-                    GlobalVariable.cardIllustration[GlobalVariable.AllCards[data[1]].SerialNumber] = true;
+                    GlobalVariable.cardIllustration[GlobalVariable.AllCards[data[4]].SerialNumber] = true;
+                    SetTip("获得卡牌：" + GlobalVariable.AllCards[data[4]].Name);
                     break;
             }
         }
@@ -179,6 +185,13 @@ public class LoadConversation : MonoBehaviour {
             cancelButton.SetActive(true);
             index = conversation.Count;
         }
+    }
+
+    public void SetTip(string tip)
+    {
+        tipTextMesh.text = tip;
+        DOTween.ToAlpha(() => tipTextMesh.color, (color) => tipTextMesh.color = color, 0, 1.2f)
+            .OnComplete(() => { tipTextMesh.color = new Color(1, 1, 1, 1); tipTextMesh.text = ""; });
     }
 
     private string ReplaceText(string text)
