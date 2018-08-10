@@ -1447,7 +1447,7 @@ public class GameControll : MonoBehaviour {
         TextMesh textMesh = tipGameObject.GetComponent<TextMesh>();
         textMesh.text = tip;
         DOTween.ToAlpha(() => textMesh.color, (color) => textMesh.color = color, 0, 1.2f)
-            .OnComplete(() => { textMesh.color = new Color(255, 255, 255, 255); textMesh.text = ""; });
+            .OnComplete(() => { textMesh.color = new Color(1, 1, 1, 1); textMesh.text = ""; });
     }
 
     public static T DeepCopy<T>(T RealObject)
