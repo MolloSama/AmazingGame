@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using DG.Tweening;
 
 public class DisplayIllustration : MonoBehaviour
 {

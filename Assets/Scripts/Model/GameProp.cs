@@ -27,6 +27,10 @@ public class GameProp{
 
     public GameProp() { }
 
+    public GameProp(string serialNumber) {
+        SerialNumber = serialNumber;
+    }
+
     public GameProp(string serialNumber, string name, int energyConsumption, string type,
         string description, float value, int consecutiveRounds, int attribute, int targetQuantity,
         string animation, string statusIcon)

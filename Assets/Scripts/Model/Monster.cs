@@ -72,4 +72,9 @@ public class Monster{
         StatusIndex = -1;
         StatusIndexReflect = new Dictionary<int, GameObject>();
     }
+
+    public Monster(string serialNumber)
+    {
+        SerialNumber = serialNumber;
+    }
 }
