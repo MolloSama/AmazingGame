@@ -225,10 +225,10 @@
       <HintPath>Assets/DOTween/DOTween50.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
-      <HintPath>C:/Users/admin/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/UnityEngine.Analytics.dll</HintPath>
+      <HintPath>C:/Users/81244/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Purchasing">
-      <HintPath>C:/Users/admin/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/UnityEngine.Purchasing.dll</HintPath>
+      <HintPath>C:/Users/81244/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/UnityEngine.Purchasing.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -369,6 +369,38 @@
     <None Include="Assets\Resources\conversation\texts\1-8-3-1.txt" />
     <None Include="Assets\Resources\conversation\texts\1-8-4-0.txt" />
     <None Include="Assets\Resources\conversation\texts\1-8-4-1.txt" />
+    <None Include="Assets\Resources\conversation\texts\10-2-3-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\10-2-3-1.txt" />
+    <None Include="Assets\Resources\conversation\texts\11-2-3-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\11-2-3-1.txt" />
+    <None Include="Assets\Resources\conversation\texts\12-3-5-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\12-3-5-1.txt" />
+    <None Include="Assets\Resources\conversation\texts\13-0-0-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\14-0-0-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\15-0-0-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\16-0-0-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\17-0-0-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\2-3-2-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\2-3-2-1.txt" />
+    <None Include="Assets\Resources\conversation\texts\3-3-5-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\3-3-5-1.txt" />
+    <None Include="Assets\Resources\conversation\texts\4-2-3-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\4-2-3-1.txt" />
+    <None Include="Assets\Resources\conversation\texts\5-0-0-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\6-0-0-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\6-1-0-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\7-2-1-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\7-2-1-1.txt" />
+    <None Include="Assets\Resources\conversation\texts\7-4-2-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\7-4-2-1.txt" />
+    <None Include="Assets\Resources\conversation\texts\8-1-2-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\8-1-2-1.txt" />
+    <None Include="Assets\Resources\conversation\texts\8-2-3-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\8-2-3-1.txt" />
+    <None Include="Assets\Resources\conversation\texts\8-3-3-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\8-3-3-1.txt" />
+    <None Include="Assets\Resources\conversation\texts\9-2-3-0.txt" />
+    <None Include="Assets\Resources\conversation\texts\9-2-3-1.txt" />
     <None Include="Assets\Resources\data\ability.txt" />
     <None Include="Assets\Resources\data\ability_level.txt" />
     <None Include="Assets\Resources\data\card.txt" />

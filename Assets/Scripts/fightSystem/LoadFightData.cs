@@ -13,6 +13,7 @@ public class LoadFightData : MonoBehaviour {
     {
         savePath = Application.persistentDataPath + "/illustration/illustrationSave.bin";
         GlobalVariable.ClearGameData();
+        GlobalVariable.currentBlood = GlobalVariable.kraKen.BloodVolume;
         if(GlobalVariable.AllCards.Count == 0)
         {
             LoadSceneMonsters();

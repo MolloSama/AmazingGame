@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class DisplayMissionDescription : MonoBehaviour {
 
@@ -8,16 +9,25 @@ public class DisplayMissionDescription : MonoBehaviour {
     private static List<GameObject> missionDescriptionObjects = new List<GameObject>();
     private TextMesh textMesh;
     private Transform missionParent;
+    private Vector3 initPosition;
 
     // Use this for initialization
     void Start () {
+        initPosition = transform.position;
         missionParent = GameObject.FindGameObjectWithTag("MissionButton").transform;
     }
 
-    private void OnMouseDown()
+    private void OnMouseEnter()
     {
         DestoryMissionDescription();
         LoadMissionDescription();
+        initPosition = transform.position;
+        transform.DOMove(initPosition + new Vector3(0.2f, 0, 0), 0.5f);
+    }
+
+    private void OnMouseExit()
+    {
+        transform.DOMove(initPosition, 0.5f);
     }
 
     void LoadMissionDescription()

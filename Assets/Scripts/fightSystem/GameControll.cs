@@ -88,7 +88,7 @@ public class GameControll : MonoBehaviour {
         DisplayRoundText(youRoundObject);
         GlobalVariable.sceneMonsterNumber = monsterNumber;
         cardGroup = DeepCopy(GlobalVariable.FightCards);
-        AddCards(4, cardEndPosition.position, false);
+        AddCards(4, cardEndPosition.position - new Vector3(0.15f, 0, 0), false);
         foreach (Monster monster in gameObjectMonsterReflect.Values)
         {
             monsters.Add(monster);
@@ -103,7 +103,7 @@ public class GameControll : MonoBehaviour {
         playButton = GameObject.Find("playButton");
         energyStartPosition = energy.transform.position;
         InitializeItem();
-        SetKrakenAttribute();
+        StartCoroutine(SetKrakenAttribute());
     }
 	
 	// Update is called once per frame
@@ -170,7 +170,7 @@ public class GameControll : MonoBehaviour {
         GlobalVariable.currentBlood = kraken.BloodVolume;
     }
 
-    void SetKrakenAttribute()
+    IEnumerator SetKrakenAttribute()
     {
         int attribute = Random.Range(1, 4);
         kraken.Attribute = attribute;
@@ -190,11 +190,12 @@ public class GameControll : MonoBehaviour {
         }
         spr.sprite = Resources.Load<Sprite>(picture);
         TextMesh textMesh = currentAttributeText.GetComponent<TextMesh>();
-        DOTween.ToAlpha(() => textMesh.color, x => textMesh.color = x, 0, 2.3f).OnComplete(() =>
+        DOTween.ToAlpha(() => textMesh.color, x => textMesh.color = x, 0, 4.5f).OnComplete(() =>
         {
             Destroy(currentAttributeText);
-            currentAttributeIcon.transform.DOMove(currentAttributeIconEndPosition.position, 1f);
         });
+        yield return new WaitForSeconds(2f);
+        currentAttributeIcon.transform.DOMove(currentAttributeIconEndPosition.position, 1f);
     }
 
     private void EffectPropertyItem(GameProp item)
@@ -1194,7 +1195,7 @@ public class GameControll : MonoBehaviour {
         if (handCards.Count == maxCardCount - 1)
         {
             AddCards(1, handCardsSprite[FindMaxKey(handCardsSprite)].
-                 transform.position + new Vector3(0.15f, 0, 0), false);
+                 transform.position, false);
             AddCards(1, cardOutPosition.position, true);
             SetTip("卡牌数量超出限制，自动销毁");
         }
@@ -1207,17 +1208,17 @@ public class GameControll : MonoBehaviour {
         {
             if (handCardsSprite.Count == 0)
             {
-                AddCards(2, cardEndPosition.position, false);
+                AddCards(2, cardEndPosition.position - new Vector3(0.15f, 0, 0), false);
             }
             else
             {
                 AddCards(2, handCardsSprite[FindMaxKey(handCardsSprite)].
-                transform.position + new Vector3(0.15f, 0, 0), false);
+                transform.position, false);
             }
         }
     }
 
-    IEnumerator AddOneCard(Vector3 lastCardEndPosition, bool isDestory)
+    IEnumerator AddOneCard(Vector3 cardShowPosition, bool isDestory)
     {
         GameObject card = Instantiate(cardPrefab,
                 cardStartPosition.position, Quaternion.identity);
@@ -1245,7 +1246,7 @@ public class GameControll : MonoBehaviour {
         cardRawImg.sortingOrder = orderIndex + 1;
 
         yield return new WaitForSeconds(0.3f);
-        card.transform.DOMove(lastCardEndPosition, 0.5f).OnComplete(() =>
+        card.transform.DOMove(cardShowPosition, 0.5f).OnComplete(() =>
         {
             if ((drawCardCount == 1 && !isTalent3Effect) ||
             (drawCardCount == 2 && isTalent3Effect) || drawCardCount == 0)
@@ -1268,25 +1269,23 @@ public class GameControll : MonoBehaviour {
     {
         isAnimationEnd = false;
         int diff = cardGroup.Count - count;
-        if(diff <= 0)
+        if (diff < 0)
         {
             count = cardGroup.Count;
-            for(int i = 0; i < count; ++i)
+            for (int i = 1; i <= count; ++i)
             {
-                lastCardEndPosition += new Vector3(i * 0.15f, 0, 0);
+                lastCardEndPosition += new Vector3(0.15f, 0, 0);
                 StartCoroutine(AddOneCard(lastCardEndPosition, isDestory));
             }
             cardGroup = DeepCopy(GlobalVariable.FightCards);
-            for (int i = 1; i <= -diff; ++i)
-            {
-                StartCoroutine(AddOneCard(lastCardEndPosition + new Vector3(i * 0.15f, 0, 0), isDestory));
-            }
+            AddCards(-diff, lastCardEndPosition, isDestory);
         }
         else
         {
-            for (int i = 0; i < count; ++i)
+            for (int i = 1; i <= count; ++i)
             {
-                StartCoroutine(AddOneCard(lastCardEndPosition + new Vector3(i * 0.15f, 0, 0), isDestory));
+                lastCardEndPosition += new Vector3(0.15f, 0, 0);
+                StartCoroutine(AddOneCard(lastCardEndPosition, isDestory));
             }
         }
     }

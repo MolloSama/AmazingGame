@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using DG.Tweening;
 using System.Text.RegularExpressions;
@@ -163,28 +162,5 @@ public class Merge : MonoBehaviour {
         MergeManager._instance.LoadCards();
         gameObject.GetComponent<BoxCollider2D>().enabled = true;
         gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "foreground";
-    }
-
-    void WriteReflectTxt()
-    {
-        FileStream fs = new FileStream("C:/Users/admin/Documents/GitHub/AmazingGame/Assets/merge-reflect.txt", FileMode.Create);
-        StreamWriter sw = new StreamWriter(fs);
-        //开始写入
-        for(int i = 1; i <= 12; ++i)
-        {
-            for (int j = 1; j <= 12; ++j)
-            {
-                for (int k = 1; k <= 12; ++k)
-                {
-                    string s = i.ToString("D" + 3) + "+" + j.ToString("D" + 3) + "+" + k.ToString("D" + 3)+"=012";
-                    sw.WriteLine(s);
-                }
-            }
-        }
-        //清空缓冲区
-        sw.Flush();
-        //关闭流
-        sw.Close();
-        fs.Close();
     }
 }

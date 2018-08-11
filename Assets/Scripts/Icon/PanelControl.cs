@@ -75,7 +75,6 @@ public class PanelControl : MonoBehaviour {
                             });
                             break;
                         case "Mission":
-                            GameObject g5 = GameObject.Find("Mission");
                             openObject.transform.DOMove(new Vector3(-7.22f, -2.91f), 0.2f);
                             openObject.transform.DOScale(new Vector3(0.001f, 0.001f, 0.001f), 0.2f).OnComplete(() =>
                             {
@@ -150,7 +149,6 @@ public class PanelControl : MonoBehaviour {
                             });
                             break;
                         case "Mission":
-                            GameObject g5 = GameObject.Find("Mission");
                             openObject.transform.DOMove(new Vector3(-7.22f, -2.91f), 0.2f);
                             openObject.transform.DOScale(new Vector3(0.001f, 0.001f, 0.001f), 0.2f).OnComplete(() =>
                             {

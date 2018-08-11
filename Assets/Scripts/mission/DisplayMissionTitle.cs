@@ -47,7 +47,8 @@ public class DisplayMissionTitle : MonoBehaviour {
             GameObject missionTitle = Instantiate(missionTilePrefab, missionTilePrefab.transform.position + 
                 new Vector3(0, -1.25f * i, 0), Quaternion.identity);
             missionTitle.transform.parent = missionParent;
-            missionTitle.GetComponent<TextMesh>().text = GlobalVariable.ExistingMissions[i + currentPage * maxCount].Title;
+            missionTitle.transform.Find("missionTitleText").GetComponent<TextMesh>().text 
+                = GlobalVariable.ExistingMissions[i + currentPage * maxCount].Title;
             missionTitle.name = GlobalVariable.ExistingMissions[i + currentPage * maxCount].SerialNumber;
             missionTitleObjects.Add(missionTitle);
         }
