@@ -17,13 +17,13 @@ public class DisplayTabloidText : MonoBehaviour {
         if (type.Equals("end"))
         {
             textObject.GetComponent<TextMesh>().text = Resources.Load("data/end").ToString();
-            textObject.transform.DOMove(endEndPosition.position, 16f).SetEase(Ease.Linear).OnComplete(() => SceneManager.LoadScene("startMenu"));
+            textObject.transform.DOMove(endEndPosition.position, 50f).SetEase(Ease.Linear).OnComplete(() => SceneManager.LoadScene("startMenu"));
             bg.sprite = Resources.Load<Sprite>("tabloid-bg/end_bk");
         }
         if (type.Equals("stuff"))
         {
             textObject.GetComponent<TextMesh>().text = Resources.Load("data/stuff").ToString();
-            textObject.transform.DOMove(stuffEndPosition.position, 16f).SetEase(Ease.Linear).OnComplete(() => SceneManager.LoadScene("startMenu"));
+            textObject.transform.DOMove(stuffEndPosition.position, 50f).SetEase(Ease.Linear).OnComplete(() => SceneManager.LoadScene("startMenu"));
             bg.sprite = Resources.Load<Sprite>("tabloid-bg/stuff_bk");
         }
 	}

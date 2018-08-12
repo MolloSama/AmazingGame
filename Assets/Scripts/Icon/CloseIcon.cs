@@ -66,8 +66,7 @@ public class CloseIcon : MonoBehaviour {
                     });
                     break;
                 case "Mission":
-                    GameObject g5 = GameObject.Find("Merge");
-                    PanelControl.openObject.transform.DOMove(new Vector3(g5.transform.position.x, g5.transform.position.y), 0.2f);
+                    PanelControl.openObject.transform.DOMove(new Vector3(-7.99f, 0.8f), 0.2f);
                     PanelControl.openObject.transform.DOScale(new Vector3(0.001f, 0.001f, 0.001f), 0.2f).OnComplete(() =>
                     {
                         Destroy(PanelControl.openObject);

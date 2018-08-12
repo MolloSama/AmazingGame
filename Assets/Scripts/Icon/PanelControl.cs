@@ -75,7 +75,7 @@ public class PanelControl : MonoBehaviour {
                             });
                             break;
                         case "Mission":
-                            openObject.transform.DOMove(new Vector3(-7.22f, -2.91f), 0.2f);
+                            openObject.transform.DOMove(new Vector3(-7.99f, 0.8f), 0.2f);
                             openObject.transform.DOScale(new Vector3(0.001f, 0.001f, 0.001f), 0.2f).OnComplete(() =>
                             {
                                 Destroy(openObject);
@@ -149,7 +149,7 @@ public class PanelControl : MonoBehaviour {
                             });
                             break;
                         case "Mission":
-                            openObject.transform.DOMove(new Vector3(-7.22f, -2.91f), 0.2f);
+                            openObject.transform.DOMove(new Vector3(-7.99f, 0.8f), 0.2f);
                             openObject.transform.DOScale(new Vector3(0.001f, 0.001f, 0.001f), 0.2f).OnComplete(() =>
                             {
                                 Destroy(openObject);

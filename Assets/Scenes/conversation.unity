@@ -88,6 +88,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -249,6 +250,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -586,7 +588,7 @@ TextMesh:
   m_FontSize: 35
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 12800000, guid: ab0109d23e69ca14e9ba9be9fc106a0e, type: 3}
+  m_Font: {fileID: 12800000, guid: 15dd91e06ebd9ea4c9e9695c29b2c581, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4278190080
@@ -604,7 +606,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ab0109d23e69ca14e9ba9be9fc106a0e, type: 3}
+  - {fileID: 2100000, guid: 15dd91e06ebd9ea4c9e9695c29b2c581, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -982,6 +984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b0abbc62439414b943154496e52136, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flag: 0
 --- !u!1 &1958546650
 GameObject:
   m_ObjectHideFlags: 0
@@ -1129,6 +1132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b0abbc62439414b943154496e52136, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flag: 0
 --- !u!1001 &2006245815
 Prefab:
   m_ObjectHideFlags: 0

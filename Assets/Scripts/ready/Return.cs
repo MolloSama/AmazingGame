@@ -15,7 +15,7 @@ public class Return : MonoBehaviour {
         switch (gameObject.name)
         {
             case "returnMap":
-                //if (GlobalVariable.HasFightAreaBossScenes.Contains(GlobalVariable.topMap))
+                if (GlobalVariable.HasFightAreaBossScenes.Contains(GlobalVariable.topMap))
                 {
                     gameObject.transform.parent.gameObject.SetActive(false);
                     GameObject temp = Instantiate(Resources.Load<GameObject>("PanelPrefabs/FirstMap"), new Vector3(0, 0, 0), Quaternion.identity);
@@ -25,7 +25,7 @@ public class Return : MonoBehaviour {
                 }
                 break;
             case "returnToSecondary":
-                //if (!GlobalVariable.middleMap.StartsWith("1") ||  GlobalVariable.HasFightZSBossScenes.Contains(GlobalVariable.middleMap))
+                if (!GlobalVariable.middleMap.StartsWith("1") || GlobalVariable.HasFightZSBossScenes.Contains(GlobalVariable.middleMap))
                 {
                     GameObject current = gameObject.transform.parent.gameObject;
                     SecondMap.SetScene(GlobalVariable.middleMap.Split('-')[0]);
