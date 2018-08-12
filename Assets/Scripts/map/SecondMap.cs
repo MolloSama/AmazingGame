@@ -8,11 +8,13 @@ public class SecondMap : MonoBehaviour {
 
     private string num = "1";
 
+    public GameObject circle;
+    public static GameObject temp;
+
     // Use this for initialization
     void Start () {
         GlobalVariable.sceneflag = 2;
 	}
-	
     public static void SetScene(string temp)
     {
         sceneName = temp;
@@ -20,6 +22,7 @@ public class SecondMap : MonoBehaviour {
 
     public void OnMouseUpAsButton()
     {
+        Destroy(SecondMap.temp);
         if (sceneName == null)
         {
             sceneName = num;
@@ -31,5 +34,14 @@ public class SecondMap : MonoBehaviour {
         PanelControl.openObject = temp;
         Destroy(gameObject.transform.parent.gameObject);
         ThridMap._instance.AnShow();
+    }
+    private void OnMouseEnter()
+    {
+        temp = Instantiate(circle, new Vector3(GlobalVariable.SecondMapPosition[sceneName + '-' + gameObject.name][0], GlobalVariable.SecondMapPosition[sceneName + '-' + gameObject.name][1]), Quaternion.identity);
+    }
+    private void OnMouseExit()
+    {
+        if (temp != null)
+            Destroy(temp);
     }
 }

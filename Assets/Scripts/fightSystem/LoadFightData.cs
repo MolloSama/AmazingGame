@@ -34,6 +34,7 @@ public class LoadFightData : MonoBehaviour {
             LoadStoreScene();
             LoadFinalBossList();
             LoadAllAreaBossScene();
+            LoadSecondMapPosition();
             GlobalVariable.Realm = GlobalVariable.AllLevel[0];
             GlobalVariable.ExistingTalent.Add(GlobalVariable.AllTalent["001"]);
         }
@@ -156,13 +157,15 @@ public class LoadFightData : MonoBehaviour {
     {
         string[] positionData = Resources.Load("data/mountain_position").ToString().Split('\n');
         string[] nameData = Resources.Load("data/num-mount-reflect").ToString().Split('\n');
+
         int count = 0;
         foreach (string t in positionData)
         {
             string[] temp = t.Split(' ');
+            if (temp.Length % 2 == 0)
+                print(temp.Length);
             for (int i = 1; i < temp.Length; i += 2)
             {
-                //GlobalVariable.Secondary_Map_Serialnumber.Add(nameData[count].Split('=')[0].Split('-')[0] + '-' + nameData[count].Split('=')[0].Split('-')[1]);
                 MountainInformation mountain = new MountainInformation(nameData[count].Split('=')[0], nameData[count].Split('=')[1], float.Parse(temp[i]), float.Parse(temp[i + 1]), false, (i / 2 + 1));
                 GlobalVariable.Mountains.Add(mountain.serialnumber, mountain);
                 count++;
@@ -266,5 +269,22 @@ public class LoadFightData : MonoBehaviour {
             }
         }
         return list;
+    }
+
+    void LoadSecondMapPosition()
+    {
+        string[] secondMapPosition = Resources.Load("data/secondmap_position").ToString().Split('\n');
+        for (int i = 0; i < secondMapPosition.Length; i++)
+        {
+            string[] position = secondMapPosition[i].Split(' ');
+            int t = int.Parse(position[0]);
+            for(int j = 1; j < position.Length; j += 2)
+            {
+                List<float> temp = new List<float>();
+                temp.Add(float.Parse(position[j]));
+                temp.Add(float.Parse(position[j + 1]));
+                GlobalVariable.SecondMapPosition.Add(t.ToString() + '-' + ((j + 1) / 2).ToString(), temp);
+            }
+        }
     }
 }

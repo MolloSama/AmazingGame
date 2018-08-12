@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4178836391429218}
   - component: {fileID: 212611873923379444}
   - component: {fileID: 61617510842439372}
-  - component: {fileID: 114001423012146450}
   - component: {fileID: 114718671145893478}
   m_Layer: 0
   m_Name: 4
@@ -40,7 +39,6 @@ GameObject:
   - component: {fileID: 4309016503508240}
   - component: {fileID: 212731149638696352}
   - component: {fileID: 61471991566083944}
-  - component: {fileID: 114729026528193024}
   - component: {fileID: 114104325712964988}
   m_Layer: 0
   m_Name: 2
@@ -78,7 +76,6 @@ GameObject:
   - component: {fileID: 4320362551384940}
   - component: {fileID: 212246867342436938}
   - component: {fileID: 61691577916397242}
-  - component: {fileID: 114790363937373494}
   - component: {fileID: 114784213728736972}
   m_Layer: 0
   m_Name: 1
@@ -112,7 +109,6 @@ GameObject:
   - component: {fileID: 4718608978061358}
   - component: {fileID: 212410626857417156}
   - component: {fileID: 61804315420403042}
-  - component: {fileID: 114980865575622370}
   - component: {fileID: 114874038944492398}
   m_Layer: 0
   m_Name: 3
@@ -359,19 +355,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.5994406, y: 1.4790583}
   m_EdgeRadius: 0
---- !u!114 &114001423012146450
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1272372075503358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83b0abbc62439414b943154496e52136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  circle: {fileID: 0}
-  flag: 0
 --- !u!114 &114104325712964988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -383,6 +366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06284a1302f9974cb49decf0fb9d771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  circle: {fileID: 1536713112347474, guid: e16ba11354dc6d848ad1696bf4f7ef8b, type: 2}
 --- !u!114 &114300962498024756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -416,19 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06284a1302f9974cb49decf0fb9d771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114729026528193024
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1401297294624442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83b0abbc62439414b943154496e52136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  circle: {fileID: 0}
-  flag: 0
+  circle: {fileID: 1536713112347474, guid: e16ba11354dc6d848ad1696bf4f7ef8b, type: 2}
 --- !u!114 &114784213728736972
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -440,19 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06284a1302f9974cb49decf0fb9d771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114790363937373494
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1512124721982308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83b0abbc62439414b943154496e52136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  circle: {fileID: 0}
-  flag: 0
+  circle: {fileID: 1536713112347474, guid: e16ba11354dc6d848ad1696bf4f7ef8b, type: 2}
 --- !u!114 &114874038944492398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -464,19 +424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06284a1302f9974cb49decf0fb9d771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114980865575622370
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1737240507520776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83b0abbc62439414b943154496e52136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  circle: {fileID: 0}
-  flag: 0
+  circle: {fileID: 1536713112347474, guid: e16ba11354dc6d848ad1696bf4f7ef8b, type: 2}
 --- !u!212 &212009339155520912
 SpriteRenderer:
   m_ObjectHideFlags: 1

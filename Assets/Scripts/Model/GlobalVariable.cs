@@ -40,6 +40,7 @@ public static class GlobalVariable{
     public static List<string> StoreScenes = new List<string>();
     public static List<string> AllAreaBossScenes = new List<string>();
     public static List<string> HasFightAreaBossScenes = new List<string>();
+    public static Dictionary<string, List<float>> SecondMapPosition = new Dictionary<string, List<float>>();
     public static Monster kraKen = new Monster("0", "", "kraken", 30, 15, 300, null, 1, "", "");
     public static int currentBlood = 300;
     public static string LeadName;

@@ -55,7 +55,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4716068092377646}
   - component: {fileID: 212557571528903588}
-  - component: {fileID: 114553991735113212}
   - component: {fileID: 61082021532626636}
   - component: {fileID: 114016701993486484}
   m_Layer: 0
@@ -89,7 +88,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4714328644471746}
   - component: {fileID: 212806473624023376}
-  - component: {fileID: 114329902402120014}
   - component: {fileID: 61930579909379734}
   - component: {fileID: 114135327537241756}
   m_Layer: 0
@@ -108,7 +106,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4360337282400568}
   - component: {fileID: 212262208612009504}
-  - component: {fileID: 114046658180198666}
   - component: {fileID: 61870241175815770}
   - component: {fileID: 114057817868460402}
   m_Layer: 0
@@ -312,19 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06284a1302f9974cb49decf0fb9d771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114046658180198666
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1938531074129356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83b0abbc62439414b943154496e52136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  circle: {fileID: 0}
-  flag: 0
+  circle: {fileID: 1536713112347474, guid: e16ba11354dc6d848ad1696bf4f7ef8b, type: 2}
 --- !u!114 &114057817868460402
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -336,6 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06284a1302f9974cb49decf0fb9d771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  circle: {fileID: 1536713112347474, guid: e16ba11354dc6d848ad1696bf4f7ef8b, type: 2}
 --- !u!114 &114078530413949640
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -358,19 +344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06284a1302f9974cb49decf0fb9d771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114329902402120014
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1526430317181710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83b0abbc62439414b943154496e52136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  circle: {fileID: 0}
-  flag: 0
+  circle: {fileID: 1536713112347474, guid: e16ba11354dc6d848ad1696bf4f7ef8b, type: 2}
 --- !u!114 &114341033681910762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -382,19 +356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed792f80541fd1439b6078fafb99520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114553991735113212
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1398410371645086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83b0abbc62439414b943154496e52136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  circle: {fileID: 0}
-  flag: 0
 --- !u!212 &212262208612009504
 SpriteRenderer:
   m_ObjectHideFlags: 1

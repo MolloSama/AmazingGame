@@ -392,6 +392,7 @@
     <None Include="Assets\Resources\data\num-mount-reflect.txt" />
     <None Include="Assets\Resources\data\price-reflect.txt" />
     <None Include="Assets\Resources\data\scene-mosters.txt" />
+    <None Include="Assets\Resources\data\secondmap_position.txt" />
     <None Include="Assets\Resources\data\skill.txt" />
     <None Include="Assets\Resources\data\state.txt" />
     <None Include="Assets\Resources\data\stuff.txt" />

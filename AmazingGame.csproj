@@ -267,6 +267,7 @@
     <Compile Include="Assets\Scripts\fightSystem\StartPlayCard.cs" />
     <Compile Include="Assets\Scripts\fightSystem\TextOrder.cs" />
     <Compile Include="Assets\Scripts\Icon\ButtonFlow.cs" />
+    <Compile Include="Assets\Scripts\Icon\Circle.cs" />
     <Compile Include="Assets\Scripts\Icon\CloseIcon.cs" />
     <Compile Include="Assets\Scripts\Icon\PanelControl.cs" />
     <Compile Include="Assets\Scripts\illustration\DisplayIllustration.cs" />
@@ -420,6 +421,7 @@
     <None Include="Assets\Resources\data\num-mount-reflect.txt" />
     <None Include="Assets\Resources\data\price-reflect.txt" />
     <None Include="Assets\Resources\data\scene-mosters.txt" />
+    <None Include="Assets\Resources\data\secondmap_position.txt" />
     <None Include="Assets\Resources\data\skill.txt" />
     <None Include="Assets\Resources\data\state.txt" />
     <None Include="Assets\Resources\data\stuff.txt" />

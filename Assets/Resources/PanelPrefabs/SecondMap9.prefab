@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4637189887341838}
   - component: {fileID: 212395413569840466}
   - component: {fileID: 61751065159059400}
-  - component: {fileID: 114331963352248510}
   - component: {fileID: 114861893402448060}
   m_Layer: 0
   m_Name: 2
@@ -40,7 +39,6 @@ GameObject:
   - component: {fileID: 4817049498908230}
   - component: {fileID: 212149781313480830}
   - component: {fileID: 61035197520878150}
-  - component: {fileID: 114241340443180970}
   - component: {fileID: 114356656965417802}
   m_Layer: 0
   m_Name: 1
@@ -243,32 +241,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.5299902, y: 1.0299973}
   m_EdgeRadius: 0
---- !u!114 &114241340443180970
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1078166965863812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83b0abbc62439414b943154496e52136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  circle: {fileID: 0}
-  flag: 0
---- !u!114 &114331963352248510
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1038961240606464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83b0abbc62439414b943154496e52136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  circle: {fileID: 0}
-  flag: 0
 --- !u!114 &114353700022913514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -291,6 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06284a1302f9974cb49decf0fb9d771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  circle: {fileID: 1536713112347474, guid: e16ba11354dc6d848ad1696bf4f7ef8b, type: 2}
 --- !u!114 &114548285089875204
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -313,6 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06284a1302f9974cb49decf0fb9d771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  circle: {fileID: 1536713112347474, guid: e16ba11354dc6d848ad1696bf4f7ef8b, type: 2}
 --- !u!212 &212149781313480830
 SpriteRenderer:
   m_ObjectHideFlags: 1
