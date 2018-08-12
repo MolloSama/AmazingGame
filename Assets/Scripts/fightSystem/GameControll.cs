@@ -186,7 +186,14 @@ public class GameControll : MonoBehaviour {
 
     private void OnDestroy()
     {
-        GlobalVariable.currentBlood = kraken.BloodVolume;
+        if (GlobalVariable.currentScene.StartsWith("0"))
+        {
+            GlobalVariable.currentBlood = krakenMaxHealth;
+        }
+        else
+        {
+            GlobalVariable.currentBlood = kraken.BloodVolume;
+        }
     }
 
     IEnumerator SetKrakenAttribute()
@@ -209,12 +216,13 @@ public class GameControll : MonoBehaviour {
         }
         spr.sprite = Resources.Load<Sprite>(picture);
         TextMesh textMesh = currentAttributeText.GetComponent<TextMesh>();
-        DOTween.ToAlpha(() => textMesh.color, x => textMesh.color = x, 0, 4.5f).OnComplete(() =>
+        yield return new WaitForSeconds(1f);
+        DOTween.ToAlpha(() => textMesh.color, x => textMesh.color = x, 0, 0.6f).OnComplete(() =>
         {
             Destroy(currentAttributeText);
         });
-        yield return new WaitForSeconds(2f);
-        currentAttributeIcon.transform.DOMove(currentAttributeIconEndPosition.position, 1f);
+        yield return new WaitForSeconds(0.5f);
+        currentAttributeIcon.transform.DOMove(currentAttributeIconEndPosition.position, 0.7f);
     }
 
     private void EffectPropertyItem(GameProp item)
@@ -1437,7 +1445,12 @@ public class GameControll : MonoBehaviour {
     void SetMosters()
     {
         List<string> allMosterNumber = GlobalVariable.sceneMonstersDictionary[GlobalVariable.currentScene];
-        int randomCount = Random.Range(1, 7);   
+        int maxCount = 7;
+        if (GlobalVariable.currentScene.StartsWith("0"))
+        {
+            maxCount = 4;
+        }
+        int randomCount = Random.Range(1, maxCount);   
         bool hasBoss = false;
         for(int i = 1; i <= randomCount; ++i)
         {
