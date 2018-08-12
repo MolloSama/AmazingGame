@@ -22,7 +22,7 @@ public class DisplayMissionTitle : MonoBehaviour {
     public void AnShow()
     {
         currentPage = 0;
-        maxCount = 7;
+        maxCount = 5;
         missionParent = GameObject.FindGameObjectWithTag("MissionButton").transform;
         LoadMissionTitle();
     }

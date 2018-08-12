@@ -39,6 +39,8 @@ public class AttributeUp : MonoBehaviour {
                 case "bloodUp":
                     GlobalVariable.kraKen.BloodVolume += 
                         System.Convert.ToInt32(GlobalVariable.kraKen.BloodVolume*(randomPercent / 100f));
+                    GlobalVariable.currentBlood +=
+                        System.Convert.ToInt32(GlobalVariable.kraKen.BloodVolume * (randomPercent / 100f));
                     break;
             }
             isUp = true;

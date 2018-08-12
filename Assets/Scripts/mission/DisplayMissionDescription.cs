@@ -37,7 +37,8 @@ public class DisplayMissionDescription : MonoBehaviour {
         {
             GameObject missionDescription = Instantiate(missionDescriptionPrefab, 
                 missionDescriptionPrefab.transform.position + new Vector3(0, -1f * i, 0), Quaternion.identity);
-            missionDescription.transform.localScale = new Vector3(missionDescription.transform.localScale.x * 0.8f, missionDescription.transform.localScale.y * 0.8f);
+            missionDescription.transform.localScale = 
+                new Vector3(missionDescription.transform.localScale.x * 0.8f, missionDescription.transform.localScale.y * 0.8f);
 
             missionDescription.transform.parent = missionParent;
             textMesh = missionDescription.GetComponent<TextMesh>();
@@ -49,8 +50,11 @@ public class DisplayMissionDescription : MonoBehaviour {
             {
                 textMesh.color = new Color(0.5f, 0.5f, 0.5f);
             }
-            textMesh.text = descriptions[i];
-            missionDescriptionObjects.Add(missionDescription);
+            if(i < descriptions.Count)
+            {
+                textMesh.text = descriptions[i];
+                missionDescriptionObjects.Add(missionDescription);
+            }
         }
     }
 

@@ -34,6 +34,9 @@ public class IntoFight : MonoBehaviour {
                         LoadConversation.SetConversation("6-0-0", 0, "ready", "");
                     }
                     break;
+                default:
+                    LoadConversation.SetConversation(sceneName, 0, "ready", "");
+                    break;
             }
         }
         else
