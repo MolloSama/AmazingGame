@@ -29,7 +29,7 @@ public class ThridMap : MonoBehaviour {
     public static void SetScene(string temp)
     {
         sceneName = temp;
-        GlobalVariable.preMap = temp;
+        GlobalVariable.middleMap = temp;
     }
 
     private void LoadMountains()

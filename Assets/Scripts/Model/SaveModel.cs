@@ -12,9 +12,10 @@ public class SaveModel{
     private List<GameProp> existSkill;
     private GameProp[] fightSkill;
     private Monster kraken;
-    private Dictionary<string, bool> hasFightAreaBoss;
+    private List<string> hasFightZSBossScenes;
     private List<string> hasFightScenes;
     private List<string> hasFightBossScenes;
+    private List<string> hasFightAreaBossScenes;
     private string currentScenes;
     private string time;
     private string leadName;
@@ -117,16 +118,16 @@ public class SaveModel{
         }
     }
 
-    public Dictionary<string, bool> HasFightAreaBoss
+    public List<string> HasFightZSBossScenes
     {
         get
         {
-            return hasFightAreaBoss;
+            return hasFightZSBossScenes;
         }
 
         set
         {
-            hasFightAreaBoss = value;
+            hasFightZSBossScenes = value;
         }
     }
 
@@ -286,6 +287,19 @@ public class SaveModel{
         }
     }
 
+    public List<string> HasFightAreaBossScenes
+    {
+        get
+        {
+            return hasFightAreaBossScenes;
+        }
+
+        set
+        {
+            hasFightAreaBossScenes = value;
+        }
+    }
+
     public SaveModel()
     {
         existCards = GlobalVariable.ExistingCards;
@@ -295,9 +309,10 @@ public class SaveModel{
         battleItems = GlobalVariable.BattleItems;
         plotItems = GlobalVariable.PlotItems;
         kraken = GlobalVariable.kraKen;
-        hasFightAreaBoss = GlobalVariable.HasFightAreaBoss;
+        hasFightZSBossScenes = GlobalVariable.HasFightZSBossScenes;
         hasFightBossScenes = GlobalVariable.HasFightBossScenes;
         hasFightScenes = GlobalVariable.HasFightScenes;
+        hasFightAreaBossScenes = GlobalVariable.HasFightAreaBossScenes;
         currentScenes = GlobalVariable.currentScene;
         time = DateTime.Now.ToString();
         leadName = GlobalVariable.LeadName;

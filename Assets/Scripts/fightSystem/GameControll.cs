@@ -81,18 +81,22 @@ public class GameControll : MonoBehaviour {
     private bool isTalent3Effect = false;
     private bool hasEnterFriendRound = false;
     private bool isFriendFull = false;
+    private int currentBossNumber = 0;
 
     // Use this for initialization
     void Start() {
-        SetMosters();
+        if (GlobalVariable.currentScene.Equals("6-1-0"))
+        {
+            SetFinalBoss();
+        }
+        else
+        {
+            SetMosters();
+        }
         DisplayRoundText(youRoundObject);
         GlobalVariable.sceneMonsterNumber = monsterNumber;
         cardGroup = DeepCopy(GlobalVariable.FightCards);
         AddCards(4, cardEndPosition.position - new Vector3(0.15f, 0, 0), false);
-        foreach (Monster monster in gameObjectMonsterReflect.Values)
-        {
-            monsters.Add(monster);
-        }
         kraken = DeepCopy(GlobalVariable.kraKen);
         kraken.BloodVolume = GlobalVariable.currentBlood;
         krakenMaxHealth = GlobalVariable.kraKen.BloodVolume;
@@ -114,7 +118,22 @@ public class GameControll : MonoBehaviour {
         }
         if(monsters.Count == 0)
         {
-            SceneManager.LoadScene("settlement");
+            if (GlobalVariable.currentScene.Equals("6-1-0"))
+            {
+                if(currentBossNumber == GlobalVariable.finalBossList.Count)
+                {
+                    DisplayTabloidText.type = "end";
+                    SceneManager.LoadScene("tabloid");
+                }
+                else
+                {
+                    SetFinalBoss();
+                }
+            }
+            else
+            {
+                SceneManager.LoadScene("settlement");
+            }
         }
         if (RenderMonster.currentIndex != -1)
         {
@@ -753,6 +772,19 @@ public class GameControll : MonoBehaviour {
             } while (skill.SerialNumber.Equals("1002"));
             return skill;
         }
+        if (monster.BloodVolume > GlobalVariable.AllMonsters[monster.SerialNumber].BloodVolume * 0.8)
+        {
+            if ((skill = GetMonsterAddBloodSkill(monster)) != null)
+            {
+                do
+                {
+                    int index = Random.Range(0, monster.SkillList.Count);
+                    skill = monster.SkillList[index];
+                } while (skill.SerialNumber.Equals("1008") ||
+                         skill.SerialNumber.Equals("1009"));
+                return skill;
+            }
+        }
         int randomIndex = Random.Range(0, monster.SkillList.Count);
         skill = monster.SkillList[randomIndex];
         return skill;
@@ -1384,10 +1416,28 @@ public class GameControll : MonoBehaviour {
         spr.material = material;
     }
 
+    void SetFinalBoss()
+    {
+        monsterNumber.Clear();
+        monsterNumber.Add(GlobalVariable.finalBossList[currentBossNumber]);
+        SwitchMosterPosition(1, true);
+        foreach (GameObject monsterObject in gameObjectMonsterReflect.Keys)
+        {
+            SpriteRenderer spr = monsterObject.GetComponent<SpriteRenderer>();
+            spr.color = new Color(1, 1, 1, 1);
+            spr.material = Resources.Load<Material>("materials/ShaderOutline");
+            if (!monsterObject.name.Equals("kraken"))
+            {
+                monsters.Add(gameObjectMonsterReflect[monsterObject]);
+            }
+        }
+        ++currentBossNumber;
+    }
+
     void SetMosters()
     {
         List<string> allMosterNumber = GlobalVariable.sceneMonstersDictionary[GlobalVariable.currentScene];
-        int randomCount = Random.Range(1, 7);       
+        int randomCount = Random.Range(1, 7);   
         bool hasBoss = false;
         for(int i = 1; i <= randomCount; ++i)
         {
@@ -1416,6 +1466,13 @@ public class GameControll : MonoBehaviour {
             }
         }
         SwitchMosterPosition(randomCount, hasBoss);
+        foreach (GameObject monsterObject in gameObjectMonsterReflect.Keys)
+        {
+            if (!monsterObject.name.Equals("kraken"))
+            {
+                monsters.Add(gameObjectMonsterReflect[monsterObject]);
+            }
+        }
     }
 
     void SwitchMosterPosition(int count, bool hasBoss)
@@ -1423,7 +1480,14 @@ public class GameControll : MonoBehaviour {
         if (hasBoss)
         {
             monstersPosition5.GetComponent<RenderMonster>().SetMnoster(GlobalVariable.AllMonsters[monsterNumber[0]].Code);
-            gameObjectMonsterReflect.Add(monstersPosition5, DeepCopy(GlobalVariable.AllMonsters[monsterNumber[0]]));
+            if (gameObjectMonsterReflect.ContainsKey(monstersPosition5))
+            {
+                gameObjectMonsterReflect[monstersPosition5] = DeepCopy(GlobalVariable.AllMonsters[monsterNumber[0]]);
+            }
+            else
+            {
+                gameObjectMonsterReflect.Add(monstersPosition5, DeepCopy(GlobalVariable.AllMonsters[monsterNumber[0]]));
+            }
             switch (count)
             {
                 case 1:

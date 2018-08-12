@@ -12,15 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/settlement.unity
     guid: 78ea6375431b14f49b21eb400a3f8196
   - enabled: 1
-    path: Assets/Scenes/secondaryMap.unity
-    guid: e1914eda809a7f64abc1fe3ac5548173
-  - enabled: 1
-    path: Assets/Scenes/mainMap.unity
-    guid: 000b9a08ed7eaa044b7d1ff85bc48295
-  - enabled: 1
-    path: Assets/Scenes/tertiaryMap.unity
-    guid: 68e2b6302061a4b4cb53b80abcbe1199
-  - enabled: 1
     path: Assets/Scenes/fighting.unity
     guid: 376a3c8910057124b930fd10e4139cd3
   - enabled: 1
@@ -44,3 +35,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ready.unity
     guid: e998f13c08c9876428e30370ae5eadef
+  - enabled: 1
+    path: Assets/Scenes/tabloid.unity
+    guid: ff9e4609daf209a48b117142be84070e

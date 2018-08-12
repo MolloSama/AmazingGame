@@ -23,7 +23,7 @@ public static class GlobalVariable{
     public static Dictionary<string, MountainInformation> Mountains = new Dictionary<string, MountainInformation>();
     public static Dictionary<string, string> mergeReflect = new Dictionary<string, string>();
     public static List<string> sceneMonsterNumber = new List<string>();
-    public static Dictionary<string, bool> HasFightAreaBoss = new Dictionary<string, bool>();
+    public static List<string> HasFightZSBossScenes = new List<string>();
     public static List<string> HasFightScenes = new List<string>();
     public static List<string> AllConversationList = new List<string>();
     public static List<string> HasFightBossScenes = new List<string>();
@@ -36,13 +36,17 @@ public static class GlobalVariable{
     public static Dictionary<string, bool> itemIllustration = new Dictionary<string, bool>();
     public static Dictionary<string, bool> monsterIllustration = new Dictionary<string, bool>();
     public static Dictionary<string, string> priceReflect = new Dictionary<string, string>();
+    public static List<string> finalBossList = new List<string>();
     public static List<string> StoreScenes = new List<string>();
+    public static List<string> AllAreaBossScenes = new List<string>();
+    public static List<string> HasFightAreaBossScenes = new List<string>();
     public static Monster kraKen = new Monster("0", "", "kraken", 30, 15, 300, null, 1, "", "");
     public static int currentBlood = 300;
     public static string LeadName;
     public static Level Realm;
     public static string currentScene = "scene2";
-    public static string preMap = "1-1";
+    public static string middleMap = "1-1";
+    public static string topMap = "1";
     public static readonly int MAX_NUMBER_OF_FIGHT_CARDS = 30;
     public static CardProp[] fightCardsGrids = new CardProp[MAX_NUMBER_OF_FIGHT_CARDS];
     public static int money = 0;
@@ -76,7 +80,7 @@ public static class GlobalVariable{
         kraKen.DefensivePower = 15;
         kraKen.AttactPower = 30;
         kraKen.BloodVolume = 300;
-        HasFightAreaBoss.Clear();
+        HasFightZSBossScenes.Clear();
         HasFightBossScenes.Clear();
         HasFightScenes.Clear();
     }
@@ -147,9 +151,13 @@ public static class GlobalVariable{
         if (HasBoss())
         {
             HasFightBossScenes.Add(currentScene);
-            if (HasAreaBoss())
+            if (HasZSBoss())
             {
-                HasFightAreaBoss.Add(preMap, true);
+                HasFightZSBossScenes.Add(middleMap);
+            }
+            if (AllAreaBossScenes.Contains(currentScene))
+            {
+                HasFightAreaBossScenes.Add(currentScene.Split('-')[0]);
             }
         }
         if (AllConversationList.Contains(currentScene + "-1"))
@@ -221,12 +229,12 @@ public static class GlobalVariable{
         return false;
     }
 
-    static bool HasAreaBoss()
+    static bool HasZSBoss()
     {
-        List<string> areaBoss = new List<string> { "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008" };
+        List<string> zsBoss = new List<string> { "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008" };
         foreach (string number in sceneMonsterNumber)
         {
-            if (areaBoss.Contains(number))
+            if (zsBoss.Contains(number))
             {
                 return true;
             }

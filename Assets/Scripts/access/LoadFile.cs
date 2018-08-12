@@ -19,7 +19,7 @@ public class LoadFile : MonoBehaviour {
         {
             LoadGameData(saveControl.saveNumberReflect[MoveBorder.currentIndex]);
             SceneManager.LoadScene("ready");
-        }      
+        } 
     }
 
     void LoadGameData(SaveModel save)
@@ -31,9 +31,10 @@ public class LoadFile : MonoBehaviour {
         GlobalVariable.BattleItems = save.BattleItems;
         GlobalVariable.PlotItems = save.PlotItems;
         GlobalVariable.kraKen = save.Kraken;
-        GlobalVariable.HasFightAreaBoss = save.HasFightAreaBoss;
+        GlobalVariable.HasFightZSBossScenes = save.HasFightZSBossScenes;
         GlobalVariable.HasFightBossScenes = save.HasFightBossScenes;
         GlobalVariable.HasFightScenes = save.HasFightScenes;
+        GlobalVariable.HasFightAreaBossScenes = save.HasFightAreaBossScenes;
         GlobalVariable.currentScene = save.CurrentScenes;
         GlobalVariable.LeadName = save.LeadName;
         GlobalVariable.Realm = save.Realm;

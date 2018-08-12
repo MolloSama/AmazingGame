@@ -80,5 +80,10 @@ public class StartMenuMouse : MonoBehaviour {
         {
             SceneManager.LoadScene("illustration");
         }
+        if (name.Equals("button4"))
+        {
+            DisplayTabloidText.type = "stuff";
+            SceneManager.LoadScene("tabloid");
+        }
     }
 }

@@ -27,8 +27,9 @@ public class CardRender : MonoBehaviour {
             GameObject card = Instantiate(cardPrefab,
                 cardStartPosition.position+new Vector3(i*4.65f, 0, 0), Quaternion.identity);
             card.transform.parent = transform;
-            int randomIndex = Random.Range(0, GlobalVariable.AllCards.Keys.Count);
             List<string> keys = new List<string>(GlobalVariable.AllCards.Keys);
+            RemoveCallCard(keys);
+            int randomIndex = Random.Range(0, keys.Count);
             GameProp randomCard = GlobalVariable.AllCards[keys[randomIndex]];
             Transform skillText = card.transform.Find("skill-text");
             string description = randomCard.Description;
@@ -48,8 +49,26 @@ public class CardRender : MonoBehaviour {
         }
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	void RemoveCallCard(List<string> list)
+    {
+        List<string> removeList = new List<string>();
+        for(int i = 0; i < list.Count; ++i)
+        {
+            int number = int.Parse(list[i]);
+            if(number >= 22 && number <= 32)
+            {
+                removeList.Add(list[i]);
+            }
+        }
+        for(int i = 0; i < list.Count; ++i)
+        {
+            foreach(string s in removeList)
+            {
+                if (list[i].Equals(s))
+                {
+                    list.RemoveAt(i);
+                }
+            }
+        }
+    }
 }

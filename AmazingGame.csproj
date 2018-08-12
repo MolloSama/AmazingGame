@@ -225,10 +225,10 @@
       <HintPath>Assets/DOTween/DOTween50.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
-      <HintPath>C:/Users/81244/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/UnityEngine.Analytics.dll</HintPath>
+      <HintPath>C:/Users/admin/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Purchasing">
-      <HintPath>C:/Users/81244/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/UnityEngine.Purchasing.dll</HintPath>
+      <HintPath>C:/Users/admin/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/UnityEngine.Purchasing.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -276,9 +276,10 @@
     <Compile Include="Assets\Scripts\map\FirstMap.cs" />
     <Compile Include="Assets\Scripts\map\IntoFight.cs" />
     <Compile Include="Assets\Scripts\map\MapTextOrder.cs" />
-    <Compile Include="Assets\Scripts\map\ReturnGray.cs" />
     <Compile Include="Assets\Scripts\map\SecondMap.cs" />
+    <Compile Include="Assets\Scripts\map\SecondReturnGray.cs" />
     <Compile Include="Assets\Scripts\map\ThridMap.cs" />
+    <Compile Include="Assets\Scripts\map\ThridReturnGray.cs" />
     <Compile Include="Assets\Scripts\Merge\Merge.cs" />
     <Compile Include="Assets\Scripts\Merge\MergeControl.cs" />
     <Compile Include="Assets\Scripts\Merge\MergeManager.cs" />
@@ -403,8 +404,11 @@
     <None Include="Assets\Resources\conversation\texts\9-2-3-1.txt" />
     <None Include="Assets\Resources\data\ability.txt" />
     <None Include="Assets\Resources\data\ability_level.txt" />
+    <None Include="Assets\Resources\data\area_boss.txt" />
     <None Include="Assets\Resources\data\card.txt" />
     <None Include="Assets\Resources\data\conversation-list.txt" />
+    <None Include="Assets\Resources\data\end.txt" />
+    <None Include="Assets\Resources\data\final_boss.txt" />
     <None Include="Assets\Resources\data\item_battle.txt" />
     <None Include="Assets\Resources\data\item_mission.txt" />
     <None Include="Assets\Resources\data\merge-reflect.txt" />
@@ -417,7 +421,7 @@
     <None Include="Assets\Resources\data\scene-mosters.txt" />
     <None Include="Assets\Resources\data\skill.txt" />
     <None Include="Assets\Resources\data\state.txt" />
-    <None Include="Assets\Resources\data\tabloidText.txt" />
+    <None Include="Assets\Resources\data\stuff.txt" />
     <None Include="Assets\Resources\mission\missionDetails\1.txt" />
     <None Include="Assets\Resources\mission\missionDetails\2.txt" />
     <None Include="Assets\Resources\mission\missionDialogue\1-1-1-1-1-1.txt" />

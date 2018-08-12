@@ -32,6 +32,8 @@ public class LoadFightData : MonoBehaviour {
             LoadAllTalent();
             LoadPriceReflect();
             LoadStoreScene();
+            LoadFinalBossList();
+            LoadAllAreaBossScene();
             GlobalVariable.Realm = GlobalVariable.AllLevel[0];
             GlobalVariable.ExistingTalent.Add(GlobalVariable.AllTalent["001"]);
         }
@@ -56,6 +58,11 @@ public class LoadFightData : MonoBehaviour {
         GlobalVariable.ExistingTalent = new List<Talent>(GlobalVariable.AllTalent.Values);
     }
 
+    void LoadFinalBossList()
+    {
+        GlobalVariable.finalBossList = LoadAllLineToList("final_boss");
+    }
+
     void LoadIllustrationSave()
     {
         if (File.Exists(savePath))
@@ -77,6 +84,11 @@ public class LoadFightData : MonoBehaviour {
     void LoadStoreScene()
     {
         GlobalVariable.StoreScenes = LoadAllLineToList("num-mount-business");
+    }
+
+    void LoadAllAreaBossScene()
+    {
+        GlobalVariable.AllAreaBossScenes = LoadAllLineToList("area_boss");
     }
 
     void LoadPriceReflect()

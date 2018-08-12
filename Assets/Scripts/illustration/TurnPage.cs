@@ -5,9 +5,14 @@ using UnityEngine;
 public class TurnPage : MonoBehaviour {
 
     public IllustrationControl illustrationControl;
-    int count = 0;
+    private int count;
     // Use this for initialization
     void Start () {
+        count = 0;
+    }
+
+    private void OnMouseDown()
+    {
         switch (illustrationControl.currentIllustration)
         {
             case "card":
@@ -20,10 +25,6 @@ public class TurnPage : MonoBehaviour {
                 count = GlobalVariable.monsterIllustration.Count;
                 break;
         }
-    }
-
-    private void OnMouseDown()
-    {
         switch (gameObject.name)
         {
             case "prev":
