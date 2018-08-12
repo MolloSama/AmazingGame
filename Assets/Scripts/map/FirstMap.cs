@@ -12,7 +12,11 @@ public class FirstMap : MonoBehaviour {
 
     private void OnMouseUpAsButton()
     {
+<<<<<<< HEAD
         GlobalVariable.topMap = gameObject.name;
+=======
+        Destroy(ButtonFlow.temp);
+>>>>>>> origin/master
         SecondMap.SetScene(gameObject.name);
         gameObject.transform.parent.gameObject.SetActive(false);
         GameObject temp = Instantiate(Resources.Load<GameObject>("PanelPrefabs/SecondMap" + gameObject.name), new Vector3(0, 0, 0), Quaternion.identity);
