@@ -7,15 +7,15 @@ using DG.Tweening;
 public class CardPanelManager : MonoBehaviour
 {
 
-    private readonly float firstPositionX = 0.375f;
+    private readonly float firstPositionX = 0.375f * 0.8f;
 
-    private readonly float firstPositionY = 2.4f;
+    private readonly float firstPositionY = 2.4f * 0.8f;
 
-    private readonly float firstPositionZ = 1.0f;
+    private readonly float firstPositionZ = 1.0f * 0.8f;
 
-    private readonly float grapX = 1.598f;
+    private readonly float grapX = 1.598f * 0.8f;
 
-    private readonly float grapY = -2.396f;
+    private readonly float grapY = -2.396f * 0.8f;
 
     private int index = 0;
 
@@ -77,8 +77,7 @@ public class CardPanelManager : MonoBehaviour
                 }
             }
             GameObject temp = Instantiate(Resources.Load<GameObject>("cardpanel/card"), new Vector3(firstPositionX + (i % column) * grapX, firstPositionY + (i / column) * grapY, firstPositionZ), Quaternion.identity);
-            //temp.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
-            //DOTween.ToAlpha(() => temp.GetComponent<SpriteRenderer>().color, x => temp.GetComponent<SpriteRenderer>().color = x, 1f, 0.3f);
+            temp.transform.localScale = new Vector3(temp.transform.localScale.x * 0.8f, temp.transform.localScale.y * 0.8f);
             temp.GetComponent<CardSelect>().LoadCard(GlobalVariable.ExistingCards[i + index], i + index);
             cardgridobjects.Add(temp);
             temp.transform.parent = gameObject.transform;

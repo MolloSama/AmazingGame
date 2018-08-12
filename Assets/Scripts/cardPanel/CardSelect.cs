@@ -10,13 +10,13 @@ public class CardSelect : MonoBehaviour
 
     public CardProp gameProp = null;
 
-    private static float positionX = -3.29f;
+    private static float positionX = -3.29f * 0.8f;
 
-    private static float positionY = 3.678f;
+    private static float positionY = 3.678f * 0.8f;
 
-    private static float positionZ = 0.5f;
+    private static float positionZ = 0.5f * 0.8f;
 
-    private static float grapY = -0.714f;
+    private static float grapY = -0.714f * 0.8f;
 
     public static GameObject[] fightCardsOnShow = new GameObject[10];
 
@@ -108,6 +108,7 @@ public class CardSelect : MonoBehaviour
             if (index >= firstindex && index < firstindex + pagenum)
             {
                 GameObject temp = Instantiate(Resources.Load<GameObject>("cardpanel/bar2"), new Vector3(positionX, positionY + grapY * (index % pagenum), positionZ), Quaternion.identity);
+                temp.transform.localScale = new Vector3(temp.transform.localScale.x * 0.8f, temp.transform.localScale.y * 0.8f);
                 temp.transform.parent = gameObject.transform.parent;
                 temp.GetComponent<BarScript>().index = index;
                 onShowNum++;
@@ -146,6 +147,7 @@ public class CardSelect : MonoBehaviour
             if (firstindex + onShowNum <= count)
             {
                 GameObject temp = Instantiate(Resources.Load<GameObject>("cardpanel/bar2"), new Vector3(positionX, positionY + (onShowNum - 1) * grapY, positionZ), Quaternion.identity);
+                temp.transform.localScale = new Vector3(temp.transform.localScale.x * 0.8f, temp.transform.localScale.y * 0.8f);
                 temp.GetComponent<BarScript>().index = firstindex + onShowNum - 1;
                 temp.GetComponent<BarScript>().SetGameProp(GlobalVariable.fightCardsGrids[firstindex + onShowNum - 1]);
                 temp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("cardpanel/" + GlobalVariable.fightCardsGrids[firstindex + onShowNum - 1].gameProp.SerialNumber);
@@ -173,6 +175,7 @@ public class CardSelect : MonoBehaviour
         for (int i = 0; i < pagenum && i + firstindex < count; i++)
         {
             GameObject temp = Instantiate(Resources.Load<GameObject>("cardpanel/bar2"), new Vector3(positionX, positionY + i * grapY, positionZ), Quaternion.identity);
+            temp.transform.localScale = new Vector3(temp.transform.localScale.x * 0.8f, temp.transform.localScale.y * 0.8f);
             temp.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
             DOTween.ToAlpha(() => temp.GetComponent<SpriteRenderer>().color, x => temp.GetComponent<SpriteRenderer>().color = x, 1f, 0.3f);
             temp.GetComponent<BarScript>().index = firstindex + i;

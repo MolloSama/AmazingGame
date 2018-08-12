@@ -19,8 +19,18 @@ public class LoadFile : MonoBehaviour {
         {
             LoadGameData(saveControl.saveNumberReflect[MoveBorder.currentIndex]);
             string[] number = GlobalVariable.currentScene.Split('-');
-            GlobalVariable.topMap = number[0];
-            GlobalVariable.middleMap = number[0] + "-" + number[1];
+            
+            if (number[0].Equals("0"))
+            {
+                GlobalVariable.topMap = "1";
+                GlobalVariable.middleMap = "1-1";
+            }
+            else
+            {
+                GlobalVariable.topMap = number[0];
+                GlobalVariable.middleMap = number[0] + "-" + number[1];
+            }
+            
             SceneManager.LoadScene("ready");
         } 
     }

@@ -44,6 +44,7 @@ public class MergeSelect : MonoBehaviour {
                                     MergeManager._instance.mergePosition[i].transform.position.y,
                                     MergeManager._instance.mergePosition[i].transform.position.z),
                         Quaternion.identity);
+                    temp.transform.localScale = new Vector3(temp.transform.localScale.x * 0.8f, temp.transform.localScale.y * 0.8f);
                     temp.GetComponent<MergeSelect>().LoadCard(card.gameProp, card.index);
                     temp.GetComponent<MergeSelect>().isMerge = true;
                     temp.GetComponent<MergeSelect>().number = i;

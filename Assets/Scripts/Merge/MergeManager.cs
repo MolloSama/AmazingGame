@@ -6,13 +6,13 @@ using DG.Tweening;
 
 public class MergeManager : MonoBehaviour {
 
-    private readonly float startX = -3.8f;
+    private readonly float startX = -3.8f * 0.8f;
 
-    private readonly float startY = 3.6f;
+    private readonly float startY = 3.6f * 0.8f;
 
-    private readonly float startZ = 0.0f;
+    private readonly float startZ = 0.0f * 0.8f;
 
-    private readonly float grap = -0.8f;
+    private readonly float grap = -0.8f * 0.8f;
 
     public List<GameObject> cardGridObjects = new List<GameObject>();
 
@@ -98,6 +98,7 @@ public class MergeManager : MonoBehaviour {
             GameObject temp = Instantiate(Resources.Load<GameObject>("cardpanel/bar"), 
                 new Vector3(startX, startY + i * grap, startZ), 
                 Quaternion.identity);
+            temp.transform.localScale = new Vector3(temp.transform.localScale.x * 0.8f, temp.transform.localScale.y * 0.8f);
             temp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("cardpanel/" + GlobalVariable.ExistingCards[i + index].SerialNumber);
             temp.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
             DOTween.ToAlpha(() => temp.GetComponent<SpriteRenderer>().color, x => temp.GetComponent<SpriteRenderer>().color = x, 1, 0.3f);

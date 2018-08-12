@@ -331,6 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   circle: {fileID: 0}
+  flag: 0
 --- !u!114 &442459046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,6 +514,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   circle: {fileID: 0}
+  flag: 0
 --- !u!1001 &842160284
 Prefab:
   m_ObjectHideFlags: 0
@@ -719,6 +721,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   circle: {fileID: 0}
+  flag: 0
 --- !u!1001 &1306610136
 Prefab:
   m_ObjectHideFlags: 0
@@ -952,6 +955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   circle: {fileID: 0}
+  flag: 0
 --- !u!1 &1748294150
 GameObject:
   m_ObjectHideFlags: 0
@@ -1237,3 +1241,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   circle: {fileID: 0}
+  flag: 0

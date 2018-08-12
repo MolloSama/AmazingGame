@@ -226,7 +226,7 @@ public class PanelControl : MonoBehaviour {
             case "Backpack":
                 GameObject g1 = GameObject.Find("Backpack");
                 openObject = Instantiate(Resources.Load<GameObject>("PanelPrefabs/Backpack"), new Vector3(g1.transform.position.x, g1.transform.position.y, 0), Quaternion.identity);
-                openObject.transform.DOMove(new Vector3(0, 0, 0), 0.3f);
+                openObject.transform.DOMove(new Vector3(0, 0.45f, 0), 0.3f);
                 openObject.transform.DOScale(new Vector3(1, 1, 1), 0.3f).OnComplete(() => clickable = true);
                 openObject.name = "Backpack";
                 break;
@@ -234,25 +234,25 @@ public class PanelControl : MonoBehaviour {
                 GameObject g2 = GameObject.Find("SelectCard");
                 openObject = Instantiate(Resources.Load<GameObject>("PanelPrefabs/SelectCard"), new Vector3(g2.transform.position.x, g2.transform.position.y, 0), Quaternion.identity);
                 openObject.transform.DOMove(new Vector3(0, 0, 0), 0.3f);
-                openObject.transform.DOScale(new Vector3(1, 1, 1), 0.3f).OnComplete(() =>
-                {
-                    CardPanelManager._instance.AnShow();
-                    clickable = true;
-                });
+                openObject.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.3f).OnComplete(() =>
+                  {
+                      CardPanelManager._instance.AnShow();
+                      clickable = true;
+                  });
                 openObject.name = "SelectCard";
                 break;
             case "SkillSelect":
                 GameObject g3 = GameObject.Find("SkillSelect");
                 openObject = Instantiate(Resources.Load<GameObject>("PanelPrefabs/SkillSelect"), new Vector3(g3.transform.position.x, g3.transform.position.y, 0), Quaternion.identity);
                 openObject.transform.DOMove(new Vector3(0, 0, 0), 0.3f);
-                openObject.transform.DOScale(new Vector3(1, 1, 1), 0.3f).OnComplete(() => clickable = true);
+                openObject.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.3f).OnComplete(() => clickable = true);
                 openObject.name = "SkillSelect";
                 break;
             case "Merge":
                 GameObject g4 = GameObject.Find("Merge");
                 openObject = Instantiate(Resources.Load<GameObject>("PanelPrefabs/MergeCard"), new Vector3(g4.transform.position.x, g4.transform.position.y, 0), Quaternion.identity);
                 openObject.transform.DOMove(new Vector3(0, 0, 0), 0.3f);
-                openObject.transform.DOScale(new Vector3(1, 1, 1), 0.3f).OnComplete(() =>
+                openObject.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.3f).OnComplete(() =>
                 {
                     MergeManager._instance.AnShow();
                     clickable = true;
@@ -262,7 +262,7 @@ public class PanelControl : MonoBehaviour {
             case "Mission":
                 GameObject g5 = GameObject.Find("Mission");
                 openObject = Instantiate(Resources.Load<GameObject>("PanelPrefabs/missionPane"), new Vector3(g5.transform.position.x, g5.transform.position.y, 0), Quaternion.identity);
-                openObject.transform.DOMove(new Vector3(0, 0, 0), 0.3f);
+                openObject.transform.DOMove(new Vector3(0, 1, 0), 0.3f);
                 openObject.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.3f).OnComplete(() =>
                 {
                     DisplayMissionTitle._instance.AnShow();

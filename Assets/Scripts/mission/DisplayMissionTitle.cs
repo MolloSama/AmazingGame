@@ -46,6 +46,7 @@ public class DisplayMissionTitle : MonoBehaviour {
         {
             GameObject missionTitle = Instantiate(missionTilePrefab, missionTilePrefab.transform.position + 
                 new Vector3(0, -1.25f * i, 0), Quaternion.identity);
+            missionTitle.transform.localScale = new Vector3(missionTitle.transform.localScale.x * 0.8f, missionTitle.transform.localScale.y * 0.8f);
             missionTitle.transform.parent = missionParent;
             missionTitle.transform.Find("missionTitleText").GetComponent<TextMesh>().text 
                 = GlobalVariable.ExistingMissions[i + currentPage * maxCount].Title;

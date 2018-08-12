@@ -46,9 +46,16 @@ public class ThridMap : MonoBehaviour {
                 count++;
                 GameObject temp = Instantiate(Resources.Load<GameObject>("map/tertiarymountain"), new Vector3(mountainInformation.x * 0.8f, mountainInformation.y * 0.8f), Quaternion.identity);
                 temp.transform.parent = gameObject.transform.parent;
-                temp.transform.localScale = new Vector3(temp.transform.localScale.x * 0.8f, temp.transform.localScale.y * 0.8f);
                 temp.GetComponent<IntoFight>().mountainInformation = mountainInformation;
-                temp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("map/mountain" + mountainInformation.index % 3);
+                if (int.Parse(sceneName.Split('-')[0]) == 1)
+                {
+                    temp.transform.localScale = new Vector3(temp.transform.localScale.x * 0.8f, temp.transform.localScale.y * 0.8f);
+                    temp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("map/mountain" + mountainInformation.index % 3);
+                }
+                else
+                {
+                    temp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("map/country" + mountainInformation.index % 2);
+                }
                 temp.transform.Find("hillname").GetComponent<TextMesh>().text = mountainInformation.name;
                 temp.name = count.ToString();
                 foreach (string t in GlobalVariable.HasFightScenes)
