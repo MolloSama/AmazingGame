@@ -9,11 +9,6 @@ public class Return : MonoBehaviour {
 	void Start () {
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     private void OnMouseUpAsButton()
     {

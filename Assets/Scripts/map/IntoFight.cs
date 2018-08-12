@@ -39,6 +39,27 @@ public class IntoFight : MonoBehaviour {
         else
         {
             GlobalVariable.currentScene = mountainInformation.serialnumber;
+            if (GlobalVariable.currentScene.Equals("1-8-4"))
+            {
+                if(GlobalVariable.HasFightZSBossScenes.Count == 8)
+                {
+                    if (GlobalVariable.StoreScenes.Contains(GlobalVariable.currentScene) && GlobalVariable.Chance(30))
+                    {
+                        SceneManager.LoadScene("store");
+                    }
+                    else
+                    {
+                        if (!GlobalVariable.JudgeMission(true))
+                        {
+                            GlobalVariable.BeforeFight();
+                        }
+                    }
+                }
+                else
+                {
+                    LoadConversation.SetConversation(GlobalVariable.currentScene, 3, "ready", "");
+                }
+            }
             if (GlobalVariable.StoreScenes.Contains(GlobalVariable.currentScene) && GlobalVariable.Chance(30))
             {
                 SceneManager.LoadScene("store");
