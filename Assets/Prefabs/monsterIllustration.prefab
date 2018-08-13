@@ -115,7 +115,7 @@ TextMesh:
   m_GameObject: {fileID: 1878954639401156}
   m_Text: "\u9955\u992E"
   m_OffsetZ: 0
-  m_CharacterSize: 0.06
+  m_CharacterSize: 0.075
   m_LineSpacing: 1
   m_Anchor: 1
   m_Alignment: 1

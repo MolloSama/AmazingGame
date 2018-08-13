@@ -1314,26 +1314,33 @@ public class GameControll : MonoBehaviour {
 
     void AddCards(int count, Vector3 lastCardEndPosition, bool isDestory)
     {
-        isAnimationEnd = false;
-        int diff = cardGroup.Count - count;
-        if (diff < 0)
+        if (cardGroup.Count != 0)
         {
-            count = cardGroup.Count;
-            for (int i = 1; i <= count; ++i)
+            isAnimationEnd = false;
+            int diff = cardGroup.Count - count;
+            if (diff < 0)
             {
-                lastCardEndPosition += new Vector3(0.15f, 0, 0);
-                StartCoroutine(AddOneCard(lastCardEndPosition, isDestory));
+                count = cardGroup.Count;
+                for (int i = 1; i <= count; ++i)
+                {
+                    lastCardEndPosition += new Vector3(0.15f, 0, 0);
+                    StartCoroutine(AddOneCard(lastCardEndPosition, isDestory));
+                }
+                cardGroup = DeepCopy(GlobalVariable.FightCards);
+                AddCards(-diff, lastCardEndPosition, isDestory);
             }
-            cardGroup = DeepCopy(GlobalVariable.FightCards);
-            AddCards(-diff, lastCardEndPosition, isDestory);
+            else
+            {
+                for (int i = 1; i <= count; ++i)
+                {
+                    lastCardEndPosition += new Vector3(0.15f, 0, 0);
+                    StartCoroutine(AddOneCard(lastCardEndPosition, isDestory));
+                }
+            }
         }
         else
         {
-            for (int i = 1; i <= count; ++i)
-            {
-                lastCardEndPosition += new Vector3(0.15f, 0, 0);
-                StartCoroutine(AddOneCard(lastCardEndPosition, isDestory));
-            }
+            isAnimationEnd = true;
         }
     }
 
