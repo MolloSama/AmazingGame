@@ -18,19 +18,10 @@ public class LoadFile : MonoBehaviour {
         if (saveControl.saveNumberReflect.ContainsKey(MoveBorder.currentIndex))
         {
             LoadGameData(saveControl.saveNumberReflect[MoveBorder.currentIndex]);
-            string[] number = GlobalVariable.currentScene.Split('-');
-            
-            if (number[0].Equals("0"))
+            if (GlobalVariable.sceneflag == 2)
             {
-                GlobalVariable.topMap = "1";
-                GlobalVariable.middleMap = "1-1";
+                SecondMap.SetScene(GlobalVariable.topMap);
             }
-            else
-            {
-                GlobalVariable.topMap = number[0];
-                GlobalVariable.middleMap = number[0] + "-" + number[1];
-            }
-            
             SceneManager.LoadScene("ready");
         } 
     }
@@ -49,6 +40,8 @@ public class LoadFile : MonoBehaviour {
         GlobalVariable.HasFightScenes = save.HasFightScenes;
         GlobalVariable.HasFightAreaBossScenes = save.HasFightAreaBossScenes;
         GlobalVariable.currentScene = save.CurrentScenes;
+        GlobalVariable.middleMap = save.MiddleMap;
+        GlobalVariable.topMap = save.TopMap;
         GlobalVariable.LeadName = save.LeadName;
         GlobalVariable.Realm = save.Realm;
         GlobalVariable.ExistingTalent = save.ExistTalents;

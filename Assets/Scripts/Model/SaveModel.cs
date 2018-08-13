@@ -17,6 +17,8 @@ public class SaveModel{
     private List<string> hasFightBossScenes;
     private List<string> hasFightAreaBossScenes;
     private string currentScenes;
+    private string middleMap;
+    private string topMap;
     private string time;
     private string leadName;
     private Level realm;
@@ -300,6 +302,32 @@ public class SaveModel{
         }
     }
 
+    public string MiddleMap
+    {
+        get
+        {
+            return middleMap;
+        }
+
+        set
+        {
+            middleMap = value;
+        }
+    }
+
+    public string TopMap
+    {
+        get
+        {
+            return topMap;
+        }
+
+        set
+        {
+            topMap = value;
+        }
+    }
+
     public SaveModel()
     {
         existCards = GlobalVariable.ExistingCards;
@@ -314,6 +342,8 @@ public class SaveModel{
         hasFightScenes = GlobalVariable.HasFightScenes;
         hasFightAreaBossScenes = GlobalVariable.HasFightAreaBossScenes;
         currentScenes = GlobalVariable.currentScene;
+        middleMap = GlobalVariable.middleMap;
+        topMap = GlobalVariable.topMap;
         time = DateTime.Now.ToString();
         leadName = GlobalVariable.LeadName;
         realm = GlobalVariable.Realm;

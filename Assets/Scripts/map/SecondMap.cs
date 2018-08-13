@@ -37,7 +37,6 @@ public class SecondMap : MonoBehaviour {
     }
     private void OnMouseEnter()
     {
-        sceneName = GlobalVariable.middleMap.Split('-')[0];
         temp = Instantiate(circle, new Vector3(GlobalVariable.SecondMapPosition[sceneName + '-' + gameObject.name][0],
             GlobalVariable.SecondMapPosition[sceneName + '-' + gameObject.name][1]), Quaternion.identity);
     }
