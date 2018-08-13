@@ -1314,7 +1314,7 @@ public class GameControll : MonoBehaviour {
 
     void AddCards(int count, Vector3 lastCardEndPosition, bool isDestory)
     {
-        if (cardGroup.Count != 0)
+        if (GlobalVariable.FightCards.Count != 0)
         {
             isAnimationEnd = false;
             int diff = cardGroup.Count - count;
