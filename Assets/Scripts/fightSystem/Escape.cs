@@ -24,13 +24,12 @@ public class Escape : MonoBehaviour {
         {
             if (GlobalVariable.Chance(demarcationline))
             {
-                //SceneManager.LoadScene("tertiaryMap");
-                SceneManager.LoadScene("settlement");
+                SceneManager.LoadScene("ready");
             }
             else
             {
                 gameControll.SetTip("逃跑失败！");
-                //isEscaped = true;
+                isEscaped = true;
             }
         }
         else

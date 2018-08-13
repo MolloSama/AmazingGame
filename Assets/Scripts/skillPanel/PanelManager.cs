@@ -8,6 +8,8 @@ public class PanelManager : MonoBehaviour {
 
     public List<SkillSelect> skills = new List<SkillSelect>();
 
+    public TextMesh leadName;
+
     private void Awake()
     {
         _instance = this;
@@ -15,7 +17,7 @@ public class PanelManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+        leadName.text = GlobalVariable.LeadName;
         Init();
         ShowSkill();
     }

@@ -16,8 +16,10 @@ public class StoreControl : MonoBehaviour {
         {
             GameObject cardObject = Instantiate(cardPrefab, cardPrefab.transform.position + 
                 new Vector3(i * 2.4f, 0, 0), Quaternion.identity);
-            int randomIndex = Random.Range(0 , GlobalVariable.AllCards.Count);
-            GameProp cardProp = new List<GameProp>(GlobalVariable.AllCards.Values)[randomIndex];
+            List<string> cardProps = new List<string>(GlobalVariable.AllCards.Keys);
+            RemoveCallCard(cardProps);
+            int randomIndex = Random.Range(0, cardProps.Count);
+            GameProp cardProp = GlobalVariable.AllCards[cardProps[randomIndex]];
             reflect.Add(cardObject, cardProp);
             DisplayCard(cardProp, cardObject);
         }
@@ -70,6 +72,29 @@ public class StoreControl : MonoBehaviour {
         allPrice.Add(textMesh, price);
         textMesh.text = price.ToString();
             
+    }
+
+    void RemoveCallCard(List<string> list)
+    {
+        List<string> removeList = new List<string>();
+        for (int i = 0; i < list.Count; ++i)
+        {
+            int number = int.Parse(list[i]);
+            if (number >= 22 && number <= 32)
+            {
+                removeList.Add(list[i]);
+            }
+        }
+        for (int i = 0; i < list.Count; ++i)
+        {
+            foreach (string s in removeList)
+            {
+                if (list[i].Equals(s))
+                {
+                    list.Remove(s);
+                }
+            }
+        }
     }
 
     void DisplayItem(GameProp itemData, GameObject itemObject)
