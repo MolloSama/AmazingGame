@@ -284,6 +284,9 @@ public class GameControll : MonoBehaviour {
             case "a4e7":
                 itemCondition.ExtendsRounds += System.Convert.ToInt32(item.Value);
                 break;
+            case "a4e8":
+                itemCondition.IsFireImmunology = true;
+                break;
             case "a4e14":
                 itemCondition.KillPromote += item.Value;
                 break;
@@ -607,6 +610,10 @@ public class GameControll : MonoBehaviour {
 
     float SetAttributeResult(int attackAttribute, int defendAttribute, Monster enemyMonster)
     {
+        if(itemCondition.IsFireImmunology && enemyMonster.Name.Equals("kraken") && attackAttribute == 1)
+        {
+            return 0;
+        }
         float multiple = 1;
         switch (AttributeRestraintState(attackAttribute, defendAttribute))
         {

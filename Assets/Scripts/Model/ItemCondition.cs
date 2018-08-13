@@ -14,6 +14,8 @@ public class ItemCondition{
 
     public GameProp Revive { get; set; }
 
+    public bool IsFireImmunology { get; set; }
+
     public ItemCondition()
     {
         ExtendsRounds = 0;
@@ -21,5 +23,6 @@ public class ItemCondition{
         BloodSucking = 0;
         FullBloodItems = new List<GameProp>();
         Revive = null;
+        IsFireImmunology = false;
     }
 }

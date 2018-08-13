@@ -22,13 +22,13 @@ public class CardRender : MonoBehaviour {
                 count = 0;
             }
         }
-        for(int i = 0; i < count; ++i)
+        List<string> keys = new List<string>(GlobalVariable.AllCards.Keys);
+        RemoveCallCard(keys);
+        for (int i = 0; i < count; ++i)
         {
             GameObject card = Instantiate(cardPrefab,
                 cardStartPosition.position+new Vector3(i*4.65f, 0, 0), Quaternion.identity);
             card.transform.parent = transform;
-            List<string> keys = new List<string>(GlobalVariable.AllCards.Keys);
-            RemoveCallCard(keys);
             int randomIndex = Random.Range(0, keys.Count);
             GameProp randomCard = GlobalVariable.AllCards[keys[randomIndex]];
             Transform skillText = card.transform.Find("skill-text");
@@ -66,7 +66,7 @@ public class CardRender : MonoBehaviour {
             {
                 if (list[i].Equals(s))
                 {
-                    list.RemoveAt(i);
+                    list.Remove(s);
                 }
             }
         }
